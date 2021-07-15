@@ -4,7 +4,7 @@ import {Button as RNPB} from "react-native-paper";
 import {Icon} from "react-native-elements";
 
 
-export default function Feed({ navigation }) {
+export default function Home({ navigation }) {
     return (
         <View>
             <RNPB onPress={() => navigation.openDrawer()} >
