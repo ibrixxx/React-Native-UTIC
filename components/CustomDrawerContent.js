@@ -1,5 +1,6 @@
 import {DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
 import React from "react";
+import {Icon} from "react-native-elements";
 
 
 export default function CustomDrawerContent(props) {
@@ -9,6 +10,7 @@ export default function CustomDrawerContent(props) {
             <DrawerItem
                 name="Close"
                 label="Zatvori"
+                icon={() => <Icon name={'close'}/>}
                 onPress={() => props.navigation.closeDrawer()}
             />
         </DrawerContentScrollView>
