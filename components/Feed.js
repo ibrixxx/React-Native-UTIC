@@ -11,9 +11,11 @@ export default function Feed({ navigation }) {
                 <Icon
                     name='menu' />
             </RNPB>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: '50%' }}>
                 <Text>Feed Screen</Text>
-                <Button title="Toggle drawer" onPress={() => navigation.navigate('Dokumenti')} />
+                <Button
+                    title="Toggle drawer"
+                    onPress={() => navigation.navigate('Documents')} />
             </View>
         </View>
     );

@@ -7,7 +7,8 @@ export default function CustomDrawerContent(props) {
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
             <DrawerItem
-                label="Close"
+                name="Close"
+                label="Zatvori"
                 onPress={() => props.navigation.closeDrawer()}
             />
         </DrawerContentScrollView>
