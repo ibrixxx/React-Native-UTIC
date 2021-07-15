@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
                 <Text>Feed Screen</Text>
                 <Button
                     title="Toggle drawer"
-                    onPress={() => navigation.navigate('Documents')} />
+                    onPress={() => navigation.navigate('Docs')} />
             </View>
         </View>
     );
