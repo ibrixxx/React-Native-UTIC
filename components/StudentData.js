@@ -1,37 +1,39 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import token from '../App'
-import {Card, DataTable, Title} from "react-native-paper";
+import {Card, DataTable, IconButton, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
+import {TOKEN} from "../App";
 
 
-function getAllCustomers(){
-    axios.get(' http://localhost:8080/u/0/committee/types', {
-        headers: {
-            Accept: 'application/json',
-            Authorization: token
-        }
-    })
-        // .then(response => response.json())
-        .then(responseJSON => {
-            alert('get allCustomers proslo')
-            let allCustomers = responseJSON.data.map((e)=> ( {
-                    name: e.name,
-                    id: e.id
-                }
-            ))
-            this.setState({ allCustomers: allCustomers });
-        })
-        .catch(error => {
-            alert('get allCustomers palo')
-            console.error(error);
-        });
-}
 
 export default function StudentData({ navigation }) {
+    const[student, setStudent] = useState({})
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
+
+    const getUserData = () => {
+        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setStudent(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     return (
         <View style={style.everything}>
+            <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
                 <View style={{flexGrow: 1}}>
                     <View style={style.container}>
@@ -39,27 +41,27 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Ime:</DataTable.Cell>
+                                    <DataTable.Cell>Ime: {student.firstName}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Prezime:</DataTable.Cell>
+                                    <DataTable.Cell>Prezime: {student.lastName}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>JMBG:</DataTable.Cell>
+                                    <DataTable.Cell>JMBG: {student.jmbg}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja:</DataTable.Cell>
+                                    <DataTable.Cell>Datum rođenja: {student.dateOfBirth}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Index:</DataTable.Cell>
+                                    <DataTable.Cell>Index: {student.id}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
@@ -71,7 +73,7 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Telefon:</DataTable.Cell>
+                                    <DataTable.Cell>Telefon: {'student.contacts[0].value'}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>

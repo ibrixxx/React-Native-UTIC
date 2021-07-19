@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, Text, View} from "react-native";
 import {IconButton} from "react-native-paper";
-import {Icon} from "react-native-elements";
 
 
 export default function Home({ navigation }) {
