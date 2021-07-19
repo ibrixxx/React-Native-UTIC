@@ -9,7 +9,7 @@ export default function CustomDrawerContent(props) {
             <DrawerItemList {...props} />
             <DrawerItem
                 name="Close"
-                label="Zatvori"
+                label=''
                 icon={() => <Icon name={'close'}/>}
                 onPress={() => props.navigation.closeDrawer()}
             />
