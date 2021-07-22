@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import {Card, DataTable, IconButton, Title} from "react-native-paper";
+import token from '../App'
+import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../App";
@@ -31,9 +32,9 @@ export default function StudentData({ navigation }) {
             });
     }
 
+export default function StudentData({ navigation }) {
     return (
         <View style={style.everything}>
-            <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
                 <View style={{flexGrow: 1}}>
                     <View style={style.container}>
@@ -41,27 +42,27 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Ime: {student.firstName}</DataTable.Cell>
+                                    <DataTable.Cell>Ime:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Prezime: {student.lastName}</DataTable.Cell>
+                                    <DataTable.Cell>Prezime:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>JMBG: {student.jmbg}</DataTable.Cell>
+                                    <DataTable.Cell>JMBG:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja: {student.dateOfBirth}</DataTable.Cell>
+                                    <DataTable.Cell>Datum rođenja:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Index: {student.id}</DataTable.Cell>
+                                    <DataTable.Cell>Index:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
@@ -73,7 +74,7 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Telefon: {'student.contacts[0].value'}</DataTable.Cell>
+                                    <DataTable.Cell>Telefon:</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
