@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
 import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
@@ -6,15 +6,18 @@ import axios from "axios";
 import {TOKEN} from "../App";
 
 
-
 export default function StudentData({ navigation }) {
-
     const[student, setStudent] = useState({})
 
     useEffect(() => {
         getUserData()
     }, [])
 
+
+    const getDateFormated = (n) => {
+        const d = new Date(n);
+        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+    }
 
     const getUserData = () => {
         axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
@@ -31,6 +34,7 @@ export default function StudentData({ navigation }) {
                 console.error(error);
             });
     }
+
     return (
         <View style={style.everything}>
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
@@ -40,27 +44,27 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Ime:</DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>Ime: {student.firstName}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Prezime:</DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>Prezime: {student.lastName}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>JMBG:</DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>JMBG: {student.jmbg}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja:</DataTable.Cell>
+                                    <DataTable.Cell>Datum rođenja: {getDateFormated(student.dateOfBirth)}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Index:</DataTable.Cell>
+                                    <DataTable.Cell>Residence: {student.residence}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
@@ -72,7 +76,7 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Telefon:</DataTable.Cell>
+                                    <DataTable.Cell>Telefon: {'student.contacts[0].value'}</DataTable.Cell>
                                     <DataTable.Cell></DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
@@ -102,7 +106,6 @@ export default function StudentData({ navigation }) {
         </View>
     );
 }
-
 
 const style = StyleSheet.create({
     everything: {
