@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import token from '../App'
 import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
@@ -32,7 +31,6 @@ export default function StudentData({ navigation }) {
             });
     }
 
-export default function StudentData({ navigation }) {
     return (
         <View style={style.everything}>
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>

@@ -28,13 +28,8 @@ export default function MyDrawer() {
             <Drawer.Screen name="Docs" component={Docs} options = {{drawerLabel: 'Dokumenti', drawerIcon: () => (<Icon name='folder' />)}}/>
             <Drawer.Screen name="Staff" component={Staff} options = {{drawerLabel: 'Nastavno osoblje', drawerIcon: () => (<Icon name='people' />)}}/>
             <Drawer.Screen name="Comments" component={Comments} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
-<<<<<<<<< Temporary merge branch 1
-            <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='phone' />)}}/>
-            <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='info' />)}}/>
-=========
             <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='info' />)}}/>
             <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
->>>>>>>>> Temporary merge branch 2
         </Drawer.Navigator>
     );
 }
