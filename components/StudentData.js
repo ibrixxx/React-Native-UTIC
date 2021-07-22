@@ -3,30 +3,34 @@ import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
 import token from '../App'
 import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import axios from "axios";
+import {TOKEN} from "../App";
 
 
-// function getAllCustomers(){
-//     axios.get(' http://localhost:8080/u/0/committee/types', {
-//         headers: {
-//             Accept: 'application/json',
-//             Authorization: token
-//         }
-//     })
-//         // .then(response => response.json())
-//         .then(responseJSON => {
-//             alert('get allCustomers proslo')
-//             let allCustomers = responseJSON.data.map((e)=> ( {
-//                     name: e.name,
-//                     id: e.id
-//                 }
-//             ))
-//             this.setState({ allCustomers: allCustomers });
-//         })
-//         .catch(error => {
-//             alert('get allCustomers palo')
-//             console.error(error);
-//         });
-// }
+
+export default function StudentData({ navigation }) {
+    const[student, setStudent] = useState({})
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
+
+    const getUserData = () => {
+        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setStudent(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
 export default function StudentData({ navigation }) {
     return (

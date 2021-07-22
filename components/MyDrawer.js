@@ -16,6 +16,7 @@ import {Icon} from "react-native-elements";
 
 const Drawer = createDrawerNavigator();
 
+
 export default function MyDrawer() {
     return (
         <Drawer.Navigator initialRouteName={'Home'} hideStatusBar={true} drawerContent={props => <CustomDrawerContent {...props} />}>
