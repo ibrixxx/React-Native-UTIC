@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {View} from "react-native";
+import {View, Clipboard, ToastAndroid} from "react-native";
 import {DataTable, IconButton, Searchbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
@@ -16,6 +16,11 @@ export default function Staff({ navigation }) {
             return filterData
         }
         return data
+    }
+
+    const copyToClipboard = (email) => {
+        Clipboard.setString(email)
+        //ToastAndroid.show("Email copied to clipboard", ToastAndroid.SHORT);
     }
 
 
@@ -52,7 +57,7 @@ export default function Staff({ navigation }) {
     }, [])
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
             <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
             <Searchbar
                 placeholder="Search"
@@ -71,7 +76,7 @@ export default function Staff({ navigation }) {
                                 <DataTable.Row key={index}>
                                     <DataTable.Cell>{prof.lastName}</DataTable.Cell>
                                     <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                    <DataTable.Cell>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
+                                    <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {copyToClipboard((prof.emails.length > 0)? prof.emails[0].value:'')}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
                                 </DataTable.Row>
                             )
                         })
