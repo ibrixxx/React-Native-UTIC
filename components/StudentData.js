@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import token from '../App'
 import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
@@ -9,6 +8,7 @@ import {TOKEN} from "../App";
 
 
 export default function StudentData({ navigation }) {
+
     const[student, setStudent] = useState({})
 
     useEffect(() => {
@@ -31,8 +31,6 @@ export default function StudentData({ navigation }) {
                 console.error(error);
             });
     }
-
-export default function StudentData({ navigation }) {
     return (
         <View style={style.everything}>
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
@@ -104,6 +102,7 @@ export default function StudentData({ navigation }) {
         </View>
     );
 }
+
 
 const style = StyleSheet.create({
     everything: {
