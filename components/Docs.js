@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, ScrollView, StyleSheet, Button, TextInput} from "react-native";
+import {View, ScrollView, StyleSheet, Button, TextInput, Form} from "react-native";
 import {Title, Menu, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 
@@ -135,7 +135,8 @@ export default function Docs({ navigation }) {
                         visible={visible}
                         onDismiss={closeMenu}
                         style={styles.menu}
-                        anchor={<Button style={{ whiteSpace: 'normal' }} onPress={openMenu} title={title}>{title}</Button>}>
+                        anchor={<Button style={{ whiteSpace: 'normal' }} onPress={openMenu} title={title}>{title}</Button>}
+                    >
                         <Menu.Item contentStyle={styles.menuItem} onPress={() => {handleTip("Aplikacija na drugi fakultet")}} title="Aplikacija na drugi fakultet" />
                         <Menu.Item contentStyle={styles.menuItem} onPress={() => {handleTip("Hospitovanje u školi")}} title="Hospitovanje u školi" />
                         <Menu.Item contentStyle={styles.menuItem} onPress={() => {handleTip("Jednokratna novčana pomoć")}} title="Jednokratna novčana pomoć" />
@@ -177,7 +178,8 @@ export default function Docs({ navigation }) {
                         multiline
                         numberOfLines={4}
                         placeholder="Komentar/prijedlog"
-                        style={{ width: '90%', padding: 10, textAlign: 'left', borderWidth: 1 }}/>
+                        style={{ width: '90%', padding: 10, textAlign: 'left', borderWidth: 1 }}
+                    />
                 </View>
 
 

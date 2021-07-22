@@ -38,34 +38,33 @@ export default function StudentData({ navigation }) {
     return (
         <View style={style.everything}>
             <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
-                <View style={{flexGrow: 1}}>
                     <View style={style.container}>
                         <Title style={style.title}>Podaci o studentu</Title>
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Ime: {student.firstName}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>Ime: </DataTable.Cell>
+                                    <DataTable.Cell>{student.firstName}</DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Prezime: {student.lastName}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>Prezime: </DataTable.Cell>
+                                    <DataTable.Cell>{student.lastName}</DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>JMBG: {student.jmbg}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell style={{width: '100%'}}>JMBG: </DataTable.Cell>
+                                    <DataTable.Cell>{student.jmbg}</DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja: {getDateFormated(student.dateOfBirth)}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell>Datum rođenja: </DataTable.Cell>
+                                    <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
                                 </DataTable.Row>
 
                                 <DataTable.Row>
-                                    <DataTable.Cell>Residence: {student.residence}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell>Residence: </DataTable.Cell>
+                                    <DataTable.Cell>{student.residence}</DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
                         </View>
@@ -76,8 +75,8 @@ export default function StudentData({ navigation }) {
                         <View style={style.rowStyle}>
                             <DataTable>
                                 <DataTable.Row>
-                                    <DataTable.Cell>Telefon: {'student.contacts[0].value'}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
+                                    <DataTable.Cell>Telefon: </DataTable.Cell>
+                                    <DataTable.Cell>{student.contacts?student.contacts[0].value:'/'}</DataTable.Cell>
                                 </DataTable.Row>
                             </DataTable>
                         </View>
@@ -100,7 +99,6 @@ export default function StudentData({ navigation }) {
                             </DataTable>
                         </View>
                     </View>
-                </View>
             </ScrollView>
 
         </View>

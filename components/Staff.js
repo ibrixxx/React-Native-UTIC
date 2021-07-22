@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
-import {View, Clipboard, ToastAndroid} from "react-native";
+import {View, Clipboard, ToastAndroid, Text} from "react-native";
 import {DataTable, IconButton, Searchbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
+import Toast from 'react-native-toast-message';
 
 
 export default function Staff({ navigation }) {
@@ -10,6 +11,18 @@ export default function Staff({ navigation }) {
     const [filterData, setFilterData] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [filterMode, setFilterMode] = React.useState(false);
+
+    const toastConfig = {
+        success: ({ text1, props, ...rest }) => (
+            <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
+                <Text>{text1}</Text>
+                <Text>{props.guid}</Text>
+            </View>
+        ),
+        error: () => {},
+        info: () => {},
+        any_custom_type: () => {}
+    };
 
     const returnData = () => {
         if(filterMode) {
@@ -20,6 +33,11 @@ export default function Staff({ navigation }) {
 
     const copyToClipboard = (email) => {
         Clipboard.setString(email)
+        Toast.show({
+            text1: 'Hello',
+            text2: 'This is some something 👋',
+            type: 'success',
+        });
         //ToastAndroid.show("Email copied to clipboard", ToastAndroid.SHORT);
     }
 
@@ -29,9 +47,9 @@ export default function Staff({ navigation }) {
         setSearchQuery(query)
         setFilterData(
             data.filter((person) => {
-                if(person.firstName.includes(query))
+                if(person.firstName.toLowerCase().includes(query.toLowerCase()))
                     return person
-                else if(person.lastName.includes(query))
+                else if(person.lastName.toLowerCase().includes(query.toLowerCase()))
                     return person
             })
         )
@@ -82,6 +100,7 @@ export default function Staff({ navigation }) {
                         })
                     }
                 </DataTable>
+            <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
         </View>
     );
 }
