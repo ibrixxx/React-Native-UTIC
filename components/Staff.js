@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import {View, Clipboard, ToastAndroid, Text} from "react-native";
-import {DataTable, IconButton, Searchbar} from "react-native-paper";
+import {View, Clipboard, Text} from "react-native";
+import {DataTable, IconButton, Searchbar, Snackbar, Avatar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
 import Toast from 'react-native-toast-message';
@@ -12,18 +12,21 @@ export default function Staff({ navigation }) {
     const [filterData, setFilterData] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [filterMode, setFilterMode] = React.useState(false);
+    const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+    const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
+    const onDismissSnackBar = () => setVisibleSnackbar(false);
 
-    const toastConfig = {
-        success: ({ text1, props, ...rest }) => (
-            <View style={{ height: 60, width: '90%', backgroundColor: 'pink', borderRadius: 20, zIndex: 1000}}>
-                <Text>{text1}</Text>
-                <Text>{props.guid}</Text>
-            </View>
-        ),
-        error: () => {},
-        info: () => {},
-        any_custom_type: () => {}
-    };
+    // const toastConfig = {
+    //     success: ({ text1, props, ...rest }) => (
+    //         <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
+    //             <Text>{text1}</Text>
+    //             <Text>{props.guid}</Text>
+    //         </View>
+    //     ),
+    //     error: () => {},
+    //     info: () => {},
+    //     any_custom_type: () => {}
+    // };
 
     const returnData = () => {
         if(filterMode) {
@@ -34,12 +37,12 @@ export default function Staff({ navigation }) {
 
     const copyToClipboard = (email) => {
         Clipboard.setString(email)
-        Toast.show({
-            text1: 'Hello',
-            text2: 'This is some something 👋',
-            type: 'success',
-        });
-        //ToastAndroid.show("Email copied to clipboard", ToastAndroid.SHORT);
+        // Toast.show({
+        //     text1: 'Hello',
+        //     text2: 'This is some something 👋',
+        //     type: 'success',
+        // });
+        onToggleSnackBar()
     }
 
 
@@ -67,7 +70,6 @@ export default function Staff({ navigation }) {
                 }
             })
             .then(function (response) {
-                console.log('response: ', response.data);
                 setData(response.data)
             })
             .catch(function (error) {
@@ -105,7 +107,18 @@ export default function Staff({ navigation }) {
                     </DataTable>
 
             </View>
-            <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+            {/*<Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />*/}
+            <Snackbar
+                visible={visibleSnackbar}
+                onDismiss={onDismissSnackBar}
+                action={{
+                    label: 'Undo',
+                    onPress: () => {
+                        Clipboard.setString('')
+                    },
+                }}>
+                Email copied to clipboard
+            </Snackbar>
         </View>
     );
 }
