@@ -4,6 +4,7 @@ import {DataTable, IconButton, Searchbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
 import Toast from 'react-native-toast-message';
+import MyHeader from "./MyHeader";
 
 
 export default function Staff({ navigation }) {
@@ -14,7 +15,7 @@ export default function Staff({ navigation }) {
 
     const toastConfig = {
         success: ({ text1, props, ...rest }) => (
-            <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
+            <View style={{ height: 60, width: '90%', backgroundColor: 'pink', borderRadius: 20, zIndex: 1000}}>
                 <Text>{text1}</Text>
                 <Text>{props.guid}</Text>
             </View>
@@ -75,31 +76,35 @@ export default function Staff({ navigation }) {
     }, [])
 
     return (
-        <View style={{ flex: 1, alignItems: 'center' }}>
-            <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
-            <Searchbar
-                placeholder="Search"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
-            />
-                <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>Prezime</DataTable.Title>
-                        <DataTable.Title>Ime</DataTable.Title>
-                        <DataTable.Title>Email</DataTable.Title>
-                    </DataTable.Header>
-                    {
-                        returnData().map((prof, index) => {
-                            return (
-                                <DataTable.Row key={index}>
-                                    <DataTable.Cell>{prof.lastName}</DataTable.Cell>
-                                    <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                    <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {copyToClipboard((prof.emails.length > 0)? prof.emails[0].value:'')}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
-                                </DataTable.Row>
-                            )
-                        })
-                    }
-                </DataTable>
+        <View>
+            <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
+            <View style={{ alignItems: 'center',  zIndex: 10  }}>
+                <Searchbar
+                    placeholder="Search"
+                    onChangeText={onChangeSearch}
+                    value={searchQuery}
+                    style={{}}
+                />
+                    <DataTable>
+                        <DataTable.Header>
+                            <DataTable.Title>Prezime</DataTable.Title>
+                            <DataTable.Title>Ime</DataTable.Title>
+                            <DataTable.Title>Email</DataTable.Title>
+                        </DataTable.Header>
+                        {
+                            returnData().map((prof, index) => {
+                                return (
+                                    <DataTable.Row key={index}>
+                                        <DataTable.Cell>{prof.lastName}</DataTable.Cell>
+                                        <DataTable.Cell>{prof.firstName}</DataTable.Cell>
+                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {copyToClipboard((prof.emails.length > 0)? prof.emails[0].value:'')}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
+                                    </DataTable.Row>
+                                )
+                            })
+                        }
+                    </DataTable>
+
+            </View>
             <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
         </View>
     );

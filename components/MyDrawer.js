@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 
 export default function MyDrawer() {
     return (
-        <Drawer.Navigator initialRouteName={'Home'} hideStatusBar={true} drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Home" component={Home} options = {{drawerLabel: 'Početna', drawerIcon: () => (<Icon name='home' />)}} />
             <Drawer.Screen name="StudentData" component={StudentData} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
             <Drawer.Screen name="Curriculum" component={Curriculum} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>

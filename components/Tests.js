@@ -1,10 +1,14 @@
 import React from 'react'
 import {Text, View} from "react-native";
+import MyHeader from "./MyHeader";
 
-export default function Tests() {
+export default function Tests({ navigation }) {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Tests</Text>
+        <View>
+            <MyHeader myTitle="Ispiti" navigation={navigation}/>
+            <View style={{ height: '85%', justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Tests</Text>
+            </View>
         </View>
     );
 }

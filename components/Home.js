@@ -1,16 +1,18 @@
 import React from 'react'
 import {Button, Text, View} from "react-native";
 import {IconButton} from "react-native-paper";
+import MyHeader from "./MyHeader";
 
 
 export default function Home({ navigation }) {
     return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
-                <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
-                <Text>Feed Screen</Text>
+        <View>
+            <MyHeader myTitle="Home" navigation={navigation}/>
+            <View style={{ height: '85%', justifyContent: 'center', alignItems: 'center'}}>
                 <Button
                     title="Toggle drawer"
                     onPress={() => navigation.navigate('Docs')} />
             </View>
+        </View>
     );
 }

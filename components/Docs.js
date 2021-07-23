@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet, Button, TextInput, Form} from "react-nativ
 import {Title, Menu, Provider} from "react-native-paper";
 import {Dropdown} from "sharingan-rn-modal-dropdown";
 import {white} from "react-native-paper/src/styles/colors";
+import MyHeader from "./MyHeader";
 
 export default function Docs({ navigation }) {
     const [valueSS, setValueSS] = useState("");
@@ -119,6 +120,8 @@ export default function Docs({ navigation }) {
     };
 
     return (
+        <View>
+            <MyHeader myTitle="Dokumenti" navigation={navigation}/>
             <View style={styles.everything}>
                 <Title>Uvjerenja/potvrde</Title>
 
@@ -146,12 +149,13 @@ export default function Docs({ navigation }) {
                 </View>
 
             </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     everything: {
-        flex: 1,
+        height: '85%',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',

@@ -5,6 +5,7 @@ import {white} from "react-native-paper/src/styles/colors";
 import { Tab, TabView } from 'react-native-elements';
 import axios from "axios";
 import {TOKEN} from "../App";
+import MyHeader from "./MyHeader";
 
 
 export default function StudentData({ navigation }) {
@@ -38,107 +39,108 @@ export default function StudentData({ navigation }) {
     }
 
     return (
-        <View style={style.everything}>
-            <Title style={{padding: 20}}>Lični podaci</Title>
+        <View>
+            <MyHeader myTitle="Lični podaci" navigation={navigation}/>
+            <View style={style.everything}>
+                <Tab value={index} onChange={setIndex}>
+                    <Tab.Item
+                        title="osnovni podaci"
+                        titleStyle={{fontSize: 12, color: 'black'}}
+                        containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                        buttonStyle={{padding: 0}}
+                    />
+                    <Tab.Item
+                        title="kontakt"
+                        titleStyle={{fontSize: 12, color: 'black'}}
+                        containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                        buttonStyle={{padding: 0}}
+                    />
+                    <Tab.Item
+                        title="studij"
+                        titleStyle={{fontSize: 12, color: 'black'}}
+                        containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                        buttonStyle={{padding: 0}}
+                    />
+                </Tab>
 
-            <Tab value={index} onChange={setIndex}>
-                <Tab.Item
-                    title="osnovni podaci"
-                    titleStyle={{fontSize: 12, color: 'black'}}
-                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
-                    buttonStyle={{padding: 0}}
-                />
-                <Tab.Item
-                    title="kontakt"
-                    titleStyle={{fontSize: 12, color: 'black'}}
-                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
-                    buttonStyle={{padding: 0}}
-                />
-                <Tab.Item
-                    title="studij"
-                    titleStyle={{fontSize: 12, color: 'black'}}
-                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
-                    buttonStyle={{padding: 0}}
-                />
-            </Tab>
+                <TabView value={index-1} onChange={setIndex} >
+                    <TabView.Item style={{ width: '90%'}}>
 
-            <TabView value={index-1} onChange={setIndex} >
-                <TabView.Item style={{ width: '90%'}}>
+                        <View style={style.container}>
+                            <Title style={style.title}>Podaci o studentu</Title>
+                            <View style={style.rowStyle}>
+                                <DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{width: '100%'}}>Ime: </DataTable.Cell>
+                                        <DataTable.Cell>{student.firstName}</DataTable.Cell>
+                                    </DataTable.Row>
 
-                    <View style={style.container}>
-                        <Title style={style.title}>Podaci o studentu</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Ime: </DataTable.Cell>
-                                    <DataTable.Cell>{student.firstName}</DataTable.Cell>
-                                </DataTable.Row>
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{width: '100%'}}>Prezime: </DataTable.Cell>
+                                        <DataTable.Cell>{student.lastName}</DataTable.Cell>
+                                    </DataTable.Row>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Prezime: </DataTable.Cell>
-                                    <DataTable.Cell>{student.lastName}</DataTable.Cell>
-                                </DataTable.Row>
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{width: '100%'}}>JMBG: </DataTable.Cell>
+                                        <DataTable.Cell>{student.jmbg}</DataTable.Cell>
+                                    </DataTable.Row>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>JMBG: </DataTable.Cell>
-                                    <DataTable.Cell>{student.jmbg}</DataTable.Cell>
-                                </DataTable.Row>
+                                    <DataTable.Row>
+                                        <DataTable.Cell>Datum rođenja: </DataTable.Cell>
+                                        <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
+                                    </DataTable.Row>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja: </DataTable.Cell>
-                                    <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
-                                </DataTable.Row>
-
-                                <DataTable.Row>
-                                    <DataTable.Cell>Residence: </DataTable.Cell>
-                                    <DataTable.Cell>{student.residence}</DataTable.Cell>
-                                </DataTable.Row>
-                            </DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell>Residence: </DataTable.Cell>
+                                        <DataTable.Cell>{student.residence}</DataTable.Cell>
+                                    </DataTable.Row>
+                                </DataTable>
+                            </View>
                         </View>
-                    </View>
-                </TabView.Item>
+                    </TabView.Item>
 
-                <TabView.Item style={{ width: '90%'}}>
-                    <View style={style.container}>
-                        <Title style={style.title}>Kontakt</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell>Telefon: </DataTable.Cell>
-                                    <DataTable.Cell>{student.contacts?student.contacts[0].value:'/'}</DataTable.Cell>
-                                </DataTable.Row>
-                            </DataTable>
+                    <TabView.Item style={{ width: '90%'}}>
+                        <View style={style.container}>
+                            <Title style={style.title}>Kontakt</Title>
+                            <View style={style.rowStyle}>
+                                <DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell>Telefon: </DataTable.Cell>
+                                        <DataTable.Cell>{student.contacts?student.contacts[0].value:'/'}</DataTable.Cell>
+                                    </DataTable.Row>
+                                </DataTable>
+                            </View>
                         </View>
-                    </View>
-                </TabView.Item>
+                    </TabView.Item>
 
-                <TabView.Item style={{ width: '90%'}}>
-                    <View style={style.container}>
-                        <Title style={style.title}>Podaci o studiju:</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell>Godina upisa:</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
+                    <TabView.Item style={{ width: '90%'}}>
+                        <View style={style.container}>
+                            <Title style={style.title}>Podaci o studiju:</Title>
+                            <View style={style.rowStyle}>
+                                <DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell>Godina upisa:</DataTable.Cell>
+                                        <DataTable.Cell></DataTable.Cell>
+                                    </DataTable.Row>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell>Fakultet:</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
+                                    <DataTable.Row>
+                                        <DataTable.Cell>Fakultet:</DataTable.Cell>
+                                        <DataTable.Cell></DataTable.Cell>
+                                    </DataTable.Row>
 
-                            </DataTable>
+                                </DataTable>
+                            </View>
                         </View>
-                    </View>
-                </TabView.Item>
-            </TabView>
+                    </TabView.Item>
+                </TabView>
+            </View>
         </View>
     );
 }
 
 const style = StyleSheet.create({
     everything: {
-        flex: 1,
+        height: '85%',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',

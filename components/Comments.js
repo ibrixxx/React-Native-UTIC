@@ -2,17 +2,21 @@ import React from 'react'
 import {StyleSheet, TextInput, View} from "react-native";
 import {Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import MyHeader from "./MyHeader";
 
-export default function Comments() {
+export default function Comments({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <View style={style.container}>
-                <Title>Komentari i prijedlozi</Title>
-                <TextInput
-                    multiline
-                    numberOfLines={4}
-                    placeholder="Komentar/prijedlog"
-                    style={{ width: '90%', height: 100, padding: 10, marginTop: 20, textAlign: 'left', borderWidth: 1 }}/>
+        <View>
+            <MyHeader myTitle="Komentari" navigation={navigation}/>
+            <View style={{height: '85%', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={style.container}>
+                    <Title>Komentari i prijedlozi</Title>
+                    <TextInput
+                        multiline
+                        numberOfLines={4}
+                        placeholder="Komentar/prijedlog"
+                        style={{ width: '90%', height: 100, padding: 10, marginTop: 20, textAlign: 'left', borderWidth: 1 }}/>
+                </View>
             </View>
         </View>
     );
@@ -27,6 +31,5 @@ const style = StyleSheet.create({
         padding: 15,
         borderRadius: 15,
         elevation: 8,
-        marginBottom: 20
     },
 });
