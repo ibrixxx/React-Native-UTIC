@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react'
 import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
 import {Card, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import { Tab, TabView } from 'react-native-elements';
 import axios from "axios";
 import {TOKEN} from "../App";
 
 
 export default function StudentData({ navigation }) {
     const[student, setStudent] = useState({})
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         getUserData()
@@ -37,7 +39,32 @@ export default function StudentData({ navigation }) {
 
     return (
         <View style={style.everything}>
-            <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
+            <Title style={{padding: 20}}>Lični podaci</Title>
+
+            <Tab value={index} onChange={setIndex}>
+                <Tab.Item
+                    title="osnovni podaci"
+                    titleStyle={{fontSize: 12, color: 'black'}}
+                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                    buttonStyle={{padding: 0}}
+                />
+                <Tab.Item
+                    title="kontakt"
+                    titleStyle={{fontSize: 12, color: 'black'}}
+                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                    buttonStyle={{padding: 0}}
+                />
+                <Tab.Item
+                    title="studij"
+                    titleStyle={{fontSize: 12, color: 'black'}}
+                    containerStyle={{textAlign: 'center', justifyContent: 'center', backgroundColor: 'white'}}
+                    buttonStyle={{padding: 0}}
+                />
+            </Tab>
+
+            <TabView value={index-1} onChange={setIndex} >
+                <TabView.Item style={{ width: '90%'}}>
+
                     <View style={style.container}>
                         <Title style={style.title}>Podaci o studentu</Title>
                         <View style={style.rowStyle}>
@@ -69,7 +96,9 @@ export default function StudentData({ navigation }) {
                             </DataTable>
                         </View>
                     </View>
+                </TabView.Item>
 
+                <TabView.Item style={{ width: '90%'}}>
                     <View style={style.container}>
                         <Title style={style.title}>Kontakt</Title>
                         <View style={style.rowStyle}>
@@ -81,7 +110,9 @@ export default function StudentData({ navigation }) {
                             </DataTable>
                         </View>
                     </View>
+                </TabView.Item>
 
+                <TabView.Item style={{ width: '90%'}}>
                     <View style={style.container}>
                         <Title style={style.title}>Podaci o studiju:</Title>
                         <View style={style.rowStyle}>
@@ -99,8 +130,8 @@ export default function StudentData({ navigation }) {
                             </DataTable>
                         </View>
                     </View>
-            </ScrollView>
-
+                </TabView.Item>
+            </TabView>
         </View>
     );
 }
@@ -116,16 +147,17 @@ const style = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20
     },
-    swStyle: {
-        flexGrow: 1,
-        justifyContent: 'center',
+    tab: {
+        fontSize: 14
     },
     container: {
         backgroundColor: white,
         padding: 15,
         borderRadius: 15,
         elevation: 8,
-        marginBottom: 20
+        marginBottom: 20,
+        marginTop: 20,
+        marginLeft: '10%'
     },
     title: {
         textAlign: 'center'

@@ -2,8 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import MyDrawer from "./components/MyDrawer";
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 
 export const TOKEN = 'BEARER eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJHMkpLblhwd2NZOGlSd3g1ZEZBXy00YlNoX1ZzRTE1NWVvN2JhSk9uYzBrIn0.eyJqdGkiOiI2OTE1NWYwNi01NzFkLTQ1NzMtODRiNC00NzRmNDU5NmQ4MWUiLCJleHAiOjE2MjcwMzE3NDQsIm5iZiI6MCwiaWF0IjoxNjI2OTQ1MzQ3LCJpc3MiOiJodHRwczovL2Rldi5ldW5zYS5iYS9hdXRoL3JlYWxtcy9pc3NzIiwiYXVkIjoiZnJvbnRlbmQiLCJzdWIiOiIzM2YwOTMxNC04MTlhLTRjZWItOGRiMC1jYzFmN2NhYWJmYTciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJmcm9udGVuZCIsIm5vbmNlIjoiMjlhMzY3ZTgtZWU5Mi00Nzg2LWIzMWUtNzhkNWEzYzY4MGE2IiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiM2I4ZGYwMTQtZjc1ZS00MGJlLThlOWYtMTVkM2VhNTI5MmZjIiwiYWNyIjoiMCIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQiLCJuYW1lIjoixJBlbmFuYSBLdXN0dXJhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoixJFrdXN0dXJhIiwiZ2l2ZW5fbmFtZSI6IsSQZW5hbmEiLCJmYW1pbHlfbmFtZSI6Ikt1c3R1cmEifQ.mqEQoF__HOFMas3FuFIMtVBowvNcu1sDMKe68o7Iy53TOZduNVGqZcZmDgwTOXwBAVKk5x9Gb7xtmalNmek5yBSgpC2VqkRIuDRysxIwEKzwManbXeHwESP6OsBxQlrsQkTpf9OhvuQdBC0D1V1OsZSuHVqm2lBY1Tm0GtwFeuSWYecS-pwIW8lkBByBNCMRun85VV4jNoRkxna8VMgnMrl8waM718iCE_GfHsXy8r3gFrrZTDHOjb_VhSIm6Ls7e-S9zbcrylpim7i3Wb4-ihI4IZfnTr_iUyeowSfWj5uGwOff37s9GuQsXMRUnrDaLrqfhmz2yELs4Q7Al9Y7tA'
@@ -11,11 +9,11 @@ export const TOKEN = 'BEARER eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ
 
 export default function App() {
     return (
-        <ApplicationProvider {...eva} theme={eva.light}>
+
         <NavigationContainer>
             <MyDrawer />
         </NavigationContainer>
-        </ApplicationProvider>
+
     );
 }
 
