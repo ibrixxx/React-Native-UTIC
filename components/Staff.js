@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react'
 import {View, Clipboard, Text} from "react-native";
-import {DataTable, IconButton, Searchbar, Snackbar, Avatar} from "react-native-paper";
+import {DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
-import Toast from 'react-native-toast-message';
 import MyHeader from "./MyHeader";
 
 
