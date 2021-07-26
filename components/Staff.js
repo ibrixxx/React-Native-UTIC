@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react'
 import {View, Clipboard, Text} from "react-native";
-import {DataTable, IconButton, Searchbar, Snackbar, Avatar} from "react-native-paper";
+import {DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
-import Toast from 'react-native-toast-message';
 import MyHeader from "./MyHeader";
 
 
@@ -16,17 +15,6 @@ export default function Staff({ navigation }) {
     const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
     const onDismissSnackBar = () => setVisibleSnackbar(false);
 
-    // const toastConfig = {
-    //     success: ({ text1, props, ...rest }) => (
-    //         <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
-    //             <Text>{text1}</Text>
-    //             <Text>{props.guid}</Text>
-    //         </View>
-    //     ),
-    //     error: () => {},
-    //     info: () => {},
-    //     any_custom_type: () => {}
-    // };
 
     const   returnData = () => {
         if(filterMode) {
@@ -37,11 +25,6 @@ export default function Staff({ navigation }) {
 
     const copyToClipboard = (email) => {
         Clipboard.setString(email)
-        // Toast.show({
-        //     text1: 'Hello',
-        //     text2: 'This is some something 👋',
-        //     type: 'success',
-        // });
         onToggleSnackBar()
     }
 
@@ -78,9 +61,8 @@ export default function Staff({ navigation }) {
     }, [])
 
     return (
-        <View>
-            <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
-            <View style={{ alignItems: 'center',  zIndex: 10  }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
                 <Searchbar
                     placeholder="Search"
                     onChangeText={onChangeSearch}
@@ -99,26 +81,23 @@ export default function Staff({ navigation }) {
                                     <DataTable.Row key={index}>
                                         <DataTable.Cell>{prof.lastName}</DataTable.Cell>
                                         <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {copyToClipboard((prof.emails.length > 0)? prof.emails[0].value:'')}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
+                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                                     </DataTable.Row>
                                 )
                             })
                         }
                     </DataTable>
-
+                    <Snackbar
+                        visible={visibleSnackbar}
+                        onDismiss={onDismissSnackBar}
+                        action={{
+                            label: 'Undo',
+                            onPress: () => {
+                                Clipboard.setString('')
+                            },
+                        }}>
+                        Email copied to clipboard
+                    </Snackbar>
             </View>
-            {/*<Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />*/}
-            <Snackbar
-                visible={visibleSnackbar}
-                onDismiss={onDismissSnackBar}
-                action={{
-                    label: 'Undo',
-                    onPress: () => {
-                        Clipboard.setString('')
-                    },
-                }}>
-                Email copied to clipboard
-            </Snackbar>
-        </View>
     );
 }

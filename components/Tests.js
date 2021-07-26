@@ -1,14 +1,22 @@
 import React from 'react'
-import {Text, View} from "react-native";
 import MyHeader from "./MyHeader";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import TestRegistration from "./TestsComponents/TestRegistration";
+const Tab = createMaterialTopTabNavigator();
+
 
 export default function Tests({ navigation }) {
     return (
-        <View>
+        <>
             <MyHeader myTitle="Ispiti" navigation={navigation}/>
-            <View style={{ height: '85%', justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Tests</Text>
-            </View>
-        </View>
+            <Tab.Navigator tabBarOptions={{
+                activeTintColor: 'dodgerblue',
+                labelStyle: {fontSize: 11, color: 'black'},
+                style: { backgroundColor: 'white'},
+            }}>
+                <Tab.Screen name="ZeroTab" component={TestRegistration} options={{ tabBarLabel: 'Prijava ispita' }}/>
+                <Tab.Screen name="FirstTab" component={TestRegistration} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
+            </Tab.Navigator>
+        </>
     );
 }
