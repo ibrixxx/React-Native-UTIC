@@ -16,7 +16,7 @@ export default function Staff({ navigation }) {
     const onDismissSnackBar = () => setVisibleSnackbar(false);
 
 
-    const returnData = () => {
+    const   returnData = () => {
         if(filterMode) {
             return filterData
         }
