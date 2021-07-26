@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import {IconButton} from "react-native-paper";
 import {Header} from "react-native-elements";
 
 
