@@ -28,7 +28,7 @@ export default function Staff({ navigation }) {
     //     any_custom_type: () => {}
     // };
 
-    const returnData = () => {
+    const   returnData = () => {
         if(filterMode) {
             return filterData
         }
