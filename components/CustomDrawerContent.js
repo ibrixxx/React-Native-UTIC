@@ -1,7 +1,5 @@
-import {DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
+import {DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
 import React from "react";
-import {Icon} from "react-native-elements";
-import AddPhone from "./StudentDataComponents/AddPhone";
 
 
 export default function CustomDrawerContent(props) {

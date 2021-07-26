@@ -17,7 +17,6 @@ export default function CurrentSemester() {
                 }
             })
             .then(function (response) {
-                console.log(response.data)
                 setClasses(response.data)
                 setIsReady(true)
             })
@@ -43,9 +42,9 @@ export default function CurrentSemester() {
                     <DataTable.Title>Tip predmeta</DataTable.Title>
                 </DataTable.Header>
                 {
-                    classes.map((c) => {
+                    classes.map((c, index) => {
                         return (
-                            <DataTable.Row style={{width: '100%'}}>
+                            <DataTable.Row style={{width: '100%'}} key={index}>
                                 <DataTable.Cell>{c.courseName}</DataTable.Cell>
                                 <DataTable.Cell>{c.code}</DataTable.Cell>
                                 <DataTable.Cell>{c.ects}</DataTable.Cell>
