@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {DataTable, Banner, Subheading, Caption, Title, IconButton} from "react-native-paper";
+import {DataTable, Banner, Subheading, Caption, Title, IconButton, ActivityIndicator} from "react-native-paper";
 import {ScrollView, Text, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
@@ -10,6 +10,7 @@ export default function Grades() {
     const [grades, setGrades] = React.useState([]);
     const [ectsSum, setEctsSum] = React.useState(0);
     const [average, setAverage] = React.useState(0);
+    const [isReady, setIsReady] = React.useState(false);
 
 
     const getDateFormated = (n) => {
@@ -30,11 +31,17 @@ export default function Grades() {
                 setGrades(response.data.grades)
                 setAverage(response.data.gradeAverage)
                 setEctsSum(response.data.ectsTotal)
+                setIsReady(true)
             })
             .catch(function (error) {
                 console.log('error: ',error);
             })
     }, [])
+
+
+    if (!isReady) {
+        return <ActivityIndicator color={'dodgerblue'} size={'large'}/>
+    }
 
 
     return (
@@ -72,7 +79,7 @@ export default function Grades() {
                 actions={[
                     {
                         label: 'OK',
-                        labelStyle: {color: '#c2a711'},
+                        labelStyle: {color: '#c2a711', backgroundColor: 'whitesmoke'},
                         onPress: () => setVisible(false),
                     }
                 ]}
@@ -82,7 +89,7 @@ export default function Grades() {
             </Banner>
             <ScrollView>
                 <DataTable >
-                    <DataTable.Header >
+                    <DataTable.Header style={{width: '100%'}}>
                         <DataTable.Title style={{maxWidth: '100%'}}>Predmet</DataTable.Title>
                         <DataTable.Title style={{maxWidth: '100%'}}>Nastavnik</DataTable.Title>
                         <DataTable.Title style={{maxWidth: '20%'}}>Datum</DataTable.Title>
@@ -91,7 +98,7 @@ export default function Grades() {
                     </DataTable.Header>
                     {grades.map((grade, ind) => {
                         return (
-                            <DataTable.Row key={ind}>
+                            <DataTable.Row style={{width: '100%'}} key={ind}>
                                 <DataTable.Cell style={{maxWidth: '100%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.courseName}</Text></DataTable.Cell>
                                 <DataTable.Cell style={{maxWidth: '100%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.teacher}</Text></DataTable.Cell>
                                 <DataTable.Cell style={{maxWidth: '20%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{getDateFormated(grade.examDate)}</Text></DataTable.Cell>
