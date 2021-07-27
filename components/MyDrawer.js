@@ -32,7 +32,6 @@ export default function MyDrawer() {
             <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='info' />)}}/>
             <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
             <Drawer.Screen name="AddPhone" component={AddPhone} options = {{drawerLabel: 'Add Phone'}}/>
-
         </Drawer.Navigator>
     );
 }

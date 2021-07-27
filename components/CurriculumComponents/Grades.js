@@ -1,8 +1,19 @@
 import React, {useEffect} from 'react'
-import {DataTable, Banner, Subheading, Caption, Title, IconButton, ActivityIndicator} from "react-native-paper";
-import {ScrollView, Text, View} from "react-native";
+import {
+    DataTable,
+    Banner,
+    Subheading,
+    Caption,
+    Title,
+    IconButton,
+    ActivityIndicator,
+    Surface,
+    List,
+} from "react-native-paper";
+import {ScrollView, Text, View, StyleSheet} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
+
 
 
 export default function Grades() {
@@ -11,6 +22,9 @@ export default function Grades() {
     const [ectsSum, setEctsSum] = React.useState(0);
     const [average, setAverage] = React.useState(0);
     const [isReady, setIsReady] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handlePress = () => setExpanded(!expanded);
 
 
     const getDateFormated = (n) => {
@@ -46,25 +60,7 @@ export default function Grades() {
 
     return (
         <>
-            <DataTable >
-                <DataTable.Row >
-                    <DataTable.Cell>
-                                <Title>Prosjek</Title>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                                <Subheading>{average}</Subheading>
-                    </DataTable.Cell>
-                </DataTable.Row>
-                <DataTable.Row>
-                    <DataTable.Cell>
-                                <Title>ECTS</Title> <Caption>(Σ)</Caption>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                                <Subheading>{ectsSum}</Subheading>
-                    </DataTable.Cell>
-                </DataTable.Row>
-            </DataTable>
-            <View style={{alignItems: 'center', paddingBottom: '1%'}}>
+            <View style={{alignItems: 'center'}}>
                 <IconButton
                     disabled={visible}
                     icon="menu"
@@ -73,7 +69,6 @@ export default function Grades() {
                     onPress={() => setVisible(true)}
                 />
             </View>
-
             <Banner
                 visible={visible}
                 actions={[
@@ -88,27 +83,69 @@ export default function Grades() {
                 <Caption>U slučaju greške, obratite se odgovarajućem profesuru/ici ili studentskoj službi.</Caption>
             </Banner>
             <ScrollView>
-                <DataTable >
-                    <DataTable.Header style={{width: '100%'}}>
-                        <DataTable.Title style={{maxWidth: '100%'}}>Predmet</DataTable.Title>
-                        <DataTable.Title style={{maxWidth: '100%'}}>Nastavnik</DataTable.Title>
-                        <DataTable.Title style={{maxWidth: '20%'}}>Datum</DataTable.Title>
-                        <DataTable.Title style={{maxWidth: '15%'}}>ECTS</DataTable.Title>
-                        <DataTable.Title style={{maxWidth: '20%'}}>Ocjena</DataTable.Title>
-                    </DataTable.Header>
+                <List.Section title="Accordions">
                     {grades.map((grade, ind) => {
                         return (
-                            <DataTable.Row style={{width: '100%'}} key={ind}>
-                                <DataTable.Cell style={{maxWidth: '100%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.courseName}</Text></DataTable.Cell>
-                                <DataTable.Cell style={{maxWidth: '100%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.teacher}</Text></DataTable.Cell>
-                                <DataTable.Cell style={{maxWidth: '20%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{getDateFormated(grade.examDate)}</Text></DataTable.Cell>
-                                <DataTable.Cell style={{maxWidth: '15%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.ects}</Text></DataTable.Cell>
-                                <DataTable.Cell style={{maxWidth: '20%'}}><Text style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.mark}</Text></DataTable.Cell>
-                            </DataTable.Row>
-                        );
-                    })}
-                </DataTable>
+                            <List.Accordion
+                                key={ind}
+                                title={grade.courseName}
+                                left={props => <Text {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>{grade.mark}</Text>}
+                                expanded={expanded}
+                                onPress={handlePress}>
+                                <List.Item
+                                    title={grade.courseName}
+                                    left={props => <Title {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>Predmet:</Title>}
+                                />
+                                <List.Item
+                                    title={grade.teacher}
+                                    left={props => <Title {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>Nastavnik:</Title>}
+                                />
+                                <List.Item
+                                    title={getDateFormated(grade.examDate)}
+                                    left={props => <Title {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>Datum:</Title>}
+                                />
+                                <List.Item
+                                    title={grade.ects}
+                                    left={props => <Title {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>ECTS:</Title>}
+                                />
+                                <List.Item
+                                    title={grade.mark}
+                                    left={props => <Title {...props} style={{fontSize: 11, textAlign: 'center', alignItems: 'center'}}>Ocjena:</Title>}
+                                />
+                            </List.Accordion>
+                                );
+                            })}
+                </List.Section>
             </ScrollView>
+            <DataTable style={{backgroundColor: 'whitesmoke'}}>
+                <DataTable.Row >
+                    <DataTable.Cell>
+                        <Surface style={styles.surface}>
+                            <Title>Prosjek</Title>
+                            <Subheading>{average}</Subheading>
+                        </Surface>
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric>
+                        <Surface style={styles.surface}>
+                            <Title>ECTS <Caption>(Σ)</Caption></Title>
+                            <Subheading>{ectsSum}</Subheading>
+                        </Surface>
+                    </DataTable.Cell>
+                </DataTable.Row>
+            </DataTable>
         </>
     );
 }
+
+const styles = StyleSheet.create({
+    surface: {
+        padding: 8,
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+        textAlign: 'center',
+        justifyContent: 'center',
+        elevation: 4,
+        backgroundColor: 'transparent',
+    },
+});
