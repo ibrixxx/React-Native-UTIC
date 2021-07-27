@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ScrollView, StyleSheet, View} from "react-native";
+import {ScrollView, StyleSheet, View, Text} from "react-native";
 import {DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 
@@ -40,7 +40,7 @@ export default function MainStudentData(){
                     <Title style={style.title}>Podaci o studentu</Title>
                     <DataTable>
                         <DataTable.Row style={{textAlign: 'right'}}>
-                            <DataTable.Cell style={style.TDStyleLeft}>Korisničko ime</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.username}</DataTable.Cell>
                         </DataTable.Row>
 
@@ -122,17 +122,16 @@ export default function MainStudentData(){
 
 const style = StyleSheet.create({
     container: {
-        backgroundColor: white,
-        width: '90%',
+        width: '100%',
         padding: 15,
-        borderRadius: 15,
-        elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 50
     },
     title: {
         textAlign: 'center',
         marginBottom: 10
+    },
+    TDStyleLeft: {
+        fontWeight: 'bold'
     }
 });

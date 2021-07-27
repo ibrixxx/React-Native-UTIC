@@ -2,11 +2,13 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {DataTable, FAB, Title} from "react-native-paper";
-import {StyleSheet, Text, View} from "react-native";
+import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
+import {Picker} from "@react-native-picker/picker";
 
 export default function StudentContacts({ navigation }){
     const[student, setStudent] = useState({})
+    const[showAdd, setShowAdd] = useState(false)
 
     useEffect(() => {
         getUserData();
@@ -31,12 +33,39 @@ export default function StudentContacts({ navigation }){
     return (
         <>
             <View style={{ height: '100%' }}>
-                <FAB
-                    style={style.fab}
-                    small
-                    icon="plus"
-                    onPress={() => navigation.navigate('AddPhone')}
-                />
+                {
+                    !showAdd ? <FAB
+                        style={style.fab}
+                        small
+                        icon="plus"
+                        onPress={() => setShowAdd(true)}
+                    /> : null
+                }
+
+                {
+                    showAdd ?  <View style={style.card}>
+                        <Title style={style.title}>Dodaj kontakt</Title>
+                        <View style={{ borderWidth: 1, height: 40, paddingTop: '3%', marginBottom: 10}}>
+                            <Picker>
+                                <Picker.Item label="nesta" value={0} />
+                            </Picker>
+                        </View>
+
+                        <TextInput
+                            style={{ backgroundColor: '#ffffff', height: 40, borderWidth: 1, padding: 5, marginBottom: 10 }}
+                            placeholder="Vrijednost"/>
+
+                        <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'space-between', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <Button
+                                title="Odustani"
+                                onPress={() => setShowAdd(false)}
+                                style={{ backgroundColor: 'blue' }} />
+                            <Button title="Spremi" />
+                        </View>
+
+                    </View> : null
+                }
+
                 <View style={style.container}>
                     <Title style={style.title}>Kontakt</Title>
 
@@ -61,15 +90,21 @@ export default function StudentContacts({ navigation }){
 }
 
 const style = StyleSheet.create({
-    container: {
+    card: {
         backgroundColor: white,
         width: '90%',
-        padding: 15,
+        padding: 20,
         borderRadius: 15,
         elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 50
+        marginTop: 20
+    },
+    container: {
+        width: '100%',
+        padding: 15,
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     title: {
         textAlign: 'center',
