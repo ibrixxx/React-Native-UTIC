@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
-import {ActivityIndicator, DataTable, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, Headline, Text} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import { Tooltip, Text as PopText } from 'react-native-elements';
 
 export default function CurrentSemester() {
     const [isReady, setIsReady] = React.useState(false);
@@ -32,14 +33,13 @@ export default function CurrentSemester() {
 
     return(
         <>
-            <Title style={{color: 'dodgerblue', margin: '1%'}}>Spisak predmeta</Title>
+            <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3%'}}>Spisak predmeta</Text>
             <DataTable>
                 <DataTable.Header style={{width: '100%'}}>
                     <DataTable.Title>Predmet</DataTable.Title>
                     <DataTable.Title>Šifra predmeta</DataTable.Title>
-                    <DataTable.Title>ECTS</DataTable.Title>
-                    <DataTable.Title>P+V+S</DataTable.Title>
-                    <DataTable.Title>Tip predmeta</DataTable.Title>
+                    <DataTable.Title numeric>Tip predmeta</DataTable.Title>
+                    <DataTable.Title numeric>P+V+S</DataTable.Title>
                 </DataTable.Header>
                 {
                     classes.map((c, index) => {
@@ -47,9 +47,8 @@ export default function CurrentSemester() {
                             <DataTable.Row style={{width: '100%'}} key={index}>
                                 <DataTable.Cell>{c.courseName}</DataTable.Cell>
                                 <DataTable.Cell>{c.code}</DataTable.Cell>
-                                <DataTable.Cell>{c.ects}</DataTable.Cell>
-                                <DataTable.Cell>{c.exerciseHours}+{c.lectureHours}+{c.seminarHours}</DataTable.Cell>
-                                <DataTable.Cell>{c.mandatory ? 'Obavezni' : 'Izborni'}</DataTable.Cell>
+                                <DataTable.Cell numeric>{c.mandatory ? 'Obavezni' : 'Izborni'}</DataTable.Cell>
+                                <DataTable.Cell numeric>{c.exerciseHours}+{c.lectureHours}+{c.seminarHours}</DataTable.Cell>
                             </DataTable.Row>
                             );
                     })
