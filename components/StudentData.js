@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import {Card, DataTable, Title, FAB} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
-import axios from "axios";
-import {TOKEN} from "../App";
+import React from 'react'
+import {StyleSheet, View} from "react-native";
+import {Title} from "react-native-paper";
 import MyHeader from "./MyHeader";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import MainStudentData from './StudentDataComponents/MainStudentData';
 import StudentContacts from './StudentDataComponents/StudentContacts';
 import StudyData from './StudentDataComponents/StudyData';
+
 const Tab = createMaterialTopTabNavigator();
 
 

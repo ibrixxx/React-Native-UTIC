@@ -31,8 +31,7 @@ export default function StudyData(){
     return (
         <>
             <View style={style.container}>
-                <Title style={style.title}>Podaci o studiju:</Title>
-                <DataTable>
+                <DataTable style={{ marginTop: 20 }}>
                     <DataTable.Row>
                         <DataTable.Cell>Index</DataTable.Cell>
                         <DataTable.Cell>{studyProgram.index?studyProgram.index:''}</DataTable.Cell>
@@ -71,14 +70,10 @@ export default function StudyData(){
 
 const style = StyleSheet.create({
     container: {
-        backgroundColor: white,
-        width: '90%',
+        width: '100%',
         padding: 15,
-        borderRadius: 15,
-        elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 50
     },
     title: {
         textAlign: 'center',

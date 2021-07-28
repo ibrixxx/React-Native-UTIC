@@ -12,7 +12,6 @@ import FAQ from "./FAQ";
 import React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {Icon} from "react-native-elements";
-import AddPhone from "./StudentDataComponents/AddPhone";
 
 
 const Drawer = createDrawerNavigator();
@@ -31,7 +30,7 @@ export default function MyDrawer() {
             <Drawer.Screen name="Comments" component={Comments} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
             <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='info' />)}}/>
             <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
-            <Drawer.Screen name="AddPhone" component={AddPhone} options = {{drawerLabel: 'Add Phone'}}/>
+
         </Drawer.Navigator>
     );
 }

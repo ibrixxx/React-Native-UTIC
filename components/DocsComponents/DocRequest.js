@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Picker, StyleSheet, TextInput, View} from "react-native";
+import {TextInput, View, StyleSheet} from "react-native";
+import {Picker} from '@react-native-picker/picker';
 import {Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function DocRequest(){
-    const [selectedValue, setSelectedValue] = React.useState("Odaberi tip dokumenta");
+    const [selectedValue, setSelectedValue] = useState("Odaberi tip dokumenta");
 
     const docTypes = [{
         label: "Aplikacija na drugi fakultet",
@@ -165,7 +166,7 @@ export default function DocRequest(){
                     multiline
                     numberOfLines={4}
                     placeholder="Komentar/prijedlog"
-                    style={{ width: '90%', padding: 10, textAlign: 'left', borderWidth: 1 }}
+                    style={{ width: '100%', padding: 10, textAlign: 'left', borderWidth: 1 }}
                 />
             </View>
 
