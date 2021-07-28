@@ -21,7 +21,7 @@ export default function Docs({ navigation }) {
                 labelStyle: { fontSize: 11, color: 'white'},
                 style: { backgroundColor: '#434343'},
             }}>
-                <Tab.Screen name="ZeroTab" component={DocRequest} options={{ tabBarLabel: 'Podnošenje zahtjeva' }}/>
+                <Tab.Screen name="ZeroTab" component={DocRequest} options={{ tabBarLabel: 'Aktivni zahtjevi' }}/>
                 <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
             </Tab.Navigator>
         </>

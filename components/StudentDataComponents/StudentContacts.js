@@ -8,7 +8,7 @@ import {Picker} from "@react-native-picker/picker";
 
 export default function StudentContacts({ navigation }){
     const[student, setStudent] = useState({})
-    const[showAdd, setShowAdd] = useState(false)
+    const[showAddCard, setShowAddCard] = useState(false)
 
     useEffect(() => {
         getUserData();
@@ -34,31 +34,31 @@ export default function StudentContacts({ navigation }){
         <>
             <View style={{ height: '100%' }}>
                 {
-                    !showAdd ? <FAB
+                    !showAddCard ? <FAB
                         style={style.fab}
                         small
                         icon="plus"
-                        onPress={() => setShowAdd(true)}
+                        onPress={() => setShowAddCard(true)}
                     /> : null
                 }
 
                 {
-                    showAdd ?  <View style={style.card}>
+                    showAddCard ?  <View style={style.card}>
                         <Title style={style.title}>Dodaj kontakt</Title>
-                        <View style={{ borderWidth: 1, height: 40, paddingTop: '3%', marginBottom: 10}}>
+                        <View style={{ borderWidth: 1, borderColor: "#999999",height: 40, paddingTop: '3%', marginBottom: 10}}>
                             <Picker>
                                 <Picker.Item label="nesta" value={0} />
                             </Picker>
                         </View>
 
                         <TextInput
-                            style={{ backgroundColor: '#ffffff', height: 40, borderWidth: 1, padding: 5, marginBottom: 10 }}
+                            style={{ backgroundColor: '#ffffff', height: 40, borderWidth: 1, borderColor: "#999999", padding: 5, marginBottom: 10 }}
                             placeholder="Vrijednost"/>
 
                         <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'space-between', marginLeft: 'auto', marginRight: 'auto' }}>
                             <Button
                                 title="Odustani"
-                                onPress={() => setShowAdd(false)}
+                                onPress={() => setShowAddCard(false)}
                                 style={{ backgroundColor: 'blue' }} />
                             <Button title="Spremi" />
                         </View>
@@ -73,7 +73,7 @@ export default function StudentContacts({ navigation }){
                         {
                             (student.contacts && student.contacts.length !== 0)?student.contacts.map((contact) => (
                                     <DataTable.Row key={contact.value}>
-                                        <DataTable.Cell numeric>{contact.type}  </DataTable.Cell>
+                                        <DataTable.Cell numeric><Text style={style.TDStyleLeft}>{contact.type}  </Text></DataTable.Cell>
                                         <DataTable.Cell>{contact.value}</DataTable.Cell>
                                     </DataTable.Row>
                                 ))
@@ -98,7 +98,8 @@ const style = StyleSheet.create({
         elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     },
     container: {
         width: '100%',
@@ -123,5 +124,8 @@ const style = StyleSheet.create({
         bottom: 0,
         right: 0,
         zIndex: 1000
+    },
+    TDStyleLeft: {
+        fontWeight: 'bold'
     }
 });
