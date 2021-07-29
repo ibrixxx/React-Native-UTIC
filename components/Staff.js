@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
-import {View, Clipboard, ToastAndroid} from "react-native";
-import {DataTable, IconButton, Searchbar} from "react-native-paper";
+import {View, Clipboard, Text} from "react-native";
+import {DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
+import MyHeader from "./MyHeader";
 
 
 export default function Staff({ navigation }) {
@@ -10,8 +11,12 @@ export default function Staff({ navigation }) {
     const [filterData, setFilterData] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [filterMode, setFilterMode] = React.useState(false);
+    const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+    const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
+    const onDismissSnackBar = () => setVisibleSnackbar(false);
 
-    const returnData = () => {
+
+    const   returnData = () => {
         if(filterMode) {
             return filterData
         }
@@ -20,7 +25,7 @@ export default function Staff({ navigation }) {
 
     const copyToClipboard = (email) => {
         Clipboard.setString(email)
-        //ToastAndroid.show("Email copied to clipboard", ToastAndroid.SHORT);
+        onToggleSnackBar()
     }
 
 
@@ -29,9 +34,9 @@ export default function Staff({ navigation }) {
         setSearchQuery(query)
         setFilterData(
             data.filter((person) => {
-                if(person.firstName.includes(query))
+                if(person.firstName.toLowerCase().includes(query.toLowerCase()))
                     return person
-                else if(person.lastName.includes(query))
+                else if(person.lastName.toLowerCase().includes(query.toLowerCase()))
                     return person
             })
         )
@@ -48,7 +53,6 @@ export default function Staff({ navigation }) {
                 }
             })
             .then(function (response) {
-                console.log('response: ', response.data);
                 setData(response.data)
             })
             .catch(function (error) {
@@ -57,31 +61,43 @@ export default function Staff({ navigation }) {
     }, [])
 
     return (
-        <View style={{ flex: 1, alignItems: 'center' }}>
-            <IconButton icon={'menu'} size={50} style={{marginRight: '75%'}} onPress={() => navigation.openDrawer()} />
-            <Searchbar
-                placeholder="Search"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
-            />
-                <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>Prezime</DataTable.Title>
-                        <DataTable.Title>Ime</DataTable.Title>
-                        <DataTable.Title>Email</DataTable.Title>
-                    </DataTable.Header>
-                    {
-                        returnData().map((prof, index) => {
-                            return (
-                                <DataTable.Row key={index}>
-                                    <DataTable.Cell>{prof.lastName}</DataTable.Cell>
-                                    <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                    <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {copyToClipboard((prof.emails.length > 0)? prof.emails[0].value:'')}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</DataTable.Cell>
-                                </DataTable.Row>
-                            )
-                        })
-                    }
-                </DataTable>
-        </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
+                <Searchbar
+                    placeholder="Search"
+                    onChangeText={onChangeSearch}
+                    value={searchQuery}
+                    style={{}}
+                />
+                    <DataTable>
+                        <DataTable.Header>
+                            <DataTable.Title>Prezime</DataTable.Title>
+                            <DataTable.Title>Ime</DataTable.Title>
+                            <DataTable.Title>Email</DataTable.Title>
+                        </DataTable.Header>
+                        {
+                            returnData().map((prof, index) => {
+                                return (
+                                    <DataTable.Row key={index}>
+                                        <DataTable.Cell>{prof.lastName}</DataTable.Cell>
+                                        <DataTable.Cell>{prof.firstName}</DataTable.Cell>
+                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                    </DataTable.Row>
+                                )
+                            })
+                        }
+                    </DataTable>
+                    <Snackbar
+                        visible={visibleSnackbar}
+                        onDismiss={onDismissSnackBar}
+                        action={{
+                            label: 'Undo',
+                            onPress: () => {
+                                Clipboard.setString('')
+                            },
+                        }}>
+                        Email copied to clipboard
+                    </Snackbar>
+            </View>
     );
 }

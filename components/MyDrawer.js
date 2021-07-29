@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 
 export default function MyDrawer() {
     return (
-        <Drawer.Navigator initialRouteName={'Home'} hideStatusBar={true} drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Home" component={Home} options = {{drawerLabel: 'Početna', drawerIcon: () => (<Icon name='home' />)}} />
             <Drawer.Screen name="StudentData" component={StudentData} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
             <Drawer.Screen name="Curriculum" component={Curriculum} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>
@@ -30,6 +30,7 @@ export default function MyDrawer() {
             <Drawer.Screen name="Comments" component={Comments} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
             <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='info' />)}}/>
             <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
+
         </Drawer.Navigator>
     );
 }

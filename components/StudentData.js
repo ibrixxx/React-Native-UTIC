@@ -1,115 +1,38 @@
-import React, {useEffect, useState} from 'react'
-import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import {Card, DataTable, Title} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
-import axios from "axios";
-import {TOKEN} from "../App";
+import React from 'react'
+import {StyleSheet, View} from "react-native";
+import {Title} from "react-native-paper";
+import MyHeader from "./MyHeader";
+import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
+import MainStudentData from './StudentDataComponents/MainStudentData';
+import StudentContacts from './StudentDataComponents/StudentContacts';
+import StudyData from './StudentDataComponents/StudyData';
+
+const Tab = createMaterialTopTabNavigator();
 
 
 export default function StudentData({ navigation }) {
-    const[student, setStudent] = useState({})
-
-    useEffect(() => {
-        getUserData()
-    }, [])
-
-
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
-
-    const getUserData = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
-            headers: {
-                Accept: 'application/json',
-                Authorization: TOKEN
-            }
-        })
-            .then(respnse => {
-                console.log(respnse.data)
-                setStudent(respnse.data)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
 
     return (
-        <View style={style.everything}>
-            <ScrollView contentContainerStyle={style.swStyle} style={{flexGrow: 0.9, height: '80%', width: '90%'}}>
-                <View style={{flexGrow: 1}}>
-                    <View style={style.container}>
-                        <Title style={style.title}>Podaci o studentu</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Ime: {student.firstName}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
+        <>
+            <MyHeader myTitle="Lični podaci" navigation={navigation}/>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>Prezime: {student.lastName}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
+            <Tab.Navigator tabBarOptions={{
+                activeTintColor: 'dodgerblue',
+                labelStyle: { fontSize: 11, color: 'white'},
+                style: { backgroundColor: '#434343'},
+            }}>
+                <Tab.Screen name="ZeroTab" component={MainStudentData} options={{ tabBarLabel: 'Podaci o studentu' }}/>
+                <Tab.Screen name="FirstTab" component={StudentContacts} options={{ tabBarLabel: 'Kontakti' }}/>
+                <Tab.Screen name="SecondTab" component={StudyData} options={{ tabBarLabel: 'Podaci o studiju' }}/>
 
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{width: '100%'}}>JMBG: {student.jmbg}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-
-                                <DataTable.Row>
-                                    <DataTable.Cell>Datum rođenja: {getDateFormated(student.dateOfBirth)}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-
-                                <DataTable.Row>
-                                    <DataTable.Cell>Residence: {student.residence}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-                            </DataTable>
-                        </View>
-                    </View>
-
-                    <View style={style.container}>
-                        <Title style={style.title}>Kontakt</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell>Telefon: {'student.contacts[0].value'}</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-                            </DataTable>
-                        </View>
-                    </View>
-
-                    <View style={style.container}>
-                        <Title style={style.title}>Podaci o studiju:</Title>
-                        <View style={style.rowStyle}>
-                            <DataTable>
-                                <DataTable.Row>
-                                    <DataTable.Cell>Godina upisa:</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-
-                                <DataTable.Row>
-                                    <DataTable.Cell>Fakultet:</DataTable.Cell>
-                                    <DataTable.Cell></DataTable.Cell>
-                                </DataTable.Row>
-
-                            </DataTable>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
-
-        </View>
+            </Tab.Navigator>
+        </>
     );
 }
 
 const style = StyleSheet.create({
     everything: {
-        flex: 1,
+        height: '90%',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
@@ -118,21 +41,4 @@ const style = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20
     },
-    swStyle: {
-        flexGrow: 1,
-        justifyContent: 'center',
-    },
-    container: {
-        backgroundColor: white,
-        padding: 15,
-        borderRadius: 15,
-        elevation: 8,
-        marginBottom: 20
-    },
-    title: {
-        textAlign: 'center'
-    },
-    rowStyle: {
-        width: '90%',
-    }
 });
