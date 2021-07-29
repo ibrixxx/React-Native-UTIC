@@ -21,14 +21,7 @@ export default function DocRequest() {
 
     useEffect(() => {
         getPrevRequests();
-        /*setFiltered(
-            prevRequests.filter((prev) => {
-                if (prevRequests && prevRequests.length > 0)
-                    prevRequests.filter((prev) => {
-                        if (prevRequests.documentStatusName === "primljen zahtjev") return prev;
-                    })
-            })
-        )*/
+
 
         getDocTypes();
         getCertificateReasons();
