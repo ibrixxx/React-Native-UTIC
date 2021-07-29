@@ -6,12 +6,16 @@ import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import {Picker} from "@react-native-picker/picker";
 
-export default function StudentContacts({ navigation }){
-    const[student, setStudent] = useState({})
-    const[showAddCard, setShowAddCard] = useState(false)
+export default function StudentContacts({ navigation }) {
+    const [student, setStudent] = useState({})
+    const [contactTypes, setContactTypes] = useState({})
+    const [showAddCard, setShowAddCard] = useState(false)
+    const [contactTypeValue, setContactTypeValue] = useState("")
+    const [contactValue, setContactValue] = useState("")
 
     useEffect(() => {
         getUserData();
+        getContactTypes();
     }, [])
 
     const getUserData = () => {
@@ -30,9 +34,33 @@ export default function StudentContacts({ navigation }){
             });
     }
 
+    const getContactTypes = () => {
+        axios.get(' http://192.168.44.83:8080/u/0/contact-types', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setContactTypes(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+
+    function resetFields() {
+        setShowAddCard(false)
+        setContactValue("")
+        setContactTypeValue("")
+        setContactValue("")
+    }
+
     return (
         <>
-            <View style={{ height: '100%' }}>
+            <View style={{height: '100%'}}>
                 {
                     !showAddCard ? <FAB
                         style={style.fab}
@@ -43,24 +71,54 @@ export default function StudentContacts({ navigation }){
                 }
 
                 {
-                    showAddCard ?  <View style={style.card}>
+                    showAddCard ? <View style={style.card}>
                         <Title style={style.title}>Dodaj kontakt</Title>
-                        <View style={{ borderWidth: 1, borderColor: "#999999",height: 40, paddingTop: '3%', marginBottom: 10}}>
-                            <Picker>
-                                <Picker.Item label="nesta" value={0} />
+                        <View style={{
+                            borderWidth: 1,
+                            borderColor: "#999999",
+                            height: 40,
+                            paddingTop: '3%',
+                            marginBottom: 10
+                        }}>
+                            <Picker
+                                selectedValue={contactTypeValue}
+                                onValueChange={(itemValue, itemIndex) => setContactTypeValue(itemValue)}>
+                                {(contactTypes && contactTypes.length !== 0) ? contactTypes.map((type) => (
+                                    <Picker.Item label={type.name} value={type.id}/>
+                                )) : <Text>Nema</Text>
+                                }
                             </Picker>
                         </View>
 
                         <TextInput
-                            style={{ backgroundColor: '#ffffff', height: 40, borderWidth: 1, borderColor: "#999999", padding: 5, marginBottom: 10 }}
-                            placeholder="Vrijednost"/>
+                            style={{
+                                backgroundColor: '#ffffff',
+                                height: 40,
+                                borderWidth: 1,
+                                borderColor: "#999999",
+                                padding: 5,
+                                marginBottom: 10
+                            }}
+                            placeholder="Vrijednost"
+                            onChangeText={contact => setContactValue(contact)}
+                            value={contactValue}/>
 
-                        <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'space-between', marginLeft: 'auto', marginRight: 'auto' }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            width: '90%',
+                            justifyContent: 'space-between',
+                            marginLeft: 'auto',
+                            marginRight: 'auto'
+                        }}>
                             <Button
                                 title="Odustani"
-                                onPress={() => setShowAddCard(false)}
-                                style={{ backgroundColor: 'blue' }} />
-                            <Button title="Spremi" />
+                                onPress={() => resetFields()}
+                                style={{backgroundColor: 'blue'}}/>
+                            <Button
+                                title="Spremi"
+                                onPress={() => {
+                                    resetFields()
+                                }}/>
                         </View>
 
                     </View> : null
@@ -71,13 +129,14 @@ export default function StudentContacts({ navigation }){
 
                     <DataTable>
                         {
-                            (student.contacts && student.contacts.length !== 0)?student.contacts.map((contact) => (
+                            (student.contacts && student.contacts.length !== 0) ? student.contacts.map((contact) => (
                                     <DataTable.Row key={contact.value}>
-                                        <DataTable.Cell numeric><Text style={style.TDStyleLeft}>{contact.type}  </Text></DataTable.Cell>
+                                        <DataTable.Cell numeric><Text
+                                            style={style.TDStyleLeft}>{contact.type}  </Text></DataTable.Cell>
                                         <DataTable.Cell>{contact.value}</DataTable.Cell>
                                     </DataTable.Row>
                                 ))
-                                :<Text>Nema</Text>
+                                : <Text>Nema</Text>
                         }
 
                     </DataTable>

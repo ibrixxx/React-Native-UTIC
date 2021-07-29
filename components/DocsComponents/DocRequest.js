@@ -1,125 +1,76 @@
-import React, {useState} from 'react';
-import {TextInput, View, StyleSheet, Button} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {TextInput, View, StyleSheet, Button, Text} from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import {DataTable, FAB, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import axios from "axios";
+import {TOKEN} from "../../App";
 
-export default function DocRequest(){
-    const [selectedValue, setSelectedValue] = useState("");
-    const [enableTypes, setEnableTypes] = useState(false);
-    const [selectedValueType, setSelectedValueType] = useState("Odaberi tip dokumenta");
+export default function DocRequest() {
+    const [documentTypes, setDocumentTypes] = useState({});
+    const [certificateReasons, setCertificateReasons] = useState({});
+    const [selectedValue, setSelectedValue] = useState(0);
+    const [selectedType, setSelectedType] = useState("");
+    const [enableTypes, setEnableTypes] = useState(true);
+    const [selectedValueType, setSelectedValueType] = useState(0);
     const [showAddCard, setShowAddCard] = useState(false);
+    const [scndDropdownStyle, setScndDropdownStyle] = useState(styles.enabled);
+    const [scndDropdownView, setScndDropdownView] = useState(styles.enabledBorder);
+    const [note, setNote] = useState("");
+
+    useEffect(() => {
+        getDocTypes();
+        getCertificateReasons();
+    }, [])
 
 
-    const docTypes = [{
-        label: "Aplikacija na drugi fakultet",
-        value: 0
-    }, {
-        label: "Hospitovanje u školi",
-        value: 1
-    }, {
-        label: "Jednokratna novčana pomoć",
-        value: 2
-    }, {
-        label: "Regulisanje prava na šehidsku penziju",
-        value: 3
-    }, {
-        label: "Regulisanje prava prijave na biro za zapošljavanje",
-        value: 4
-    }, {
-        label: "Regulisanje socijalnog statusa",
-        value: 5
-    }, {
-        label: "Regulisanje alimentacije",
-        value: 6
-    }, {
-        label: "Regulisanje dječijeg dodatka",
-        value: 7
-    }, {
-        label: "Regulisanje donacije",
-        value: 8
-    }, {
-        label: "Regulisanje ferijalne prakse",
-        value: 9
-    }, {
-        label: "Regulisanje penzije za civilne žrtve rata",
-        value: 10
-    }, {
-        label: "Regulisanje prava na boračku penziju",
-        value: 11
-    }, {
-        label: "Regulisanje prava na honorar",
-        value: 12
-    }, {
-        label: "Regulisanje prava na invalidninu",
-        value: 13
-    }, {
-        label: "Regulisanje prava na izdavanje pasoša",
-        value: 14
-    }, {
-        label: "Regulisanje prava na poreske olakšice",
-        value: 15
-    }, {
-        label: "Regulisanje prava na porodičnu penziju",
-        value: 16
-    }, {
-        label: "Regulisanje prava na prevoz",
-        value: 17
-    }, {
-        label: "Regulisanje prava na pristup internetu",
-        value: 18
-    }, {
-        label: "Regulisanje prava na studentski dom",
-        value: 19
-    }, {
-        label: "Regulisanje prava privremenog boravka",
-        value: 20
-    }, {
-        label: "Regulisanje prava za izdavanje studentske kartice",
-        value: 21
-    }, {
-        label: "Regulisanje radne vize",
-        value: 22
-    }, {
-        label: "Regulisanje slobodnih dana za zaposlene studente",
-        value: 23
-    }, {
-        label: "Regulisanje stambenog pitanja",
-        value: 24
-    }, {
-        label: "Regulisanje statusnih pitanja",
-        value: 25
-    }, {
-        label: "Regulisanje stipendije",
-        value: 26
-    }, {
-        label: "Regulisanje studentskog kredita",
-        value: 27
-    }, {
-        label: "Regulisanje subvencije",
-        value: 28
-    }, {
-        label: "Regulisanje turističke vize",
-        value: 29
-    }, {
-        label: "Regulisanje vojne obaveze",
-        value: 30
-    }, {
-        label: "Regulisanje vozačkog ispita",
-        value: 31
-    }, {
-        label: "Regulisanje zdravstvenog osiguranja",
-        value: 32
-    }, {
-        label: "Učlanjenje u studentsku zadrugu",
-        value: 33
-    }, {
-        label: "Uvjerenje o položenim ispitima",
-        value: 34
-    }];
+
+    const getDocTypes = () => {
+        axios.get(' http://192.168.44.83:8080/u/0/document-types', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setDocumentTypes(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    const getCertificateReasons = () => {
+        axios.get(' http://192.168.44.83:8080/u/0/certificate-reasons', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setCertificateReasons(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+
+    function resetFields() {
+        setSelectedValue(6);
+        setSelectedValueType("0");
+        setEnableTypes(true);
+        setScndDropdownStyle(styles.enabled);
+        setScndDropdownView(styles.enabledBorder);
+        setNote("");
+        setShowAddCard(false);
+    }
+
     return (
         <>
-            <View style={{ height: '100%' }}>
+            <View style={{height: '100%'}}>
                 {
                     !showAddCard ? <FAB
                         style={styles.fab}
@@ -130,64 +81,51 @@ export default function DocRequest(){
                 }
 
                 {
-                    showAddCard ?  <View style={styles.card}>
-                        <Title style={{ fontSize: 22, textAlign: 'center', marginBottom: 10 }}>Podnošenje zahtjeva</Title>
-                        <View style={{ borderWidth: 1, borderColor: "#999999", height: 40, paddingTop: '3%', marginBottom: 10}}>
+                    showAddCard ? <View style={styles.card}>
+                        <Title style={{fontSize: 22, textAlign: 'center', marginBottom: 10}}>Podnošenje zahtjeva</Title>
+                        <View style={{
+                            borderWidth: 1,
+                            borderColor: "#999999",
+                            height: 40,
+                            paddingTop: '3%',
+                            marginBottom: 10
+                        }}>
                             <Picker
                                 selectedValue={selectedValue}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 onValueChange={(itemValue, itemIndex) => {
                                     setSelectedValue(itemValue);
-                                    if (itemValue === "1") setEnableTypes(true);
-                                    if (itemValue === "0") setEnableTypes(false);
+                                    if (itemValue === 7) {
+                                        setEnableTypes(false);
+                                        setScndDropdownView(styles.disabledBorder);
+                                        setScndDropdownStyle(styles.disabled);
+                                    }
+                                    if (itemValue === 6) {
+                                        setEnableTypes(true);
+                                        setScndDropdownView(styles.enabledBorder);
+                                        setScndDropdownStyle(styles.enabled);
+                                    }
                                 }}>
-                                <Picker.Item label="Prvi" value="0"/>
-                                <Picker.Item label="Drugi" value="1"/>
+                                {(documentTypes && documentTypes.length !== 0) ? documentTypes.map((doc) => (
+                                    (doc.name === "Statusna potvrda" || doc.name === "Prepis ocjena") ?
+                                        <Picker.Item label={doc.name} value={doc.id}/> : null
+                                )) : <Text>Nema</Text>
+                                }
                             </Picker>
                         </View>
 
-                        <View style={{ borderWidth: 1, borderColor: "#999999", height: 40, paddingTop: '3%', marginBottom: 10}}>
+                        <View style={scndDropdownView}>
                             <Picker
                                 selectedValue={selectedValueType}
-                                style={{ width: '100%' }}
+                                style={scndDropdownStyle}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValueType(itemValue)}
                                 enabled={enableTypes}
                             >
-                                <Picker.Item label="Aplikacija na drugi fakultet" value="0" />
-                                <Picker.Item label="Hospitovanje u školi" value="1" />
-                                <Picker.Item label="Jednokratna novčana pomoć" value="2" />
-                                <Picker.Item label="Regulisanje prava na šehidsku penziju" value="3" />
-                                <Picker.Item label="Regulisanje prava prijave na biro za zapošljavanje" value="4" />
-                                <Picker.Item label="Regulisanje socijalnog statusa" value="5" />
-                                <Picker.Item label="Regulisanje alimentacije" value="6" />
-                                <Picker.Item label="Regulisanje dječijeg dodatka" value="7" />
-                                <Picker.Item label="Regulisanje donacije" value="8" />
-                                <Picker.Item label="Regulisanje ferijalne prakse" value="9" />
-                                <Picker.Item label="Regulisanje penzije za civilne žrtve rata" value="10" />
-                                <Picker.Item label="Regulisanje prava na boračku penziju" value="11" />
-                                <Picker.Item label="Regulisanje prava na honorar" value="12" />
-                                <Picker.Item label="Regulisanje prava na invalidninu" value="13" />
-                                <Picker.Item label="Regulisanje prava na izdavanje pasoša" value="14" />
-                                <Picker.Item label="Regulisanje prava na poreske olakšice" value="15" />
-                                <Picker.Item label="Regulisanje prava na porodičnu penziju" value="16" />
-                                <Picker.Item label="Regulisanje prava na prevoz" value="17" />
-                                <Picker.Item label="Regulisanje prava na pristup internetu" value="18" />
-                                <Picker.Item label="Regulisanje prava na studentski dom" value="19" />
-                                <Picker.Item label="Regulisanje prava privremenog boravka" value="20" />
-                                <Picker.Item label="Regulisanje prava za izdavanje studentske kartice" value="21" />
-                                <Picker.Item label="Regulisanje radne vize" value="22" />
-                                <Picker.Item label="Regulisanje slobodnih dana za zaposlene studente" value="23" />
-                                <Picker.Item label="Regulisanje stambenog pitanja" value="24" />
-                                <Picker.Item label="Regulisanje statusnih pitanja" value="25" />
-                                <Picker.Item label="Regulisanje stipendije" value="26" />
-                                <Picker.Item label="Regulisanje studentskog kredita" value="27" />
-                                <Picker.Item label="Regulisanje subvencije" value="28" />
-                                <Picker.Item label="Regulisanje turističke vize" value="29" />
-                                <Picker.Item label="Regulisanje vojne obaveze" value="30" />
-                                <Picker.Item label="Regulisanje vozačkog ispita" value="31" />
-                                <Picker.Item label="Regulisanje zdravstvenog osiguranja" value="32" />
-                                <Picker.Item label="Učlanjenje u studentsku zadrugu" value="33" />
-                                <Picker.Item label="Uvjerenje o položenim ispitima" value="34" />
+                                {(certificateReasons && certificateReasons.length !== 0) ? certificateReasons.map((cert) =>
+                                    <Picker.Item label={cert.name} value={cert.id}/>
+                                ) : <Text>Nema</Text>
+
+                                }
                             </Picker>
                         </View>
 
@@ -195,25 +133,41 @@ export default function DocRequest(){
                             multiline
                             numberOfLines={4}
                             placeholder="Napomena"
-                            style={{ width: '100%', padding: 10, textAlign: 'left', borderWidth: 1, borderColor: "#999999" }}
+                            style={{
+                                width: '100%',
+                                padding: 10,
+                                textAlign: 'left',
+                                borderWidth: 1,
+                                borderColor: "#999999"
+                            }}
+                            onChangeText={note => setNote(note)}
+                            value={note}
                         />
 
-                        <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'space-between', marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            width: '90%',
+                            justifyContent: 'space-between',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            marginTop: 10
+                        }}>
                             <Button
                                 title="Odustani"
-                                onPress={() => setShowAddCard(false)}
-                                style={{ backgroundColor: 'blue' }} />
-                            <Button title="Spremi" />
+                                onPress={() => resetFields()}
+                                style={{backgroundColor: 'blue'}}/>
+                            <Button title="Spremi"/>
                         </View>
                     </View> : null
                 }
                 <DataTable>
-                    <DataTable.Header >
-                        <DataTable.Title>1</DataTable.Title>
-                        <DataTable.Title>2</DataTable.Title>
-                        <DataTable.Title>3</DataTable.Title>
-
+                    <DataTable.Header style={{ width: '100%' }}>
+                        <DataTable.Title>Tip dokumenta</DataTable.Title>
+                        <DataTable.Title>Datum</DataTable.Title>
+                        <DataTable.Title>Napomena</DataTable.Title>
+                        <DataTable.Title>Status</DataTable.Title>
                     </DataTable.Header>
+
 
 
                 </DataTable>
@@ -253,4 +207,28 @@ const styles = StyleSheet.create({
         right: 0,
         zIndex: 1000
     },
+    disabledBorder: {
+        borderWidth: 1,
+        borderColor: "#dddddd",
+        height: 40,
+        paddingTop: '3%',
+        marginBottom: 10
+
+    },
+    enabledBorder: {
+        borderWidth: 1,
+        borderColor: "#888888",
+        height: 40,
+        paddingTop: '3%',
+        marginBottom: 10
+
+    },
+    disabled: {
+        width: '100%',
+        color: "#dddddd"
+    },
+    enabled: {
+        width: '100%',
+        color: '#000000'
+    }
 });

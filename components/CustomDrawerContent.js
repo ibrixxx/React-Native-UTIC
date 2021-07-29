@@ -11,7 +11,6 @@ export default function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
 
->>>>>>>>> Temporary merge branch 2
             <DrawerItemList {...props} />
 
         </DrawerContentScrollView>
