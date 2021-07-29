@@ -4,9 +4,9 @@ import {
     Subheading,
     Caption,
     ActivityIndicator,
-    List, DataTable, Text,
+    List, DataTable, Text, Divider, Title
 } from "react-native-paper";
-import {ScrollView, StyleSheet} from "react-native";
+import {ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
 
@@ -65,7 +65,7 @@ export default function Grades() {
 
 
     useEffect(() => {
-        axios.get('http://192.168.44.83:8080/u/0/student-exams/all-grades/'
+        axios.get('http://192.168.44.79:8080/u/0/student-exams/all-grades/'
             , {
                 headers: {
                     Accept: 'application/json',
@@ -106,41 +106,44 @@ export default function Grades() {
                 <Caption>U slučaju greške, obratite se odgovarajućem profesuru/ici ili
                     studentskoj službi.</Caption>
             </Banner>
-            <ScrollView>
+            <ScrollView style={{backgroundColor: '#e0e0e0'}}>
                 <List.Section
-                    title="Predmet (ocjena)"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold'}}
+                    title="Predmeti"
+                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0'}}
                 >
                     {(grades.length > 0)?
 
                             grades.map((grade, ind) => {
                                 return (
-                                    <List.Accordion
-                                        key={ind}
-                                        id={ind}
-                                        title={`${grade.courseName}  (${grade.markNumber})`}
-                                        titleStyle={{fontWeight: 'bold'}}
-                                        style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}}
-                                        expanded={ind === activeList}
-                                        onPress={() => handlePress(ind, grade)}
-                                    >
-                                        <List.Item
-                                            title={`Predmet: ${grade.courseName}`}
-                                        />
-                                        <List.Item
-                                            title={`Nastavnik: ${grade.teacher}`}
-                                        />
-                                        <List.Item
-                                            title={`Datum: ${getDateFormated(grade.examDate)}`}
-                                        />
-                                        <List.Item
-                                            title={`ECTS: ${grade.ects}`}
-                                        />
-                                        <List.Item
-                                            title={`Ocjena:  ${grade.mark}`}
-                                            titleStyle={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}
-                                        />
-                                    </List.Accordion>
+                                    <View key={ind}>
+                                        <List.Accordion
+                                            key={ind}
+                                            id={ind}
+                                            title={`${grade.courseName}`}
+                                            titleStyle={{fontWeight: 'bold'}}
+                                            style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}}
+                                            expanded={ind === activeList}
+                                            onPress={() => handlePress(ind, grade)}
+                                        >
+                                            <List.Item
+                                                title={`Predmet: ${grade.courseName}`}
+                                            />
+                                            <List.Item
+                                                title={`Nastavnik: ${grade.teacher}`}
+                                            />
+                                            <List.Item
+                                                title={`Datum: ${getDateFormated(grade.examDate)}`}
+                                            />
+                                            <List.Item
+                                                title={`ECTS: ${grade.ects}`}
+                                            />
+                                            <List.Item
+                                                title={`Ocjena:  ${grade.mark}`}
+                                                titleStyle={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}
+                                            />
+                                        </List.Accordion>
+                                        <Divider key={'dev'+ind}/>
+                                    </View>
                                 );
                             }) :
                         <Text style={{textAlign: 'center'}}>Nemate upisanih ocjena</Text>
@@ -150,18 +153,18 @@ export default function Grades() {
             <DataTable style={{backgroundColor: '#434343'}}>
                 <DataTable.Row>
                     <DataTable.Cell>
-                        <Subheading style={{color: 'white'}}>Prosjek</Subheading>
+                        <Title style={{color: 'white'}}> Prosjek</Title>
                     </DataTable.Cell>
                     <DataTable.Cell numeric>
-                        <Subheading style={{color: 'white'}}>ECTS <Caption style={{color: 'whitesmoke'}}>(Σ)</Caption></Subheading>
+                        <Title style={{color: 'white'}}>ECTS  </Title>
                     </DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
                     <DataTable.Cell>
-                        <Subheading style={{color: 'white'}}>   {average}</Subheading>
+                        <Subheading style={{color: 'white'}}>    {average}</Subheading>
                     </DataTable.Cell>
                     <DataTable.Cell numeric>
-                        <Subheading style={{color: 'white'}}>{ectsSum}   </Subheading>
+                        <Subheading style={{color: 'white'}}>{ectsSum}    </Subheading>
                     </DataTable.Cell>
                 </DataTable.Row>
             </DataTable>
