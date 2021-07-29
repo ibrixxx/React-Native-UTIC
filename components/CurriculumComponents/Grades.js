@@ -85,7 +85,7 @@ export default function Grades() {
 
 
     if (!isReady) {
-        return <ActivityIndicator color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
 
