@@ -13,7 +13,7 @@ export default function DocHistory(){
     }, [])
 
     const getPrevRequests = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/student-documents/requests/bs', {
+        axios.get(' http://192.168.44.79:8080/u/0/student-documents/requests/bs', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -45,13 +45,14 @@ export default function DocHistory(){
                         </DataTable.Header>
 
                         {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev) =>
-                            <DataTable.Row>
-                                {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
-                                    <DataTable.Cell style={{ flex: 0.5 }}>{prev.certificateReasonName}</DataTable.Cell>
-                                }
-                                <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                                <DataTable.Cell style={{ flex: 0.22 }}>{prev.documentStatusName}</DataTable.Cell>
-                            </DataTable.Row>
+                            (prev.documentStatusName !== "primljen zahtjev") ?
+                                <DataTable.Row>
+                                    {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
+                                        <DataTable.Cell style={{ flex: 0.5 }}>{prev.certificateReasonName}</DataTable.Cell>
+                                    }
+                                    <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.22 }}>{prev.documentStatusName}</DataTable.Cell>
+                                </DataTable.Row> : null
                         ):<Text>Nema</Text>
 
                         }

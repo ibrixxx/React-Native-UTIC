@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {DataTable, FAB, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, FAB, Title} from "react-native-paper";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import {Picker} from "@react-native-picker/picker";
@@ -9,6 +9,7 @@ import {Picker} from "@react-native-picker/picker";
 export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
     const [contactTypes, setContactTypes] = useState({})
+    const[isReady, setIsReady] = useState(false)
     const [showAddCard, setShowAddCard] = useState(false)
     const [contactTypeValue, setContactTypeValue] = useState("")
     const [contactValue, setContactValue] = useState("")
@@ -19,7 +20,7 @@ export default function StudentContacts({ navigation }) {
     }, [])
 
     const getUserData = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
+        axios.get('http://192.168.44.79:8080/u/0/students/student/personal-information', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -28,6 +29,7 @@ export default function StudentContacts({ navigation }) {
             .then(respnse => {
                 console.log(respnse.data)
                 setStudent(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
@@ -35,7 +37,7 @@ export default function StudentContacts({ navigation }) {
     }
 
     const getContactTypes = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/contact-types', {
+        axios.get(' http://192.168.44.79:8080/u/0/contact-types', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -44,10 +46,31 @@ export default function StudentContacts({ navigation }) {
             .then(respnse => {
                 console.log(respnse.data)
                 setContactTypes(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    const postNewContact = () => {
+        axios.post('http://192.168.44.79:8080/u/0/students/student/personal-information', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN,
+
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
 
@@ -117,6 +140,7 @@ export default function StudentContacts({ navigation }) {
                             <Button
                                 title="Spremi"
                                 onPress={() => {
+                                    postNewContact();
                                     resetFields()
                                 }}/>
                         </View>

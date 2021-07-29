@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {DataTable, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {StyleSheet, Text, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function StudyData(){
     const[studyProgram, setStudyProgram] = useState({})
+    const[isReady, setIsReady] = useState(false)
 
     useEffect(() => {
         getStudyProgram()
     }, [])
 
     const getStudyProgram = () => {
-        axios.get('http://192.168.44.83:8080/u/0/students/student/personal-information/study-program', {
+        axios.get('http://192.168.44.79:8080/u/0/students/student/personal-information/study-program', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -22,10 +23,15 @@ export default function StudyData(){
             .then(respnse => {
                 console.log(respnse.data)
                 setStudyProgram(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     return (

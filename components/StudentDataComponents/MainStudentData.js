@@ -2,11 +2,14 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {ScrollView, StyleSheet, View, Text} from "react-native";
-import {DataTable, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function MainStudentData(){
     const[student, setStudent] = useState({})
+    const[isReady, setIsReady] = useState(false)
+
+
 
     useEffect(() => {
         getUserData();
@@ -18,7 +21,7 @@ export default function MainStudentData(){
     }
 
     const getUserData = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
+        axios.get(' http://192.168.44.79:8080/u/0/students/student/personal-information', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -27,10 +30,14 @@ export default function MainStudentData(){
             .then(respnse => {
                 console.log(respnse.data)
                 setStudent(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     return (

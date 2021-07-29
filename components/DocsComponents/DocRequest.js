@@ -7,10 +7,11 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 
 export default function DocRequest() {
+    const [prevRequests, setPrevRequests] = useState({});
+    const [filtered, setFiltered] = useState({});
     const [documentTypes, setDocumentTypes] = useState({});
     const [certificateReasons, setCertificateReasons] = useState({});
     const [selectedValue, setSelectedValue] = useState(0);
-    const [selectedType, setSelectedType] = useState("");
     const [enableTypes, setEnableTypes] = useState(true);
     const [selectedValueType, setSelectedValueType] = useState(0);
     const [showAddCard, setShowAddCard] = useState(false);
@@ -19,14 +20,39 @@ export default function DocRequest() {
     const [note, setNote] = useState("");
 
     useEffect(() => {
+        getPrevRequests();
+        /*setFiltered(
+            prevRequests.filter((prev) => {
+                if (prevRequests && prevRequests.length > 0)
+                    prevRequests.filter((prev) => {
+                        if (prevRequests.documentStatusName === "primljen zahtjev") return prev;
+                    })
+            })
+        )*/
+
         getDocTypes();
         getCertificateReasons();
     }, [])
 
+    const getPrevRequests = () => {
+        axios.get(' http://192.168.44.79:8080/u/0/student-documents/requests/bs', {
+            headers: {
+                Accept: 'application/json',
+                Authorization: TOKEN
+            }
+        })
+            .then(respnse => {
+                console.log(respnse.data)
+                setPrevRequests(respnse.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
 
     const getDocTypes = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/document-types', {
+        axios.get(' http://192.168.44.79:8080/u/0/document-types', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -42,7 +68,7 @@ export default function DocRequest() {
     }
 
     const getCertificateReasons = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/certificate-reasons', {
+        axios.get(' http://192.168.44.79:8080/u/0/certificate-reasons', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -57,6 +83,10 @@ export default function DocRequest() {
             });
     }
 
+    const getDateFormated = (n) => {
+        const d = new Date(n);
+        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+    }
 
     function resetFields() {
         setSelectedValue(6);
@@ -106,7 +136,7 @@ export default function DocRequest() {
                                         setScndDropdownStyle(styles.enabled);
                                     }
                                 }}>
-                                {(documentTypes && documentTypes.length !== 0) ? documentTypes.map((doc) => (
+                                {(documentTypes && documentTypes.length > 0) ? documentTypes.map((doc) => (
                                     (doc.name === "Statusna potvrda" || doc.name === "Prepis ocjena") ?
                                         <Picker.Item label={doc.name} value={doc.id}/> : null
                                 )) : <Text>Nema</Text>
@@ -168,6 +198,20 @@ export default function DocRequest() {
                         <DataTable.Title>Status</DataTable.Title>
                     </DataTable.Header>
 
+                    { (filtered && filtered.length > 0) ? filtered.map((prev) => (
+                            <DataTable.Row>
+                            {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
+                                <DataTable.Cell style={{ flex: 0.5 }}>{prev.certificateReasonName}</DataTable.Cell>
+                            }
+                            <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.22 }}>{prev.documentStatusName}</DataTable.Cell>
+                        </DataTable.Row>
+                        )
+
+                    ) : <Text>Nema</Text>
+
+
+                    }
 
 
                 </DataTable>
