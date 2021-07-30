@@ -21,8 +21,6 @@ export default function DocRequest() {
 
     useEffect(() => {
         getPrevRequests();
-
-
         getDocTypes();
         getCertificateReasons();
     }, [])
@@ -83,7 +81,7 @@ export default function DocRequest() {
 
     function resetFields() {
         setSelectedValue(6);
-        setSelectedValueType("0");
+        setSelectedValueType(0);
         setEnableTypes(true);
         setScndDropdownStyle(styles.enabled);
         setScndDropdownView(styles.enabledBorder);
