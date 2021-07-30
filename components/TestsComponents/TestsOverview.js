@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react'
-import {ScrollView, Text, View} from "react-native";
+import {ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {
     ActivityIndicator,
     Button,
     Caption,
-    Checkbox,
     DataTable,
     Divider,
     List,
     Portal,
     Provider
 } from "react-native-paper";
-import CourseModal2 from "../Modals/CourseModal2";
+import CourseModal from "../Modals/CourseModal";
+import AreYouSureModal from "../Modals/AreYouSureModal";
+
 
 
 export default function TestsOverview() {
@@ -22,6 +23,12 @@ export default function TestsOverview() {
     const [past, setPast] = React.useState([]);
     const [activeList, setActiveList] = React.useState(88);
     const [activeList2, setActiveList2] = React.useState(null);
+    const [visible, setVisible] = React.useState(false)
+    const [visible2, setVisible2] = React.useState(false)
+    const [visible3, setVisible3] = React.useState(false)
+    const [courseToDelete, setCourseToDelete] = React.useState('')
+    const [curr, setCurr] = React.useState(null)
+    const [curr2, setCurr2] = React.useState(null)
 
 
     useEffect(() => {
@@ -55,6 +62,14 @@ export default function TestsOverview() {
     }, [])
 
 
+    const showModal = (i) => {setVisible(true); setCurr(i)}
+    const showModal2 = (i) => {setVisible2(true); setCurr2(i)}
+    const showModal3 = () => setVisible3(true)
+    const hideModal = () => setVisible(false)
+    const hideModal2 = () => setVisible2(false)
+    const hideModal3 = () => setVisible3(false)
+
+
     const handlePress = (ind) => {
         if(activeList === ind)
             setActiveList(null)
@@ -71,12 +86,8 @@ export default function TestsOverview() {
 
 
     const formatTimestamp = (num) => {
-        const date = new Date(num);
-        return ""+date.getDate()+
-            "/"+(date.getMonth()+1)+
-            "/"+date.getFullYear()+
-            " "+date.getHours()+
-            ":"+date.getMinutes()+""
+        const d = new Date(num);
+        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.';
     }
 
 
@@ -112,13 +123,13 @@ export default function TestsOverview() {
                             <DataTable>
                                 <DataTable.Header>
                                     <DataTable.Title>Predmet</DataTable.Title>
-                                    <DataTable.Title numeric>Datum i vrijeme</DataTable.Title>
+                                    <DataTable.Title numeric>Datum</DataTable.Title>
                                     <DataTable.Title numeric> </DataTable.Title>
                                 </DataTable.Header>
                                 {
                                     current.map((p, i) => {
                                         return (
-                                            <DataTable.Row key={'s' + i}>
+                                            <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}}>
                                                 <DataTable.Cell>
                                                     {p.courseName}
                                                 </DataTable.Cell>
@@ -126,7 +137,7 @@ export default function TestsOverview() {
                                                     {formatTimestamp(p.examDate)}}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    <Button>Odjavi</Button>
+                                                    <Button key={'bb'+i} onPress={() => {showModal3(); setCourseToDelete(p.courseName)}}>Odjavi</Button>
                                                 </DataTable.Cell>
                                             </DataTable.Row>
                                         );
@@ -147,13 +158,13 @@ export default function TestsOverview() {
                         <DataTable>
                             <DataTable.Header>
                                 <DataTable.Title>Predmet</DataTable.Title>
-                                <DataTable.Title numeric>Datum i vrijeme</DataTable.Title>
+                                <DataTable.Title numeric>Datum</DataTable.Title>
                                 <DataTable.Title numeric>Tip ispita</DataTable.Title>
                             </DataTable.Header>
                             {
                                 past.map((p, i) => {
                                     return(
-                                        <DataTable.Row key={'d'+i}>
+                                        <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
                                             <DataTable.Cell>
                                                 {p.courseName}
                                             </DataTable.Cell>
@@ -175,7 +186,9 @@ export default function TestsOverview() {
             </ScrollView>
             <Provider>
                 <Portal>
-
+                    <CourseModal index={curr} visible={visible} courses={current} hideModal={hideModal}/>
+                    <CourseModal index={curr2} visible={visible2} courses={past} hideModal={hideModal2}/>
+                    <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete}?`} hideModal={hideModal3} visible={visible3}/>
                 </Portal>
             </Provider>
         </View>

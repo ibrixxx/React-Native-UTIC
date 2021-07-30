@@ -3,7 +3,6 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 import {ActivityIndicator, Button, Divider, List, Portal, Provider} from "react-native-paper";
 import {ScrollView, View} from "react-native";
-import CourseModal from "../Modals/CourseModal";
 import CourseModal2 from "../Modals/CourseModal2";
 
 export default function AllSemesters() {
@@ -63,8 +62,7 @@ export default function AllSemesters() {
         <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                 title="Nastavni plan i program"
-                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0'}}
-            >
+                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0'}}>
                 {
                     semesters.map((sem, ind) => {
                         return (
@@ -100,6 +98,5 @@ export default function AllSemesters() {
                 </Portal>
             </Provider>
         </ScrollView>
-
     );
 }

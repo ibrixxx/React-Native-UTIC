@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {View, Clipboard, Text} from "react-native";
-import {DataTable, Searchbar, Snackbar} from "react-native-paper";
+import {ActivityIndicator, DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
 import MyHeader from "./MyHeader";
@@ -12,11 +12,15 @@ export default function Staff({ navigation }) {
     const [data, setData] = React.useState([]);
     const [filterMode, setFilterMode] = React.useState(false);
     const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+    const [isReady, setIsReady] = React.useState(false);
+
+
+
     const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
     const onDismissSnackBar = () => setVisibleSnackbar(false);
 
 
-    const   returnData = () => {
+    const returnData = () => {
         if(filterMode) {
             return filterData
         }
@@ -54,11 +58,19 @@ export default function Staff({ navigation }) {
             })
             .then(function (response) {
                 setData(response.data)
+                setIsReady(true)
             })
             .catch(function (error) {
                 console.log('error: ',error);
             })
     }, [])
+
+
+
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+    }
+
 
     return (
             <View style={{ flex: 1, alignItems: 'center' }}>
