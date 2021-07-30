@@ -65,7 +65,7 @@ export default function SelectedClasses({selected}) {
         <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                 title="Izborni predmeti"
-                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0'}}>
+                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                     <List.Accordion
                         title={`Odabrani izborni predmeti`}
                         titleStyle={{fontWeight: 'bold'}}

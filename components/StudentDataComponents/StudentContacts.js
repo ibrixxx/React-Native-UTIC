@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ActivityIndicator, DataTable, FAB, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, FAB, Portal, Provider, Title} from "react-native-paper";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
-import {Picker} from "@react-native-picker/picker";
+import AddContactModal from "../Modals/AddContactModal";
 
 export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
-    const [contactTypes, setContactTypes] = useState({})
     const[isReady, setIsReady] = useState(false)
-    const [showAddCard, setShowAddCard] = useState(false)
-    const [contactTypeValue, setContactTypeValue] = useState("")
-    const [contactValue, setContactValue] = useState("")
+    const [visible, setVisible] = React.useState(false)
+
+    const showModal = () => {setVisible(true)}
+    const hideModal = () => setVisible(false)
+
 
     useEffect(() => {
         getUserData();
-        getContactTypes();
     }, [])
 
     const getUserData = () => {
@@ -36,22 +36,6 @@ export default function StudentContacts({ navigation }) {
             });
     }
 
-    const getContactTypes = () => {
-        axios.get(' http://192.168.44.79:8080/u/0/contact-types', {
-            headers: {
-                Accept: 'application/json',
-                Authorization: TOKEN
-            }
-        })
-            .then(respnse => {
-                console.log(respnse.data)
-                setContactTypes(respnse.data)
-                setIsReady(true)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
 
     const postNewContact = () => {
         axios.post('http://192.168.44.79:8080/u/0/students/student/personal-information', {
@@ -74,82 +58,25 @@ export default function StudentContacts({ navigation }) {
     }
 
 
-    function resetFields() {
+    /*function resetFields() {
         setShowAddCard(false)
         setContactValue("")
         setContactTypeValue("")
         setContactValue("")
-    }
+    }*/
 
     return (
         <>
             <View style={{height: '100%'}}>
-                {
-                    !showAddCard ? <FAB
-                        style={style.fab}
-                        small
-                        icon="plus"
-                        onPress={() => setShowAddCard(true)}
-                    /> : null
-                }
-
-                {
-                    showAddCard ? <View style={style.card}>
-                        <Title style={style.title}>Dodaj kontakt</Title>
-                        <View style={{
-                            borderWidth: 1,
-                            borderColor: "#999999",
-                            height: 40,
-                            paddingTop: '3%',
-                            marginBottom: 10
-                        }}>
-                            <Picker
-                                selectedValue={contactTypeValue}
-                                onValueChange={(itemValue, itemIndex) => setContactTypeValue(itemValue)}>
-                                {(contactTypes && contactTypes.length !== 0) ? contactTypes.map((type) => (
-                                    <Picker.Item label={type.name} value={type.id}/>
-                                )) : <Text>Nema</Text>
-                                }
-                            </Picker>
-                        </View>
-
-                        <TextInput
-                            style={{
-                                backgroundColor: '#ffffff',
-                                height: 40,
-                                borderWidth: 1,
-                                borderColor: "#999999",
-                                padding: 5,
-                                marginBottom: 10
-                            }}
-                            placeholder="Vrijednost"
-                            onChangeText={contact => setContactValue(contact)}
-                            value={contactValue}/>
-
-                        <View style={{
-                            flexDirection: 'row',
-                            width: '90%',
-                            justifyContent: 'space-between',
-                            marginLeft: 'auto',
-                            marginRight: 'auto'
-                        }}>
-                            <Button
-                                title="Odustani"
-                                onPress={() => resetFields()}
-                                style={{backgroundColor: 'blue'}}/>
-                            <Button
-                                title="Spremi"
-                                onPress={() => {
-                                    postNewContact();
-                                    resetFields()
-                                }}/>
-                        </View>
-
-                    </View> : null
-                }
+                <FAB
+                    style={style.fab}
+                    small
+                    icon="plus"
+                    onPress={() => showModal()}
+                />
 
                 <View style={style.container}>
-                    <Title style={style.title}>Kontakt</Title>
+                    <Title style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, marginBottom: 10, textAlign: 'center'}}>Kontakt</Title>
 
                     <DataTable>
                         {
@@ -168,6 +95,11 @@ export default function StudentContacts({ navigation }) {
                 </View>
 
             </View>
+            <Provider>
+                <Portal>
+                    <AddContactModal visible={visible} hideModal={hideModal}/>
+                </Portal>
+            </Provider>
         </>
     );
 }

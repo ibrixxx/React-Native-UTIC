@@ -109,7 +109,7 @@ export default function Grades() {
             <ScrollView style={{backgroundColor: '#e0e0e0'}}>
                 <List.Section
                     title="Predmeti"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0'}}
+                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}
                 >
                     {(grades.length > 0)?
 
