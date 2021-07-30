@@ -33,6 +33,12 @@ export default function AddContactModal({visible, hideModal }) {
             });
     }
 
+    function resetFields() {
+        setContactValue("")
+        setContactTypeValue("")
+        setContactValue("")
+    }
+
     return(
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
             <Title style={style.title}>Dodaj kontakt</Title>
@@ -74,12 +80,16 @@ export default function AddContactModal({visible, hideModal }) {
                 marginRight: 'auto'
             }}>
                 <Button
-                    onPress={() => hideModal()}
+                    onPress={() => {
+                        resetFields();
+                        hideModal();
+                    }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Odustani</Button>
                 <Button
                     onPress={() => {
-                        hideModal()
+                        resetFields();
+                        hideModal();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Spremi</Button>

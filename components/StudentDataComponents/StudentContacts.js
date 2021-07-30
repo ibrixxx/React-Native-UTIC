@@ -58,12 +58,7 @@ export default function StudentContacts({ navigation }) {
     }
 
 
-    /*function resetFields() {
-        setShowAddCard(false)
-        setContactValue("")
-        setContactTypeValue("")
-        setContactValue("")
-    }*/
+
 
     return (
         <>
