@@ -37,6 +37,7 @@ export default function AddContactModal({visible, hideModal }) {
         setContactValue("")
         setContactTypeValue("")
         setContactValue("")
+        hideModal()
     }
 
     return(
@@ -54,7 +55,7 @@ export default function AddContactModal({visible, hideModal }) {
                     onValueChange={(itemValue, itemIndex) => setContactTypeValue(itemValue)}>
                     {(contactTypes && contactTypes.length > 0) ? contactTypes.map((type) => (
                         <Picker.Item label={type.name} value={type.id}/>
-                    )) : <Text>Nema</Text>
+                    )) : <Picker.Item>Nema</Picker.Item>
                     }
                 </Picker>
             </View>
@@ -82,14 +83,12 @@ export default function AddContactModal({visible, hideModal }) {
                 <Button
                     onPress={() => {
                         resetFields();
-                        hideModal();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Odustani</Button>
                 <Button
                     onPress={() => {
                         resetFields();
-                        hideModal();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Spremi</Button>
