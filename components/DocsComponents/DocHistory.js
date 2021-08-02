@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {DataTable, Title} from "react-native-paper";
+import {DataTable, Portal, Provider, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import {Icon} from "react-native-elements";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import CourseModal2 from "../Modals/CourseModal2";
+import DocsModal from "../Modals/DocsModal";
 
 export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
-    const [statusStyle, setStatusStyle] = useState(styles.yellowStyle);
+    const [visible, setVisible] = React.useState(false)
+    const [curr, setCurr] = React.useState(null)
+
+    const showModal = (i) => {setVisible(true); setCurr(i)}
+    const hideModal = () => setVisible(false)
 
     useEffect(() => {
         getPrevRequests();
@@ -51,9 +57,9 @@ export default function DocHistory(){
                             <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
                         </DataTable.Header>
 
-                        {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev) =>
+                        {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
                             (prev.documentStatusName !== "primljen zahtjev") ?
-                                <DataTable.Row style={getStyle(prev.documentStatusName)}>
+                                <DataTable.Row style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
                                     {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.75 }}>{prev.documentTypeName}</DataTable.Cell> :
                                         <DataTable.Cell style={{ flex: 0.75 }}>{prev.certificateReasonName}</DataTable.Cell>
                                     }
@@ -63,8 +69,14 @@ export default function DocHistory(){
 
                         }
                     </DataTable>
-                </ScrollView>
 
+
+                </ScrollView>
+                <Provider>
+                    <Portal>
+                        <DocsModal index={curr} visible={visible} docs={prevRequests} hideModal={hideModal}/>
+                    </Portal>
+                </Provider>
             </View>
         </>
     )
