@@ -69,6 +69,7 @@ export default function SelectedClasses({selected}) {
                     <List.Accordion
                         title={`Odabrani izborni predmeti`}
                         titleStyle={{fontWeight: 'bold'}}
+                        theme={{ colors: { primary: 'dodgerblue' }}}
                         expanded={88 === activeList}
                         onPress={() => handlePress(88)}>
                         <DataTable>
@@ -101,6 +102,7 @@ export default function SelectedClasses({selected}) {
                     <List.Accordion
                         title={`Dostupni izborni predmeti`}
                         titleStyle={{fontWeight: 'bold'}}
+                        theme={{ colors: { primary: 'dodgerblue' }}}
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         <DataTable>
@@ -136,7 +138,10 @@ export default function SelectedClasses({selected}) {
                             })
                         }
                             <DataTable.Row>
-                                <Button onPress={() => console.log('Pressed')}>Potvrdi</Button>
+                                <DataTable.Cell></DataTable.Cell>
+                                <DataTable.Cell></DataTable.Cell>
+                                <DataTable.Cell></DataTable.Cell>
+                                <Button color={'darkgreen'} onPress={() => console.log('Pressed')}>Potvrdi</Button>
                             </DataTable.Row>
                         </DataTable>
                     </List.Accordion>
