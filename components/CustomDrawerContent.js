@@ -4,6 +4,8 @@ import {Text, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {Avatar} from "react-native-elements";
+import {Touchable} from "react-native-web";
+import {TouchableRipple} from "react-native-paper";
 
 
 export default function CustomDrawerContent(props) {
@@ -60,22 +62,25 @@ export default function CustomDrawerContent(props) {
 
     return (
         <DrawerContentScrollView {...props}>
-            <View
-                style={{
-                    backgroundColor: '#434343',
-                    padding: 20,
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexDirection: 'row'
-                }}
-            >
-                <Avatar rounded title={getInitials()} size="large" overlayContainerStyle={{ backgroundColor: 'dodgerblue' }}/>
-                <View>
-                    <Text style={{ color: 'white', fontSize: 20 }}>{student.firstName} {student.lastName}</Text>
-                    <Text style={{ color: 'white' }}>index: {studyProgram.index}</Text>
-                </View>
+            <TouchableRipple
+                onPress={() => props.navigation.navigate("StudentData")}>
+                <View
+                    style={{
+                        backgroundColor: '#434343',
+                        padding: 20,
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row'
+                    }}
+                >
+                    <Avatar rounded title={getInitials()} size="large" overlayContainerStyle={{ backgroundColor: 'dodgerblue' }}/>
+                    <View>
+                        <Text style={{ color: 'white', fontSize: 20 }}>{student.firstName} {student.lastName}</Text>
+                        <Text style={{ color: 'white' }}>index: {studyProgram.index}</Text>
+                    </View>
 
-            </View>
+                </View>
+            </TouchableRipple>
 
             <DrawerItemList {...props} />
 
