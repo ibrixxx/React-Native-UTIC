@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {DataTable, FAB, Portal, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import {Icon} from "react-native-elements";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
@@ -9,15 +10,14 @@ import AddDocRequestModal from "../Modals/AddDocRequestModal";
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState({});
     const [filtered, setFiltered] = useState({});
-    const [visible, setVisible] = React.useState(false)
+    const [visible, setVisible] = useState(false)
+
 
     const showModal = () => {setVisible(true)}
     const hideModal = () => setVisible(false)
 
     useEffect(() => {
         getPrevRequests();
-        getDocTypes();
-        getCertificateReasons();
     }, [])
 
     const getPrevRequests = () => {
@@ -37,43 +37,18 @@ export default function DocRequest() {
     }
 
 
-    const getDocTypes = () => {
-        axios.get(' http://192.168.44.79:8080/u/0/document-types', {
-            headers: {
-                Accept: 'application/json',
-                Authorization: TOKEN
-            }
-        })
-            .then(respnse => {
-                console.log(respnse.data)
-                setDocumentTypes(respnse.data)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
-    const getCertificateReasons = () => {
-        axios.get(' http://192.168.44.79:8080/u/0/certificate-reasons', {
-            headers: {
-                Accept: 'application/json',
-                Authorization: TOKEN
-            }
-        })
-            .then(respnse => {
-                console.log(respnse.data)
-                setCertificateReasons(respnse.data)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
 
     const getDateFormated = (n) => {
         const d = new Date(n);
         return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
     }
 
+    function getIcon(str){
+        if (str === "primljen zahtjev" || str === "u obradi") return <Icon name="done"/>
+        if (str === "obrađen") return <Icon name="close"/>
+        if (str === "poništen" || str === "odbijen") return <Icon name="arrow_downward"/>
+
+    }
 
 
     return (
@@ -95,12 +70,13 @@ export default function DocRequest() {
                     </DataTable.Header>
 
                     { (filtered && filtered.length > 0) ? filtered.map((prev) => (
-                            <DataTable.Row>
+                            <DataTable.Row >
                             {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
                                 <DataTable.Cell style={{ flex: 0.5 }}>{prev.certificateReasonName}</DataTable.Cell>
                             }
                             <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.22 }}>{prev.documentStatusName}</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.22 }}>{getIcon(prev.documentStatusName)}</DataTable.Cell>
+
                         </DataTable.Row>
                         )
 
@@ -153,5 +129,14 @@ const styles = StyleSheet.create({
         right: 0,
         zIndex: 1000
     },
+    yellowStyle: {
+        color: '#F4F3A9'
+    },
+    redStyle: {
+        color: '#EDBBBB'
+    },
+    greenStyle: {
+        color: '#C5EDBB'
+    }
 
 });

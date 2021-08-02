@@ -8,6 +8,7 @@ import SelectedClasses from "./CurriculumComponents/SelectedClasses";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {ActivityIndicator} from "react-native-paper";
+import {View} from "react-native";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -37,7 +38,12 @@ export default function Curriculum({ navigation }) {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return (
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Studij" navigation={navigation}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+            </View>
+        )
     }
 
 
