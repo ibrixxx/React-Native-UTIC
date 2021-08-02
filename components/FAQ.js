@@ -45,7 +45,7 @@ export default function FAQ({ navigation }) {
                 { (questions && questions.length > 0) ?
                     questions.map((ques, index) => (
                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
-                            <DataTable.Cell>{ques.question}</DataTable.Cell>
+                            <DataTable.Cell ><Text >{ques.question}</Text></DataTable.Cell>
                         </DataTable.Row>
                     ))
                     : <Text>Nema</Text>

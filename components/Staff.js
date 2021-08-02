@@ -68,7 +68,13 @@ export default function Staff({ navigation }) {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return (
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+            </View>
+        )
+
     }
 
 
