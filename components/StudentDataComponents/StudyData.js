@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {DataTable, Title} from "react-native-paper";
-import {StyleSheet, View} from "react-native";
+import {ActivityIndicator, DataTable, Title} from "react-native-paper";
+import {StyleSheet, Text, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function StudyData(){
     const[studyProgram, setStudyProgram] = useState({})
+    const[isReady, setIsReady] = useState(false)
 
     useEffect(() => {
         getStudyProgram()
     }, [])
 
     const getStudyProgram = () => {
-        axios.get('http://192.168.44.83:8080/u/0/students/student/personal-information/study-program', {
+        axios.get('http://192.168.44.79:8080/u/0/students/student/personal-information/study-program', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -22,10 +23,15 @@ export default function StudyData(){
             .then(respnse => {
                 console.log(respnse.data)
                 setStudyProgram(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     return (
@@ -33,32 +39,32 @@ export default function StudyData(){
             <View style={style.container}>
                 <DataTable style={{ marginTop: 20 }}>
                     <DataTable.Row>
-                        <DataTable.Cell>Index</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Index</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.index?studyProgram.index:''}</DataTable.Cell>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <DataTable.Cell>Fakultet</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Fakultet</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.faculties?studyProgram.faculties[0].name:''}</DataTable.Cell>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <DataTable.Cell>Odsjek</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Odsjek</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.department?studyProgram.department[0].name:''}</DataTable.Cell>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <DataTable.Cell>Studijski program</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Studijski program</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.studyProgramBasic?studyProgram.studyProgramBasic:''}</DataTable.Cell>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <DataTable.Cell>Semestar</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Semestar</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.currentSemester?studyProgram.currentSemester:''}</DataTable.Cell>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <DataTable.Cell>Tip studija</DataTable.Cell>
+                        <DataTable.Cell><Text style={style.TDStyleLeft}>Tip studija</Text></DataTable.Cell>
                         <DataTable.Cell>{studyProgram.studyType?studyProgram.studyType:''}</DataTable.Cell>
                     </DataTable.Row>
 
@@ -78,5 +84,8 @@ const style = StyleSheet.create({
     title: {
         textAlign: 'center',
         marginBottom: 10
+    },
+    TDStyleLeft: {
+        fontWeight: 'bold'
     }
 });

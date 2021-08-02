@@ -2,11 +2,14 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {ScrollView, StyleSheet, View, Text} from "react-native";
-import {DataTable, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function MainStudentData(){
     const[student, setStudent] = useState({})
+    const[isReady, setIsReady] = useState(false)
+
+
 
     useEffect(() => {
         getUserData();
@@ -18,7 +21,7 @@ export default function MainStudentData(){
     }
 
     const getUserData = () => {
-        axios.get(' http://192.168.44.83:8080/u/0/students/student/personal-information', {
+        axios.get(' http://192.168.44.79:8080/u/0/students/student/personal-information', {
             headers: {
                 Accept: 'application/json',
                 Authorization: TOKEN
@@ -27,17 +30,21 @@ export default function MainStudentData(){
             .then(respnse => {
                 console.log(respnse.data)
                 setStudent(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     return (
         <>
             <ScrollView>
                 <View style={style.container}>
-                    <Title style={style.title}>Podaci o studentu</Title>
+                    <Title style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, marginBottom: 10, textAlign: 'center'}}>Podaci o studentu</Title>
                     <DataTable>
                         <DataTable.Row style={{textAlign: 'right'}}>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
@@ -45,71 +52,71 @@ export default function MainStudentData(){
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ textAlign: 'right'}}>OID</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>OID</Text></DataTable.Cell>
                             <DataTable.Cell>{student.oid}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>JMBG</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>JMBG</Text></DataTable.Cell>
                             <DataTable.Cell>{student.jmbg}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Ime</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Ime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.firstName}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Prezime</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Prezime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.lastName}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Djevojačko prezime</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Djevojačko prezime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.maidenName}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Spol</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Spol</Text></DataTable.Cell>
                             <DataTable.Cell>{student.gender}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Datum rođenja</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Datum rođenja</Text></DataTable.Cell>
                             <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Mjesto rođenja</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Mjesto rođenja</Text></DataTable.Cell>
                             <DataTable.Cell>{student.placeOfBirth}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Ime i prezime oca</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Ime i prezime oca</Text></DataTable.Cell>
                             <DataTable.Cell>{student.fatherFirstName + " " + student.fatherLastName}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Ime i prezime majke</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Ime i prezime majke</Text></DataTable.Cell>
                             <DataTable.Cell>{student.motherFirstName + " " + student.motherLastName}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Mjesto prebivališta</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Mjesto prebivališta</Text></DataTable.Cell>
                             <DataTable.Cell>{student.residence}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Mjesto boravka</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Mjesto boravka</Text></DataTable.Cell>
                             <DataTable.Cell>{student.currentResidence}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Nacionalnost</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Nacionalnost</Text></DataTable.Cell>
                             <DataTable.Cell>{student.nationality}</DataTable.Cell>
                         </DataTable.Row>
                         <DataTable.Row>
-                            <DataTable.Cell style={style.TDStyleLeft}>Državljanstvo</DataTable.Cell>
+                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Državljanstvo</Text></DataTable.Cell>
                             <DataTable.Cell>{student.citizenships?student.citizenships[0].country.name : ''}</DataTable.Cell>
                         </DataTable.Row>
                     </DataTable>

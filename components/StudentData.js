@@ -15,7 +15,6 @@ export default function StudentData({ navigation }) {
     return (
         <>
             <MyHeader myTitle="Lični podaci" navigation={navigation}/>
-
             <Tab.Navigator tabBarOptions={{
                 activeTintColor: 'dodgerblue',
                 labelStyle: { fontSize: 11, color: 'white'},

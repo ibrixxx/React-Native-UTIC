@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {View, Clipboard, Text} from "react-native";
-import {DataTable, Searchbar, Snackbar} from "react-native-paper";
+import {ActivityIndicator, DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
 import MyHeader from "./MyHeader";
@@ -12,11 +12,15 @@ export default function Staff({ navigation }) {
     const [data, setData] = React.useState([]);
     const [filterMode, setFilterMode] = React.useState(false);
     const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+    const [isReady, setIsReady] = React.useState(false);
+
+
+
     const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
     const onDismissSnackBar = () => setVisibleSnackbar(false);
 
 
-    const   returnData = () => {
+    const returnData = () => {
         if(filterMode) {
             return filterData
         }
@@ -54,11 +58,25 @@ export default function Staff({ navigation }) {
             })
             .then(function (response) {
                 setData(response.data)
+                setIsReady(true)
             })
             .catch(function (error) {
                 console.log('error: ',error);
             })
     }, [])
+
+
+
+    if (!isReady) {
+        return (
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+            </View>
+        )
+
+    }
+
 
     return (
             <View style={{ flex: 1, alignItems: 'center' }}>
@@ -79,9 +97,9 @@ export default function Staff({ navigation }) {
                             returnData().map((prof, index) => {
                                 return (
                                     <DataTable.Row key={index}>
-                                        <DataTable.Cell>{prof.lastName}</DataTable.Cell>
-                                        <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.4}}>{prof.lastName}</DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.2}}>{prof.firstName}</DataTable.Cell>
+                                        <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.6}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                                     </DataTable.Row>
                                 )
                             })

@@ -8,6 +8,7 @@ import SelectedClasses from "./CurriculumComponents/SelectedClasses";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {ActivityIndicator} from "react-native-paper";
+import {View} from "react-native";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -37,7 +38,12 @@ export default function Curriculum({ navigation }) {
 
 
     if (!isReady) {
-        return <ActivityIndicator color={'dodgerblue'} size={'large'}/>
+        return (
+            <View style={{ flex: 1, alignItems: 'center' }}>
+                <MyHeader myTitle="Studij" navigation={navigation}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+            </View>
+        )
     }
 
 
@@ -49,9 +55,9 @@ export default function Curriculum({ navigation }) {
                 labelStyle: { fontSize: 11, color: 'white'},
                 style: { backgroundColor: '#434343'},
             }}>
-                <Tab.Screen name="ThirdTab" component={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
+                <Tab.Screen name="ThirdTab" children={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
                 <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
-                <Tab.Screen name="SecondTab" component={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
+                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
                 <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
             </Tab.Navigator>
         </>
