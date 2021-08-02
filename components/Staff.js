@@ -97,9 +97,9 @@ export default function Staff({ navigation }) {
                             returnData().map((prof, index) => {
                                 return (
                                     <DataTable.Row key={index}>
-                                        <DataTable.Cell>{prof.lastName}</DataTable.Cell>
-                                        <DataTable.Cell>{prof.firstName}</DataTable.Cell>
-                                        <DataTable.Cell style={{borderColor: '#dcf3f5'}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.4}}>{prof.lastName}</DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.2}}>{prof.firstName}</DataTable.Cell>
+                                        <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.6}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                                     </DataTable.Row>
                                 )
                             })

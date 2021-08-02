@@ -72,16 +72,20 @@ export default function AllSemesters() {
                                         id={ind}
                                         title={`Semestar ${sem[0]}`}
                                         titleStyle={{fontWeight: 'bold'}}
+                                        theme={{ colors: { primary: 'dodgerblue' }}}
                                         expanded={ind === activeList}
-                                        onPress={() => handlePress(ind)}
-                                    >
+                                        onPress={() => handlePress(ind)}>
                                         {
                                             sem[1].map((c, i) => {
                                                 return (
-                                                    <List.Item
-                                                        key={'li'+i}
-                                                        title={c.courseName}
-                                                        onPress={() => showModal(i)}/>
+                                                    <View key={'dss'+i}>
+                                                        <List.Item
+                                                            key={'li'+i}
+                                                            title={c.courseName}
+                                                            titleStyle={{fontWeight: 'bold'}}
+                                                            onPress={() => showModal(i)}/>
+                                                        <Divider/>
+                                                    </View>
                                                 );
                                             })
                                         }

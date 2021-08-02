@@ -11,30 +11,6 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 
 
-const pom = [
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 1
-    },
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 0
-    },
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 1
-    },
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 1
-    },
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 0
-    },
-    {
-        courseName: 'DSAdas', markNumber: 8, mark: '8(oaskd)', teacher: 'dasda asfasf', examDate: '16156156', ects: '5', markStatus: 1
-    },
-]
-
-
-
-
 
 export default function Grades() {
     const [visible, setVisible] = React.useState(false);
@@ -109,16 +85,16 @@ export default function Grades() {
             <ScrollView style={{backgroundColor: '#e0e0e0'}}>
                 <List.Section
                     title="Predmeti"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}
-                >
-                    {(grades.length > 0)?
-
+                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                    {
+                        (grades.length > 0)?
                             grades.map((grade, ind) => {
                                 return (
                                     <View key={ind}>
                                         <List.Accordion
                                             key={ind}
                                             id={ind}
+                                            theme={{ colors: { primary: 'dodgerblue' }}}
                                             title={`${grade.courseName}`}
                                             titleStyle={{fontWeight: 'bold'}}
                                             style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}}
@@ -126,20 +102,29 @@ export default function Grades() {
                                             onPress={() => handlePress(ind, grade)}
                                         >
                                             <List.Item
-                                                title={`Predmet: ${grade.courseName}`}
+                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Predmet: </Caption>}
+                                                title={grade.courseName}
+                                                titleStyle={{fontWeight: 'bold'}}
                                             />
                                             <List.Item
-                                                title={`Nastavnik: ${grade.teacher}`}
+                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Nastavnik: </Caption>}
+                                                title={grade.teacher}
+                                                titleStyle={{fontWeight: 'bold'}}
                                             />
                                             <List.Item
-                                                title={`Datum: ${getDateFormated(grade.examDate)}`}
+                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Datum: </Caption>}
+                                                title={getDateFormated(grade.examDate)}
+                                                titleStyle={{fontWeight: 'bold'}}
                                             />
                                             <List.Item
-                                                title={`ECTS: ${grade.ects}`}
+                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>ECTS: </Caption>}
+                                                title={grade.ects}
+                                                titleStyle={{fontWeight: 'bold'}}
                                             />
                                             <List.Item
-                                                title={`Ocjena:  ${grade.mark}`}
-                                                titleStyle={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}
+                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Ocjena: </Caption>}
+                                                title={grade.mark}
+                                                titleStyle={{color: (grade.markStatus === 1) ? 'black' : '#c2a711', fontWeight: 'bold'}}
                                             />
                                         </List.Accordion>
                                         <Divider key={'dev'+ind}/>
