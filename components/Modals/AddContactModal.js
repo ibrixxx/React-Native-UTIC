@@ -1,16 +1,18 @@
-import {Modal, Title, Button} from "react-native-paper";
-import { StyleSheet, Text, TextInput, View} from "react-native";
+import {Modal, Title, Button, Snackbar} from "react-native-paper";
+import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
 import {white} from "react-native-paper/src/styles/colors";
 
-export default function AddContactModal({visible, hideModal }) {
+export default function AddContactModal({visibleAdd, hideAddModal }) {
     const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
     const [contactTypes, setContactTypes] = useState({})
-    const [contactTypeValue, setContactTypeValue] = useState("")
+    const [contactTypeValue, setContactTypeValue] = useState(1)
     const [contactValue, setContactValue] = useState("")
+
+    const [warning, setWarning] = useState(false);
 
 
     useEffect(() => {
@@ -33,15 +35,41 @@ export default function AddContactModal({visible, hideModal }) {
             });
     }
 
+    const validate = (email) => {
+        const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+        return expression.test(String(email).toLowerCase())
+    }
+
+    const sendContact = () => {
+        axios.post('http://192.168.44.79:8080/u/0/students/student/personal-information/contact', {
+            contactTypeId: contactTypeValue,
+            value: contactValue,
+        },{ headers:
+                    {
+                        Accept: 'application/json',
+                        Authorization: TOKEN
+                    }
+            }
+
+        )
+            .then(respnse => {
+                console.log("Upisan")
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     function resetFields() {
         setContactValue("")
-        setContactTypeValue("")
+        setContactTypeValue(0)
         setContactValue("")
-        hideModal()
+        hideAddModal()
     }
 
     return(
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+        <Modal visible={visibleAdd} onDismiss={hideAddModal} contentContainerStyle={containerStyle}>
             <Title style={style.title}>Dodaj kontakt</Title>
             <View style={{
                 borderWidth: 1,
@@ -59,6 +87,11 @@ export default function AddContactModal({visible, hideModal }) {
                     }
                 </Picker>
             </View>
+
+            {
+                warning ? <Text style={{ color: 'red' }}>* E-mail nije validan</Text> : null
+            }
+
 
             <TextInput
                 style={{
@@ -88,12 +121,20 @@ export default function AddContactModal({visible, hideModal }) {
                     color={'white'}>Odustani</Button>
                 <Button
                     onPress={() => {
-                        resetFields();
+                        if (contactTypeValue === 1 || contactTypeValue === 6){
+                            if (validate(contactValue)) {
+                                sendContact();
+                                resetFields();
+                            }
+                            else setWarning(true)
+                        }
+                        else sendContact();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Spremi</Button>
 
             </View>
+
         </Modal>
     )
 }
