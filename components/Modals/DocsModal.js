@@ -29,20 +29,20 @@ export default function DocsModal({visible, hideModal, index, docs}) {
             }
             <DataTable style={{ width: '75%', marginLeft: 'auto', marginRight: 'auto' }}>
                 <DataTable.Row>
-                    <DataTable.Cell>Datum:</DataTable.Cell>
+                    <DataTable.Cell><Text style={{ fontWeight: 'bold' }}>Datum:</Text></DataTable.Cell>
                     <DataTable.Cell>{docs[index] ? getDateFormated(docs[index].date) : ""}</DataTable.Cell>
                 </DataTable.Row>
 
                 <DataTable.Row>
-                    <DataTable.Cell>Status:</DataTable.Cell>
-                    {docs[index] ? <DataTable.Cell>{docs[index].documentStatusName} {getIcon(docs[index].documentStatusName)}</DataTable.Cell> : <DataTable.Cell></DataTable.Cell>}
+                    <DataTable.Cell><Text style={{ fontWeight: 'bold' }}>Status:</Text></DataTable.Cell>
+                    {docs[index] ? <DataTable.Cell>{docs[index].documentStatusName}</DataTable.Cell> : <DataTable.Cell></DataTable.Cell>}
                 </DataTable.Row>
 
             </DataTable>
 
             <Text
-                style={{ marginLeft: '10%', marginTop: 20, marginBottom: 10 }}>Napomena:</Text>
-            <View style={{ width: '85%', padding: 10, borderWidth: 1, borderColor: '#999999', marginLeft: 'auto', marginRight: 'auto' }}>
+                style={{ marginLeft: '10%', marginTop: 20, marginBottom: 10, fontWeight: 'bold' }}>Napomena:</Text>
+            <View style={{ width: '85%', padding: 10, marginLeft: 'auto', marginRight: 'auto' }}>
                 {docs[index] ?
                     (docs[index].comment !== null) ? <Text>{docs[index].comment}</Text> : <Text> / </Text>
                 : <Text> </Text>}
