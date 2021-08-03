@@ -10,7 +10,7 @@ import {
     Divider,
     List,
     Portal,
-    Provider
+    Provider, Text
 } from "react-native-paper";
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
@@ -26,12 +26,18 @@ export default function TestsOverview() {
     const [visible, setVisible] = React.useState(false)
     const [visible2, setVisible2] = React.useState(false)
     const [visible3, setVisible3] = React.useState(false)
-    const [courseToDelete, setCourseToDelete] = React.useState('')
+    const [courseToDelete, setCourseToDelete] = React.useState({})
     const [curr, setCurr] = React.useState(null)
     const [curr2, setCurr2] = React.useState(null)
 
 
     useEffect(() => {
+        getCurrentExams()
+        getPastExams()
+    }, [])
+
+
+    const getCurrentExams = () => {
         axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/false'
             , {
                 headers: {
@@ -41,25 +47,47 @@ export default function TestsOverview() {
             })
             .then(function (response) {
                 setCurrent(response.data)
-                axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/true'
-                    , {
-                        headers: {
-                            Accept: 'application/json',
-                            Authorization: TOKEN
-                        }
-                    })
-                    .then(function (response) {
-                        setPast(response.data)
-                        setIsReady(true)
-                    })
-                    .catch(function (error) {
-                        console.log('error: ',error);
-                    })
             })
             .catch(function (error) {
                 console.log('error: ',error);
             })
-    }, [])
+    }
+
+
+    const getPastExams = () => {
+        axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/true'
+            , {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: TOKEN
+                }
+            })
+            .then(function (response) {
+                setPast(response.data)
+                setIsReady(true)
+            })
+            .catch(function (error) {
+                console.log('error: ',error);
+            })
+    }
+
+
+    const deleteCourse = () => {
+        axios.put('http://192.168.44.83:8080/u/0/student-exams/cancellation/',
+            {studentGradedActivityId: courseToDelete.studentGradedActivityId},
+            {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: TOKEN
+                }
+            })
+            .then(function (response) {
+                getCurrentExams()
+            })
+            .catch(function (error) {
+                console.log('error: ',error);
+            })
+    }
 
 
     const showModal = (i) => {setVisible(true); setCurr(i)}
@@ -117,13 +145,14 @@ export default function TestsOverview() {
                     <List.Accordion
                         title={`Trenutno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
+                        theme={{ colors: { primary: 'dodgerblue' }}}
                         expanded={88 === activeList}
                         onPress={() => handlePress(88)}>
                         { (current.length > 0)?
                             <DataTable>
                                 <DataTable.Header>
-                                    <DataTable.Title>Predmet</DataTable.Title>
-                                    <DataTable.Title numeric>Datum</DataTable.Title>
+                                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                    <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                     <DataTable.Title numeric> </DataTable.Title>
                                 </DataTable.Header>
                                 {
@@ -137,7 +166,7 @@ export default function TestsOverview() {
                                                     {formatTimestamp(p.examDate)}}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    <Button key={'bb'+i} onPress={() => {showModal3(); setCourseToDelete(p.courseName)}}>Odjavi</Button>
+                                                    <Button key={'bb'+i} color={'darkred'} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
                                                 </DataTable.Cell>
                                             </DataTable.Row>
                                         );
@@ -152,14 +181,15 @@ export default function TestsOverview() {
                     <List.Accordion
                         title={`Prethodno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
+                        theme={{ colors: { primary: 'dodgerblue' }}}
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title>Predmet</DataTable.Title>
-                                <DataTable.Title numeric>Datum</DataTable.Title>
-                                <DataTable.Title numeric>Tip ispita</DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>
                             </DataTable.Header>
                             {
                                 past.map((p, i) => {
@@ -188,7 +218,7 @@ export default function TestsOverview() {
                 <Portal>
                     <CourseModal index={curr} visible={visible} courses={current} hideModal={hideModal}/>
                     <CourseModal index={curr2} visible={visible2} courses={past} hideModal={hideModal2}/>
-                    <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete}?`} hideModal={hideModal3} visible={visible3}/>
+                    <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete.courseName}?`} deleteCourse={deleteCourse} hideModal={hideModal3} visible={visible3}/>
                 </Portal>
             </Provider>
         </View>

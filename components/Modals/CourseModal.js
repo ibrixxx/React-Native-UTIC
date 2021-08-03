@@ -39,26 +39,26 @@ export default function CourseModal({visible, hideModal, index, courses}) {
             <DataTable style={{borderColor: 'whitesmoke'}}>
                 <Title style={{color: 'dodgerblue', marginBottom: '10%', textAlign: 'center'}}>{courses[index]? courses[index].courseName:''}</Title>
                 <DataTable.Row>
-                    <DataTable.Cell><Text style={{color: 'black'}}>Datum ispita:</Text></DataTable.Cell>
+                    <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Datum ispita:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? formatTimestamp(courses[index].examDate): ''}</Text></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
-                    <DataTable.Cell><Text style={{color: 'black'}}>Vrijeme ispita:</Text></DataTable.Cell>
+                    <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Vrijeme ispita:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? formatTimestamp2(courses[index].examDate): ''}</Text></DataTable.Cell>
                 </DataTable.Row>
                 {
                     courses[index]? (courses[index].classroom.length > 25)?
                         <>
                             <DataTable.Row>
-                                <DataTable.Cell><Text style={{color: 'black'}}>Prostorija:</Text></DataTable.Cell>
+                                <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Prostorija:</Text></DataTable.Cell>
                             </DataTable.Row>
                             <DataTable.Row>
-                            <Text style={{color: 'black'}}>{courses[index].classroom}</Text>
+                                <Text style={{color: 'black', textAlign: 'center'}}>{courses[index].classroom}</Text>
                             </DataTable.Row>
                         </>
                         :
                         <DataTable.Row>
-                            <DataTable.Cell><Text style={{color: 'black'}}>Prostorija:</Text></DataTable.Cell>
+                            <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Prostorija:</Text></DataTable.Cell>
                             <DataTable.Cell><Text style={{color: 'black'}}>{courses[index].classroom}</Text></DataTable.Cell>
                         </DataTable.Row>
                         :
@@ -66,11 +66,11 @@ export default function CourseModal({visible, hideModal, index, courses}) {
                         </>
                 }
                 <DataTable.Row>
-                    <DataTable.Cell><Text style={{color: 'black'}}>Nastavnik:</Text></DataTable.Cell>
+                    <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Nastavnik:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? courses[index].teacherName:''}</Text></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
-                    <DataTable.Cell><Text style={{color: 'black'}}>Tip ispita:</Text></DataTable.Cell>
+                    <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Tip ispita:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? formatType(courses[index].gradedActivityType):''}</Text></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>

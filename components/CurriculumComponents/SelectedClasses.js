@@ -1,7 +1,17 @@
 import React, {useEffect} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ActivityIndicator, Button, Checkbox, DataTable, Divider, List, Portal, Provider} from "react-native-paper";
+import {
+    ActivityIndicator,
+    Button,
+    Checkbox,
+    DataTable,
+    Divider,
+    List,
+    Portal,
+    Provider,
+    Text
+} from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
 
@@ -74,9 +84,9 @@ export default function SelectedClasses({selected}) {
                         onPress={() => handlePress(88)}>
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title>Predmet</DataTable.Title>
-                                <DataTable.Title numeric>P+V+S</DataTable.Title>
-                                <DataTable.Title numeric>ECTS</DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
                             </DataTable.Header>
                         {
                             selected.map((p, i) => {
@@ -107,10 +117,10 @@ export default function SelectedClasses({selected}) {
                         onPress={() => handlePress2(88)}>
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title>Predmet</DataTable.Title>
-                                <DataTable.Title numeric>P+V+S</DataTable.Title>
-                                <DataTable.Title numeric>ECTS</DataTable.Title>
-                                <DataTable.Title numeric>Označi</DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Označi</Text></DataTable.Title>
                             </DataTable.Header>
                         {
                             notSelected.map((p, i) => {

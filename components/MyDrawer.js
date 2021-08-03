@@ -30,7 +30,6 @@ export default function MyDrawer() {
             <Drawer.Screen name="Comments" component={Comments} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
             <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt i informacije', drawerIcon: () => (<Icon name='info' />)}}/>
             <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
-
         </Drawer.Navigator>
     );
 }

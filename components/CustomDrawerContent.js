@@ -4,7 +4,6 @@ import {Text, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {Avatar} from "react-native-elements";
-import {Touchable} from "react-native-web";
 import {TouchableRipple} from "react-native-paper";
 
 
@@ -31,7 +30,6 @@ export default function CustomDrawerContent(props) {
             }
         })
             .then(respnse => {
-                console.log(respnse.data)
                 setStudent(respnse.data)
             })
             .catch(error => {
@@ -47,7 +45,6 @@ export default function CustomDrawerContent(props) {
             }
         })
             .then(respnse => {
-                console.log(respnse.data)
                 setStudyProgram(respnse.data)
             })
             .catch(error => {
@@ -55,9 +52,10 @@ export default function CustomDrawerContent(props) {
             });
     }
 
-    function getInitials(){
-
-        return "MD"
+    function getInitials() {
+        let first = student? student.firstName? student.firstName[0]:'':''
+        let last = student? student.lastName? student.lastName[0]:'':''
+        return first+last
     }
 
     return (

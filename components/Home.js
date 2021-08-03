@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {View} from "react-native";
 import MyHeader from "./MyHeader";
-import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider} from "react-native-paper";
+import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../App";
 import CourseModal from "./Modals/CourseModal";
@@ -74,9 +74,9 @@ export default function Home({ navigation }) {
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title style={{flex: 0.5}}>Predmet</DataTable.Title>
-                                <DataTable.Title style={{flex: 0.3}} numeric>Datum ispita</DataTable.Title>
-                                <DataTable.Title style={{flex: 0.2}} numeric>Vrijeme</DataTable.Title>
+                                <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
