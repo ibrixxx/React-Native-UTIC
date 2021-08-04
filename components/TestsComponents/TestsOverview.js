@@ -73,8 +73,8 @@ export default function TestsOverview() {
 
 
     const deleteCourse = () => {
-        axios.put('http://192.168.44.83:8080/u/0/student-exams/cancellation/',
-            {studentGradedActivityId: courseToDelete.studentGradedActivityId},
+        axios.put(`http://192.168.44.83:8080/u/0/student-exams/cancellation/${courseToDelete.studentGradedActivityId}`,
+            {},
             {
                 headers: {
                     Accept: 'application/json',

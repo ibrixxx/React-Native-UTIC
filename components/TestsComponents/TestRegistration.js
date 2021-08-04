@@ -5,14 +5,6 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 
 
-const pom = [
-    {courseName: 'Wmimads', examDate: '12357532', ects: 8},
-    {courseName: 'WDas', examDate: '51615623', ects: 9},
-    {courseName: 'Degfes', examDate: '23165158', ects: 8},
-    {courseName: 'VAswd', examDate: '958595236', ects: 7},
-    {courseName: 'Gdfgfd', examDate: '115657532', ects: 5},
-]
-
 
 export default function TestRegistration() {
     const [exams, setExams] = useState([])
@@ -81,16 +73,16 @@ export default function TestRegistration() {
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
-                                <DataTable.Title></DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.9}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.3}} numeric>Datum ispita</Text></DataTable.Title>
+                                <DataTable.Title numeric> </DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
                                     return (
                                         <DataTable.Row key={index}>
                                             <DataTable.Cell>{e.courseName}</DataTable.Cell>
-                                            <DataTable.Cell>{getDateFormated(e.examDate)}</DataTable.Cell>
+                                            <DataTable.Cell numeric>{getDateFormated(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell numeric><Button color={'dodgerblue'} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
                                         </DataTable.Row>
                                     );
