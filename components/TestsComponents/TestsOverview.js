@@ -1,26 +1,13 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {
-    ActivityIndicator,
-    Button,
-    Caption,
-    DataTable,
-    Divider,
-    List,
-    Portal,
-    Provider, Text
-} from "react-native-paper";
+import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
 
 
-
-export default function TestsOverview() {
-    const [isReady, setIsReady] = React.useState(false);
-    const [current, setCurrent] = React.useState([]);
-    const [past, setPast] = React.useState([]);
+export default function TestsOverview({setExams, setCurrentExams,past, current}) {
     const [activeList, setActiveList] = React.useState(88);
     const [activeList2, setActiveList2] = React.useState(null);
     const [visible, setVisible] = React.useState(false)
@@ -29,47 +16,8 @@ export default function TestsOverview() {
     const [courseToDelete, setCourseToDelete] = React.useState({})
     const [curr, setCurr] = React.useState(null)
     const [curr2, setCurr2] = React.useState(null)
+    const [visible4, setVisible4] = React.useState(false);
 
-
-    useEffect(() => {
-        getCurrentExams()
-        getPastExams()
-    }, [])
-
-
-    const getCurrentExams = () => {
-        axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/false'
-            , {
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: TOKEN
-                }
-            })
-            .then(function (response) {
-                setCurrent(response.data)
-            })
-            .catch(function (error) {
-                console.log('error: ',error);
-            })
-    }
-
-
-    const getPastExams = () => {
-        axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/true'
-            , {
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: TOKEN
-                }
-            })
-            .then(function (response) {
-                setPast(response.data)
-                setIsReady(true)
-            })
-            .catch(function (error) {
-                console.log('error: ',error);
-            })
-    }
 
 
     const deleteCourse = () => {
@@ -82,7 +30,9 @@ export default function TestsOverview() {
                 }
             })
             .then(function (response) {
-                getCurrentExams()
+                setCurrentExams()
+                setExams()
+                onToggleSnackBar()
             })
             .catch(function (error) {
                 console.log('error: ',error);
@@ -131,9 +81,9 @@ export default function TestsOverview() {
     }
 
 
-    if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
-    }
+    const onToggleSnackBar = () => setVisible4(true);
+
+    const onDismissSnackBar = () => setVisible4(false);
 
 
     return (
@@ -221,6 +171,17 @@ export default function TestsOverview() {
                     <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete.courseName}?`} deleteCourse={deleteCourse} hideModal={hideModal3} visible={visible3}/>
                 </Portal>
             </Provider>
+            <Snackbar
+                visible={visible4}
+                onDismiss={onDismissSnackBar}
+                action={{
+                    label: 'X',
+                    onPress: () => {
+                        onDismissSnackBar()
+                    },
+                }}>
+                Uspješno ste odjavili ispit.
+            </Snackbar>
         </View>
     );
 }

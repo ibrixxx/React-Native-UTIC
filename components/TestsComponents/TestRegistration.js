@@ -1,14 +1,20 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {View} from "react-native";
-import {ActivityIndicator, Button, Caption, Card, DataTable, Text} from "react-native-paper";
+import {Button, Caption, Card, DataTable, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import CourseModal from "../Modals/CourseModal";
 
 
+export default function TestRegistration({exams, setCurrent, setExams}) {
+    const [visible, setVisible] = React.useState(false);
+    const [visible2, setVisible2] = React.useState(false);
+    const [curr, setCurr] = React.useState(null)
 
-export default function TestRegistration() {
-    const [exams, setExams] = useState([])
-    const [isReady, setIsReady] = React.useState(false)
+
+    const onToggleSnackBar = () => setVisible2(true);
+
+    const onDismissSnackBar = () => setVisible2(false);
 
 
     const getDateFormated = (n) => {
@@ -16,24 +22,9 @@ export default function TestRegistration() {
         return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
     }
 
+    const showModal = (i) => {setVisible(true); setCurr(i)}
 
-    useEffect(() => {
-        axios.get('http://192.168.44.83:8080/u/0/student-exams/registration/unregistered/'
-            , {
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: TOKEN
-                }
-            })
-            .then(function (response) {
-                setExams(response.data)
-                setIsReady(true)
-            })
-            .catch(function (error) {
-                console.log('error: ',error);
-            })
-    }, [])
-
+    const hideModal = () => setVisible(false)
 
 
     const registerExam = (gradedId, courseId) => {
@@ -48,7 +39,9 @@ export default function TestRegistration() {
                 }
             })
             .then(function (response) {
-                console.log(response);
+                setExams()
+                setCurrent()
+                onToggleSnackBar()
             })
             .catch(function (error) {
                 console.log(error);
@@ -56,14 +49,8 @@ export default function TestRegistration() {
     }
 
 
-
-    if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
-    }
-
-
     return (
-        <View>
+        <View style={{height: '100%'}}>
             <Card>
                 <Card.Title
                     title="Neprijavljeni ispiti"
@@ -73,16 +60,16 @@ export default function TestRegistration() {
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.9}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.3}} numeric>Datum ispita</Text></DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 1}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.6}} numeric>Datum ispita</Text></DataTable.Title>
                                 <DataTable.Title numeric> </DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
                                     return (
-                                        <DataTable.Row key={index}>
-                                            <DataTable.Cell>{e.courseName}</DataTable.Cell>
-                                            <DataTable.Cell numeric>{getDateFormated(e.examDate)}</DataTable.Cell>
+                                        <DataTable.Row key={index} onPress={() => showModal(index)}>
+                                            <DataTable.Cell style={{flex: 1}}>{e.courseName}</DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.6}} numeric>{getDateFormated(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell numeric><Button color={'dodgerblue'} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
                                         </DataTable.Row>
                                     );
@@ -93,7 +80,23 @@ export default function TestRegistration() {
                         <Caption>Nemate nadolazećih ispita</Caption>
                     }
                 </Card.Content>
+                <Provider>
+                    <Portal>
+                        <CourseModal index={curr} visible={visible} courses={exams} hideModal={hideModal}/>
+                    </Portal>
+                </Provider>
             </Card>
+            <Snackbar
+                visible={visible2}
+                onDismiss={onDismissSnackBar}
+                action={{
+                    label: 'X',
+                    onPress: () => {
+                        onDismissSnackBar()
+                    },
+                }}>
+                Uspješno ste prijavili ispit.
+            </Snackbar>
         </View>
     );
 }
