@@ -124,22 +124,28 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Odustani</Button>
-                <Button
-                    onPress={() => {
-                        if (contactTypeValue === 1 || contactTypeValue === 6){
-                            if (validate(contactValue)) {
-                                sendContact();
-                            }
-                            else setWarning(true)
-                        }
-                        else {
-                            sendContact();
-                        }
-                        resetFields();
-                        hideAddModal();
-                    }}
-                    style={{backgroundColor: '#009FFD'}}
-                    color={'white'}>Spremi</Button>
+                {
+                    (contactValue !== "") ?  <Button
+                            onPress={() => {
+                                if (contactTypeValue === 1 || contactTypeValue === 6){
+                                    if (validate(contactValue)) {
+                                        sendContact();
+                                    }
+                                    else setWarning(true)
+                                }
+                                else {
+                                    sendContact();
+                                }
+                                resetFields();
+                                hideAddModal();
+                            }}
+                            style={{backgroundColor: '#009FFD'}}
+                            color={'white'}>Spremi</Button>
+                        :
+                        <Button
+                            disabled>Spremi</Button>
+                }
+
 
             </View>
 

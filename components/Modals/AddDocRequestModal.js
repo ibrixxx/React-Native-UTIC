@@ -55,6 +55,27 @@ export default function AddDocRequestModal({visible, hideModal }) {
             });
     }
 
+    const sendRequest = () => {
+        axios.post('http://192.168.44.79:8080/u/0/student-documents/create-request', {
+                documentTypeId: selectedValue,
+                certificateReasonId: selectedValueType,
+                comment: note
+            },{ headers:
+                    {
+                        Accept: 'application/json',
+                        Authorization: TOKEN
+                    }
+            }
+
+        )
+            .then(respnse => {
+                console.log("Upisan")
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     function resetFields() {
         setSelectedValue(6);
         setSelectedValueType(0);
@@ -138,11 +159,18 @@ export default function AddDocRequestModal({visible, hideModal }) {
                     marginTop: 10
                 }}>
                     <Button
-                        onPress={() => resetFields()}
+                        onPress={() => {
+                            resetFields();
+                            hideModal();
+                        }}
                         style={{backgroundColor: '#009FFD'}}
                         color={'white'}>Odustani</Button>
                     <Button
-                        onPress={() => resetFields()}
+                        onPress={() => {
+                            sendRequest();
+                            resetFields();
+                            hideModal();
+                        }}
                         style={{backgroundColor: '#009FFD'}}
                         color={'white'}>Spremi</Button>
                 </View>

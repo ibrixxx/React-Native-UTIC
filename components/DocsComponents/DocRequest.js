@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import {DataTable, FAB, Portal, Provider} from "react-native-paper";
+import {DataTable, FAB, Portal, Provider, Button} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
-import {Icon} from "react-native-elements";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 
 export default function DocRequest() {
-    const [prevRequests, setPrevRequests] = useState({});
-    const [filtered, setFiltered] = useState({});
+    const [prevRequests, setPrevRequests] = useState([]);
+    const [filtered, setFiltered] = useState([{certificateReasonName: "", documentTypeName: "nesta", date: 1628074594138}]);
     const [visible, setVisible] = useState(false)
 
 
@@ -30,24 +29,29 @@ export default function DocRequest() {
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data)
+                // getFiltered();
             })
             .catch(error => {
                 console.error(error);
             });
     }
 
-
-
     const getDateFormated = (n) => {
         const d = new Date(n);
         return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
     }
 
-    function getIcon(str){
-        if (str === "primljen zahtjev" || str === "u obradi") return <Icon name="done"/>
-        if (str === "obrađen") return <Icon name="close"/>
-        if (str === "poništen" || str === "odbijen") return <Icon name="arrow_downward"/>
+    const getFiltered = () => {
+        setFiltered(
+            prevRequests.map((request) => {
+                if(request.documentStatusName === "primljen zahtjev") {
+                    console.log(request);
+                    return request;
+                }
+           }
 
+        ))
+        console.log(filtered);
     }
 
 
@@ -63,19 +67,21 @@ export default function DocRequest() {
 
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
-                        <DataTable.Title>Tip dokumenta</DataTable.Title>
-                        <DataTable.Title>Datum</DataTable.Title>
-                        <DataTable.Title>Napomena</DataTable.Title>
-                        <DataTable.Title>Status</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.55 }}>Tip dokumenta</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.2 }}>Datum</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.35 }} > </DataTable.Title>
                     </DataTable.Header>
 
                     { (filtered && filtered.length > 0) ? filtered.map((prev) => (
                             <DataTable.Row >
                             {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
-                                <DataTable.Cell style={{ flex: 0.5 }}>{prev.certificateReasonName}</DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.45}}>{prev.certificateReasonName}</DataTable.Cell>
                             }
-                            <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.22 }}>{getIcon(prev.documentStatusName)}</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.2 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.35}}>
+                                <Button
+                                    color='#E47070'>Poništi</Button>
+                            </DataTable.Cell>
 
                         </DataTable.Row>
                         )
