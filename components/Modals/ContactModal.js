@@ -6,7 +6,7 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 
 
-export default function AddContactModal({visibleContacts, hideContactsModal, index, student, war}) {
+export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
     const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
     const [contactValue, setContactValue] = useState("")
 
@@ -19,11 +19,36 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
         return expression.test(String(email).toLowerCase())
     }
 
-    const sendContact = () => {
-        axios.post('http://192.168.44.79:8080/u/0/students/student/personal-information/change-contact', {
-                id: index,
+    const updateContact = () => {
+        axios.put(`http://192.168.44.79:8080/u/0/students/student/personal-information/change-contact`,
+            {
+                id: student.contacts[index].id,
                 value: contactValue,
-            },{ headers:
+                optLock: student.contacts[index].optLock
+                },
+            {
+                headers:
+                    {
+                        Accept: 'application/json',
+                        Authorization: TOKEN
+                    }
+                }
+
+        )
+            .then(respnse => {
+                console.log("Promijenjen")
+                hideContactsModal();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    const deleteContact = () => {
+        axios.delete(`http://192.168.44.79:8080/u/0/students/student/personal-information/delete-contact/${student.contacts[index].id}`,
+            {},
+            {
+                headers:
                     {
                         Accept: 'application/json',
                         Authorization: TOKEN
@@ -32,7 +57,8 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
         )
             .then(respnse => {
-                console.log("Upisan")
+                console.log("Promijenjen")
+                hideContactsModal();
             })
             .catch(error => {
                 console.error(error);
@@ -75,6 +101,9 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                 <Button
                     style={{ backgroundColor: '#E47070' }}
                     color="white"
+                    onPress={() => {
+                        deleteContact();
+                    }}
                     >Obriši</Button>
                 <Button
                     style={{ backgroundColor: 'dodgerblue' }}
@@ -82,11 +111,11 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                     onPress={() => {
                         if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail"){
                             if (validate(contactValue)) {
-                                sendContact();
+                                updateContact();
                             }
                             else setWarning(true)
                         }
-                        else sendContact();
+                        else updateContact();
                     }}>Spremi</Button>
             </View>
 

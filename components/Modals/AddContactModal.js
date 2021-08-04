@@ -63,13 +63,17 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
 
     function resetFields() {
         setContactValue("")
-        setContactTypeValue(0)
+        setContactTypeValue(1)
         setContactValue("")
-        hideAddModal()
+    }
+
+    function joined() {
+        resetFields();
+        hideAddModal();
     }
 
     return(
-        <Modal visible={visibleAdd} onDismiss={hideAddModal} contentContainerStyle={containerStyle}>
+        <Modal visible={visibleAdd} onDismiss={joined} contentContainerStyle={containerStyle}>
             <Title style={style.title}>Dodaj kontakt</Title>
             <View style={{
                 borderWidth: 1,
@@ -116,6 +120,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                 <Button
                     onPress={() => {
                         resetFields();
+                        hideAddModal();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Odustani</Button>
@@ -124,11 +129,14 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                         if (contactTypeValue === 1 || contactTypeValue === 6){
                             if (validate(contactValue)) {
                                 sendContact();
-                                resetFields();
                             }
                             else setWarning(true)
                         }
-                        else sendContact();
+                        else {
+                            sendContact();
+                        }
+                        resetFields();
+                        hideAddModal();
                     }}
                     style={{backgroundColor: '#009FFD'}}
                     color={'white'}>Spremi</Button>

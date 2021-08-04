@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ActivityIndicator, DataTable, FAB, Portal, Provider, Title, Button} from "react-native-paper";
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {ActivityIndicator, DataTable, FAB, Portal, Provider, Title, Button, Snackbar} from "react-native-paper";
+import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import AddContactModal from "../Modals/AddContactModal";
 import ContactModal from "../Modals/ContactModal";
@@ -14,6 +14,8 @@ export default function StudentContacts({ navigation }) {
     const [visibleAdd, setVisibleAdd] = React.useState(false)
     const [visibleContacts, setVisibleContacts] = useState(false);
     const [curr, setCurr] = React.useState(null)
+    const [visibleSnackbar, setVisibleSnackbar] = React.useState(false)
+
 
     const showAddModal = () => {setFABVisible(false); setVisibleAdd(true)}
     const hideAddModal = () => {
@@ -26,6 +28,7 @@ export default function StudentContacts({ navigation }) {
     const hideContactsModal = () => {
         setVisibleContacts(false)
         setFABVisible(true)
+        getUserData()
     }
 
 
@@ -90,11 +93,15 @@ export default function StudentContacts({ navigation }) {
 
                 </View>
 
+
             </View>
+
+
+
             <Provider>
                 <Portal>
                     <AddContactModal visibleAdd={visibleAdd} hideAddModal={hideAddModal}/>
-                    <ContactModal visibleContacts={visibleContacts} hideContactsModal={hideContactsModal} index={curr} student={student} war={false}/>
+                    <ContactModal visibleContacts={visibleContacts} hideContactsModal={hideContactsModal} index={curr} student={student}/>
                 </Portal>
             </Provider>
         </>
