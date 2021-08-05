@@ -43,7 +43,7 @@ export default function DocRequest() {
 
     const getFiltered = () => {
         setFiltered(
-            prevRequests.map((request) => {
+            prevRequests.filter((request) => {
                 if(request.documentStatusName === "primljen zahtjev") {
                     console.log(request);
                     return request;

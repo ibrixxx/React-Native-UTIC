@@ -86,7 +86,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                     selectedValue={contactTypeValue}
                     onValueChange={(itemValue, itemIndex) => setContactTypeValue(itemValue)}>
                     {(contactTypes && contactTypes.length > 0) ? contactTypes.map((type) => (
-                        <Picker.Item label={type.name} value={type.id}/>
+                        <Picker.Item label={type.name} value={type.id} key={itype.id}/>
                     )) : <Picker.Item>Nema</Picker.Item>
                     }
                 </Picker>

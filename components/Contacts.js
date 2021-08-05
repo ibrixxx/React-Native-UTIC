@@ -59,8 +59,7 @@ export default function Contacts({ navigation }) {
                                     (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
                                         importantContacts[0].facultyContact.map((cont) => (
                                             (cont.contactType === "telefon") ?
-                                                <Text>cont.value</Text>
-                                                : ""
+                                                cont.value : ""
                                         ))
                                         : ""
                                     : ""}

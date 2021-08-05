@@ -114,7 +114,7 @@ export default function AddDocRequestModal({visible, hideModal }) {
                         }}>
                         {(documentTypes && documentTypes.length > 0) ? documentTypes.map((doc) => (
                             (doc.name === "Statusna potvrda" || doc.name === "Prepis ocjena") ?
-                                <Picker.Item label={doc.name} value={doc.id}/> : null
+                                <Picker.Item label={doc.name} value={doc.id} key={doc.id}/> : null
                         )) : <Picker.Item label="Nema" value={-1} />
                         }
                     </Picker>
@@ -128,7 +128,7 @@ export default function AddDocRequestModal({visible, hideModal }) {
                         enabled={enableTypes}
                     >
                         {(certificateReasons && certificateReasons.length > 0) ? certificateReasons.map((cert) =>
-                            <Picker.Item label={cert.name} value={cert.id}/>
+                            <Picker.Item label={cert.name} value={cert.id} key={cert.id}/>
                         ) : <Picker.Item label="Nema" value={-1} />
 
                         }

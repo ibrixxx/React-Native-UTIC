@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Clipboard, StyleSheet, TextInput, View} from "react-native";
+import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
 import {Title, Button, Snackbar} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import MyHeader from "./MyHeader";
@@ -14,6 +14,7 @@ export default function Comments({ navigation }) {
     const [mail, setMail] = useState("");
     const [text, setText] = useState("");
     const [visibleSnackbar, setVisibleSnackbar] = useState(false);
+    const [badMail, setBadMail] = useState(false);
 
     const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
     const onDismissSnackBar = () => setVisibleSnackbar(false);
@@ -38,9 +39,39 @@ export default function Comments({ navigation }) {
             });
     }
 
+    const validate = (email) => {
+        const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+        return expression.test(String(email).toLowerCase())
+    }
+
+    const sendMail = () => {
+        axios.post('http://192.168.44.79:8080/u/0/mail/send/', {
+                subject: title,
+                mailType: {id: selectedValue},
+                mailFrom: mail,
+                text: text
+            },{ headers:
+                    {
+                        Accept: 'application/json',
+                        Authorization: TOKEN
+                    }
+            }
+
+        )
+            .then(respnse => {
+                console.log("Poslan")
+                console.log({title: title, typeId: selectedValue, email: mail, text: text});
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     function resetFields(){
         setSelectedValue(0);
         setTitle("");
+        setBadMail(false);
         setMail("");
         setText("");
     }
@@ -65,18 +96,29 @@ export default function Comments({ navigation }) {
 
                         >
                             {(mailTypes && mailTypes.length > 0) ? mailTypes.map((type) =>
-                                <Picker.Item label={type.name} value={type.id}/>
+                                <Picker.Item label={type.name} value={type.id} key={type.id}/>
                             ) : <Picker.Item label="Nema" value={-1} />
 
                             }
                         </Picker>
                     </View>
+                    {
+                        badMail ? <Text style={{ color: 'red', alignSelf: 'flex-start', marginLeft: '5%' }}>* E-mail nije validan</Text> : null
+                    }
 
-                    <TextInput
-                        placeholder="Vaša E-mail adresa"
-                        style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
-                        onChangeText={email => setMail(email)}
-                        value={mail}/>
+                    {
+                        badMail ? <TextInput
+                            placeholder="Vaša E-mail adresa"
+                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "red", }}
+                            onChangeText={email => setMail(email)}
+                            value={mail}/>
+                            : <TextInput
+                                placeholder="Vaša E-mail adresa"
+                                style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                                onChangeText={email => setMail(email)}
+                                value={mail}/>
+                    }
+
 
                     <TextInput
                         multiline
@@ -87,13 +129,22 @@ export default function Comments({ navigation }) {
                         value={text}/>
 
                     <View style={{ flexDirection: 'row', marginLeft: 'auto', marginTop: 10 }}>
-                        <Button
-                            onPress={() => {
-                                onToggleSnackBar();
-                                resetFields()
-                            }}
-                            style={{backgroundColor: '#009FFD', marginRight: '5%'}}
-                            color={'white'}>Pošalji</Button>
+                        {
+                            (title !== "" && mail !== "" && text !== "") ?
+                                <Button
+                                    onPress={() => {
+                                        if (validate(mail)) {
+                                            sendMail();
+                                            onToggleSnackBar();
+                                            resetFields()
+                                        }
+                                        else {setBadMail(true); setMail("");}
+                                    }}
+                                    style={{backgroundColor: '#009FFD', marginRight: '5%'}}
+                                    color={'white'}>Pošalji</Button>
+                                : <Button disabled>Pošalji</Button>
+                        }
+
                     </View>
 
                 </View>

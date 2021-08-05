@@ -59,7 +59,7 @@ export default function DocHistory(){
 
                         {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
                             (prev.documentStatusName !== "primljen zahtjev") ?
-                                <DataTable.Row style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
+                                <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
                                     {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.75 }}>{prev.documentTypeName}</DataTable.Cell> :
                                         <DataTable.Cell style={{ flex: 0.75 }}>{prev.certificateReasonName}</DataTable.Cell>
                                     }
