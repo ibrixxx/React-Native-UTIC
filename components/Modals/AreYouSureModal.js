@@ -12,7 +12,7 @@ export default function AreYouSureModal({visible, hideModal, text, deleteCourse}
                 <Title style={{marginBottom: '10%', textAlign: 'center'}}>{text}</Title>
                 <DataTable.Row>
                     <DataTable.Cell><Button onPress={() => {hideModal(); deleteCourse()}} mode="contained" color={'darkred'}>DA</Button></DataTable.Cell>
-                    <DataTable.Cell numeric><Button color={'darkred'} onPress={() => hideModal}>NE</Button></DataTable.Cell>
+                    <DataTable.Cell numeric><Button color={'white'} style={{backgroundColor: 'gray'}} onPress={() => hideModal()}>NE</Button></DataTable.Cell>
                 </DataTable.Row>
             </DataTable>
         </Modal>

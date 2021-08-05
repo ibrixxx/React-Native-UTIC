@@ -5,6 +5,7 @@ import {TOKEN} from "../../App";
 import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
+import {Icon} from "react-native-elements";
 
 
 export default function TestsOverview({setExams, setCurrentExams,past, current}) {
@@ -89,7 +90,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
     return (
         <View style={{backgroundColor: '#e0e0e0', height: '100%'}}>
             <ScrollView style={{backgroundColor: '#e0e0e0'}}>
-                <List.Section
+            <List.Section
                     title="Prijavljeni ispiti"
                     titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                     <List.Accordion
@@ -101,6 +102,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         { (current.length > 0)?
                             <DataTable>
                                 <DataTable.Header>
+                                    <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                                     <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                     <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                     <DataTable.Title numeric> </DataTable.Title>
@@ -108,15 +110,22 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                 {
                                     current.map((p, i) => {
                                         return (
-                                            <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}}>
+                                            <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}} style={{backgroundColor: 'whitesmoke'}}>
+                                                <DataTable.Cell style={{flex: 0.3}}>
+                                                    <Icon
+                                                        name='info'
+                                                        type='material'
+                                                        color='#517fa4'
+                                                        size={16}/>
+                                                </DataTable.Cell>
                                                 <DataTable.Cell>
                                                     {p.courseName}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    {formatTimestamp(p.examDate)}}
+                                                    {formatTimestamp(p.examDate)}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    <Button key={'bb'+i} color={'darkred'} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
+                                                    <Button key={'bb'+i} color={'darkred'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
                                                 </DataTable.Cell>
                                             </DataTable.Row>
                                         );
@@ -135,21 +144,29 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?
-                        <DataTable>
+                            <DataTable>
                             <DataTable.Header>
+                                <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>
                             </DataTable.Header>
-                            {
+                                {
                                 past.map((p, i) => {
                                     return(
                                         <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
+                                            <DataTable.Cell style={{flex: 0.3}}>
+                                                <Icon
+                                                    name='info'
+                                                    type='material'
+                                                    color='#517fa4'
+                                                    size={16}/>
+                                            </DataTable.Cell>
                                             <DataTable.Cell>
                                                 {p.courseName}
                                             </DataTable.Cell>
                                             <DataTable.Cell numeric>
-                                                {formatTimestamp(p.examDate)}}
+                                                {formatTimestamp(p.examDate)}
                                             </DataTable.Cell>
                                             <DataTable.Cell numeric>
                                                 {formatType(p.gradedActivityType)}
@@ -158,7 +175,8 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                     );
                                 })
                             }
-                        </DataTable>:
+                            </DataTable>
+                                :
                             <Caption style={{textAlign: 'center', padding: '10%'}}>Nemate prijavljenih prethodno ispita</Caption>
                         }
                     </List.Accordion>

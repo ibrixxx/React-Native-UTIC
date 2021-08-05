@@ -4,6 +4,7 @@ import {TOKEN} from "../../App";
 import {ActivityIndicator, Button, Divider, List, Portal, Provider} from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
+import {Icon} from "react-native-elements";
 
 export default function AllSemesters() {
     const [isReady, setIsReady] = React.useState(false);
@@ -82,6 +83,13 @@ export default function AllSemesters() {
                                                         <List.Item
                                                             key={'li'+i}
                                                             title={c.courseName}
+                                                            left={() => <Icon
+                                                                    name='info'
+                                                                    type='material'
+                                                                    color='#517fa4'
+                                                                    size={16}
+                                                                    style={{marginTop: '40%', marginLeft: '2%'}}
+                                                            />}
                                                             titleStyle={{fontWeight: 'bold'}}
                                                             onPress={() => showModal(i)}/>
                                                         <Divider/>
@@ -96,11 +104,11 @@ export default function AllSemesters() {
                     })
             }
             </List.Section>
-            <Provider>
-                <Portal>
-                    <CourseModal2 index={curr} visible={visible} courses={semesters[activeList]? semesters[activeList][1]:[]} hideModal={hideModal}/>
-                </Portal>
-            </Provider>
+                <Provider>
+                    <Portal>
+                        <CourseModal2 index={curr} visible={visible} courses={semesters[activeList]? semesters[activeList][1]:[]} hideModal={hideModal}/>
+                    </Portal>
+                </Provider>
         </ScrollView>
     );
 }
