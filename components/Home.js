@@ -5,6 +5,7 @@ import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} fro
 import axios from "axios";
 import {TOKEN} from "../App";
 import CourseModal from "./Modals/CourseModal";
+import {Icon} from "react-native-elements";
 
 
 export default function Home({ navigation }) {
@@ -74,6 +75,7 @@ export default function Home({ navigation }) {
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
+                                <DataTable.Title style={{flex: 0.08}}></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
@@ -82,6 +84,13 @@ export default function Home({ navigation }) {
                                 exams.map((e, index) => {
                                     return (
                                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
+                                            <DataTable.Cell style={{flex: 0.08}}>
+                                                <Icon
+                                                    name='info'
+                                                    type='material'
+                                                    color='#517fa4'
+                                                    size={14}/>
+                                            </DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.3}} numeric>{getDateFormated(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.2}} numeric>{formatTimestamp2(e.examDate)}</DataTable.Cell>
