@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import {DataTable, FAB, Portal, Provider, Button} from "react-native-paper";
+import {DataTable, FAB, Portal, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
+import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
-    const [filtered, setFiltered] = useState([{certificateReasonName: "", documentTypeName: "nesta", date: 1628074594138}]);
     const [visible, setVisible] = useState(false)
+    const [curr, setCurr] = useState(null)
+    const [docsVisible, setDocsVisible] = useState(false)
+    const [showFAB, setShowFAB] = useState(true)
 
 
-    const showModal = () => {setVisible(true)}
+    const showModal = () => {setVisible(true);}
     const hideModal = () => setVisible(false)
+
+    const showDocsModal = (i) => {setDocsVisible(true); setCurr(i); setShowFAB(false)}
+    const hideDocsModal = () => {setDocsVisible(false); setShowFAB(true); getPrevRequests()}
 
     useEffect(() => {
         getPrevRequests();
@@ -29,7 +35,6 @@ export default function DocRequest() {
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data)
-                // getFiltered();
             })
             .catch(error => {
                 console.error(error);
@@ -41,53 +46,35 @@ export default function DocRequest() {
         return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
     }
 
-    const getFiltered = () => {
-        setFiltered(
-            prevRequests.filter((request) => {
-                if(request.documentStatusName === "primljen zahtjev") {
-                    console.log(request);
-                    return request;
-                }
-           }
-
-        ))
-        console.log(filtered);
-    }
-
 
     return (
         <>
             <View style={{height: '100%'}}>
-                <FAB
+                {
+                    showFAB ?  <FAB
                         style={styles.fab}
                         small
                         icon="plus"
                         onPress={() => showModal()}
-                />
+                    /> : null
+                }
+
 
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
-                        <DataTable.Title style={{ flex: 0.55 }}>Tip dokumenta</DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.2 }}>Datum</DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.35 }} > </DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.75 }}>Tip dokumenta</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
                     </DataTable.Header>
 
-                    { (filtered && filtered.length > 0) ? filtered.map((prev) => (
-                            <DataTable.Row >
-                            {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.5 }}>{prev.documentTypeName}</DataTable.Cell> :
-                                <DataTable.Cell style={{ flex: 0.45}}>{prev.certificateReasonName}</DataTable.Cell>
-                            }
-                            <DataTable.Cell style={{ flex: 0.2 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.35}}>
-                                <Button
-                                    color='#E47070'>Poništi</Button>
-                            </DataTable.Cell>
-
-                        </DataTable.Row>
-                        )
-
-                    ) : <Text>Nema</Text>
-
+                    {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
+                        (prev.documentStatusName === "primljen zahtjev" || prev.documentStatusName === "u obradi") ?
+                            <DataTable.Row key={prev.id} style={styles.yellowStyle} onPress={() => showDocsModal(i)} >
+                                {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.75 }}>{prev.documentTypeName}</DataTable.Cell> :
+                                    <DataTable.Cell style={{ flex: 0.75 }}>{prev.certificateReasonName}</DataTable.Cell>
+                                }
+                                <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                            </DataTable.Row> : null
+                    ):<Text>Nema</Text>
 
                     }
 
@@ -97,6 +84,7 @@ export default function DocRequest() {
                 <Provider>
                     <Portal>
                         <AddDocRequestModal visible={visible} hideModal={hideModal}/>
+                        <ActiveDocReqModal visible={docsVisible} hideModal={hideDocsModal} index={curr} docs={prevRequests} />
                     </Portal>
                 </Provider>
 
@@ -136,7 +124,7 @@ const styles = StyleSheet.create({
         zIndex: 1000
     },
     yellowStyle: {
-        color: '#F4F3A9'
+        backgroundColor: '#F4F3A9'
     },
     redStyle: {
         color: '#EDBBBB'
