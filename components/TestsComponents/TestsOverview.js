@@ -101,7 +101,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         onPress={() => handlePress(88)}>
                         { (current.length > 0)?
                             <DataTable>
-                                <DataTable.Header>
+                                <DataTable.Header style={{backgroundColor: '#ebeded'}}>
                                     <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                                     <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                     <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
@@ -145,7 +145,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?
                             <DataTable>
-                            <DataTable.Header>
+                            <DataTable.Header style={{backgroundColor: '#ebeded'}}>
                                 <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>

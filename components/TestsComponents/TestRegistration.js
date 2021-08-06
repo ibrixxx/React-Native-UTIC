@@ -56,7 +56,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
                 <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
                 {(exams.length > 0)?
                     <DataTable>
-                        <DataTable.Header>
+                        <DataTable.Header style={{backgroundColor: '#ebeded'}}>
                             <DataTable.Title style={{flex: 0.08}}></DataTable.Title>
                             <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.5}}>Predmet</Text></DataTable.Title>
                             <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.3}} numeric>Datum ispita</Text></DataTable.Title>
