@@ -48,7 +48,7 @@ export default function Assistants() {
     }
 
     useEffect(() => {
-        axios.get('http://192.168.44.83:8080/u/0/employees/info-for-students/by-key/assistant'
+        axios.get('http://192.168.44.79:8080/u/0/employees/info-for-students/by-key/assistant'
             , {
                 headers: {
                     Accept: 'application/json',

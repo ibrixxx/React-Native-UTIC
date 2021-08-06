@@ -47,7 +47,7 @@ export default function Professors() {
     }
 
     useEffect(() => {
-        axios.get('http://192.168.44.83:8080/u/0/employees/info-for-students/by-key/professor'
+        axios.get('http://192.168.44.79:8080/u/0/employees/info-for-students/by-key/professor'
             , {
                 headers: {
                     Accept: 'application/json',

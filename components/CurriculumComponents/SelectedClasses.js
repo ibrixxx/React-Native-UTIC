@@ -50,21 +50,6 @@ export default function SelectedClasses({selected}) {
     }, [])
 
 
-    const handlePress = (ind) => {
-        if(activeList === ind)
-            setActiveList(null)
-        else
-            setActiveList(ind)
-    }
-
-    const handlePress2 = (ind) => {
-        if(activeList2 === ind)
-            setActiveList2(null)
-        else
-            setActiveList2(ind)
-    }
-
-
     if (!isReady) {
         return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
@@ -72,17 +57,10 @@ export default function SelectedClasses({selected}) {
 
     return (
         <View style={{backgroundColor: '#e0e0e0', height: '100%'}}>
-        <ScrollView style={{backgroundColor: '#e0e0e0'}}>
-            <List.Section
-                title="Izborni predmeti"
-                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
-                    <List.Accordion
-                        title={`Odabrani izborni predmeti`}
-                        titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
-                        expanded={88 === activeList}
-                        onPress={() => handlePress(88)}>
-                        <DataTable>
+            {(selected.length > 0)?
+                <ScrollView style={{backgroundColor: '#e0e0e0'}}>
+                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
+                        <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
@@ -106,23 +84,18 @@ export default function SelectedClasses({selected}) {
                             })
                         }
                         </DataTable>
-                    </List.Accordion>
-                    <Divider key={'dev'+88}/>
-
-                    <List.Accordion
-                        title={`Dostupni izborni predmeti`}
-                        titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
-                        expanded={88 === activeList2}
-                        onPress={() => handlePress2(88)}>
-                        <DataTable>
+                </ScrollView>
+                :
+                <ScrollView>
+                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
+                        <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Označi</Text></DataTable.Title>
                             </DataTable.Header>
-                        {
+                            {
                             notSelected.map((p, i) => {
                                 return(
                                     <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
@@ -138,6 +111,7 @@ export default function SelectedClasses({selected}) {
                                         <DataTable.Cell key={'kk'+i} numeric>
                                             <Checkbox
                                                 status={checked===i? 'checked' : 'unchecked'}
+                                                color={'dodgerblue'}
                                                 onPress={() => {
                                                     setChecked(i);
                                                 }}
@@ -146,17 +120,18 @@ export default function SelectedClasses({selected}) {
                                     </DataTable.Row>
                                 );
                             })
-                        }
+                            }
+                            <DataTable.Row></DataTable.Row>
                             <DataTable.Row>
                                 <DataTable.Cell></DataTable.Cell>
                                 <DataTable.Cell></DataTable.Cell>
-                                <DataTable.Cell></DataTable.Cell>
-                                <Button color={'darkgreen'} onPress={() => console.log('Pressed')}>Potvrdi</Button>
+                                <DataTable.Cell>
+                                    <Button color={'whitesmoke'} style={{backgroundColor: 'dodgerblue'}} onPress={() => console.log('Pressed')}>Potvrdi</Button>
+                                </DataTable.Cell>
                             </DataTable.Row>
                         </DataTable>
-                    </List.Accordion>
-            </List.Section>
-        </ScrollView>
+                </ScrollView>
+            }
             <Provider>
                 <Portal>
                     <CourseModal2 index={curr} visible={visible} courses={selected} hideModal={hideModal}/>

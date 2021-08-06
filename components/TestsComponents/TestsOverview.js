@@ -22,7 +22,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
 
 
     const deleteCourse = () => {
-        axios.put(`http://192.168.44.83:8080/u/0/student-exams/cancellation/${courseToDelete.studentGradedActivityId}`,
+        axios.put(`http://192.168.44.79:8080/u/0/student-exams/cancellation/${courseToDelete.studentGradedActivityId}`,
             {},
             {
                 headers: {
