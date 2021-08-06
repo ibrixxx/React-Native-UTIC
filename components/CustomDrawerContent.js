@@ -74,7 +74,7 @@ export default function CustomDrawerContent(props) {
                     <Avatar rounded title={getInitials()} size="large" overlayContainerStyle={{ backgroundColor: 'dodgerblue' }}/>
                     <View>
                         <Text style={{ color: 'white', fontSize: 20 }}>{student.firstName} {student.lastName}</Text>
-                        <Text style={{ color: 'white' }}>index: {studyProgram.index}</Text>
+                        <Text style={{ color: 'white' }}>Index: {studyProgram.index}</Text>
                     </View>
 
                 </View>

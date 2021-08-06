@@ -2,6 +2,7 @@ import React from "react";
 import {Caption, DataTable, Portal, Provider, Text} from "react-native-paper";
 import CourseModal2 from "../Modals/CourseModal2";
 import {Icon} from "react-native-elements";
+import {ScrollView} from "react-native";
 
 export default function CurrentSemester({classes}) {
     const [visible, setVisible] = React.useState(false)
@@ -12,6 +13,7 @@ export default function CurrentSemester({classes}) {
 
     return(
         <>
+            <ScrollView>
             <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Spisak predmeta</Text>
             <DataTable style={{width: '100%'}}>
                 <DataTable.Header style={{width: '100%'}}>
@@ -39,6 +41,7 @@ export default function CurrentSemester({classes}) {
                     })
                 }
             </DataTable>
+            </ScrollView>
             <Provider>
                 <Portal>
                     <CourseModal2 index={curr} visible={visible} courses={classes} hideModal={hideModal}/>

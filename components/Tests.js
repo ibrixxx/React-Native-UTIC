@@ -27,7 +27,7 @@ export default function Tests({ navigation }) {
 
 
     const getExams = () => {
-        axios.get('http://192.168.44.83:8080/u/0/student-exams/registration/unregistered/'
+        axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/unregistered/'
             , {
                 headers: {
                     Accept: 'application/json',

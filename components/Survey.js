@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {View} from "react-native";
 import MyHeader from "./MyHeader";
-import {ActivityIndicator, Caption, Card, DataTable} from "react-native-paper";
+import {ActivityIndicator, Caption, Card, DataTable, Text} from "react-native-paper";
 
 export default function Survey({ navigation }) {
     const [surveys, setSurvey] = useState([])
@@ -23,13 +23,8 @@ export default function Survey({ navigation }) {
     return (
         <View>
             <MyHeader myTitle="Ankete" navigation={navigation}/>
-            <Card style={{height: '100%'}}>
-                <Card.Title
-                    title="Trenutne ankete"
-                    titleStyle={{color: 'dodgerblue'}}
-                />
-                <Card.Content>
-                    {(surveys.length > 0)?
+            <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Trenutne ankete</Text>
+            {(surveys.length > 0)?
                         <DataTable>
                             <DataTable.Header>
                                 <DataTable.Title style={{flex: 0.5}}>Predmet</DataTable.Title>
@@ -45,10 +40,8 @@ export default function Survey({ navigation }) {
                             }
                         </DataTable>
                         :
-                        <Caption>Trenutno nema anketa</Caption>
+                        <Caption style={{textAlign: 'center', paddingTop: '12%'}}>Trenutno nema anketa</Caption>
                     }
-                </Card.Content>
-            </Card>
         </View>
     );
 }
