@@ -8,6 +8,7 @@ import FAQModal from "./Modals/FAQModal";
 import {Icon} from "react-native-elements";
 
 export default function FAQ({ navigation }) {
+
     const [questions, setQuestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [filterData, setFilterData] = useState([]);
@@ -15,6 +16,7 @@ export default function FAQ({ navigation }) {
     const [visible, setVisible] = useState(false)
     const [curr, setCurr] = useState(null)
     const [showSearchbar, setShowSearchBar] = useState(true);
+    const [activeList, setActiveList] = React.useState(null);
 
     const showModal = (i) => {setVisible(true); setCurr(i); setShowSearchBar(false);}
     const hideModal = () => {setVisible(false); setShowSearchBar(true);}
@@ -61,6 +63,13 @@ export default function FAQ({ navigation }) {
         return questions
     }
 
+    const handlePress = (ind) => {
+        if(activeList === ind)
+            setActiveList(null)
+        else
+            setActiveList(ind)
+    }
+
     return (
         <>
             <MyHeader myTitle="FAQ" navigation={navigation}/>
@@ -73,19 +82,47 @@ export default function FAQ({ navigation }) {
                 /> : <Title style={{ fontSize: 33, padding: 7, paddingLeft: 12 }}><Icon name="search" color="#777777"/></Title>
             }
 
-            <Text style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', textAlign: 'center'}}>
-                Najčešće postavljena pitanja
-            </Text>
+            <ScrollView>
+                <List.Section
+                    title="Najčešće postavljena pitanja"
+                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
+                    {
+                        (returnData() && returnData().length > 0) ? returnData().map((ques, i) =>{
+                            return(
+                                <View>
+                                    <List.Accordion
+                                        key={i}
+                                        id={i}
+                                        title={ques.question}
+                                        titleStyle={{fontWeight: 'bold'}}
+                                        style={{ backgroundColor: 'white' }}
+                                        theme={{ colors: { primary: 'dodgerblue' }}}
+                                        expanded={i === activeList}
+                                        onPress={() => handlePress(i)}>
 
-            <DataTable style={{ width: '100%', backgroundColor: 'white' }}>
-                {returnData().map((ques, index) => (
-                        <DataTable.Row key={index} onPress={() => {showModal(index)}}>
-                            <DataTable.Cell ><Text >{ques.question}</Text></DataTable.Cell>
-                        </DataTable.Row>
-                    ))
+                                        <View style={{ padding: 20, backgroundColor: '#eeeeee'}}>
+                                            <Text style={{ textAlign: 'justify'}}>{ques.answer}</Text>
+                                        </View>
 
-                }
-            </DataTable>
+                                    </List.Accordion>
+                                </View>
+                            )
+                        }) : null
+                    }
+                </List.Section>
+            </ScrollView>
+
+            {/*<DataTable style={{width: '100%', backgroundColor: 'white'}}>*/}
+            {/*    {(returnData() && returnData().length > 0)? returnData().map((ques, index) => (*/}
+            {/*            <DataTable.Row key={index} onPress={() => {showModal(index)}}>*/}
+            {/*                <DataTable.Cell ><Text >{ques.question}</Text></DataTable.Cell>*/}
+            {/*            </DataTable.Row>*/}
+            {/*        )) :*/}
+            {/*        <Text*/}
+            {/*            style={{ padding: 10, textAlign: 'center', fontWeight: 'bold', fontSize: 15, color: "#434343", backgroundColor: '#f2f2f2' }}>Nema postavljenih pitanja</Text>*/}
+
+            {/*    }*/}
+            {/*</DataTable>*/}
 
             <Provider>
                 <Portal>

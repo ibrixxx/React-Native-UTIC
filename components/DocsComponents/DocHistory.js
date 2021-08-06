@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {DataTable, Portal, Provider, Title} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
-import {Icon} from "react-native-elements";
+import {DataTable, Portal, Provider} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import CourseModal2 from "../Modals/CourseModal2";
 import DocsModal from "../Modals/DocsModal";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
@@ -53,19 +51,22 @@ export default function DocHistory(){
                 <ScrollView>
                     <DataTable>
                         <DataTable.Header style={{ width: '100%' }}>
-                            <DataTable.Title style={{ flex: 0.75 }}>Tip dokumenta</DataTable.Title>
+                            <DataTable.Title>Tip dokumenta</DataTable.Title>
                             <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
+                            <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                         </DataTable.Header>
 
                         {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
                             (prev.documentStatusName !== "primljen zahtjev") ?
                                 <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
-                                    {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.75 }}>{prev.documentTypeName}</DataTable.Cell> :
-                                        <DataTable.Cell style={{ flex: 0.75 }}>{prev.certificateReasonName}</DataTable.Cell>
-                                    }
+                                    <DataTable.Cell>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</DataTable.Cell>
                                     <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+
                                 </DataTable.Row> : null
-                        ):<Text>Nema</Text>
+                        ) :
+                            <Text
+                                style={{ textAlign: 'center', padding: 10, marginTop: 5, color: '#434343' }}>Trenutno nemate ranije podnesenih zahtjeva.</Text>
 
                         }
                     </DataTable>
@@ -85,7 +86,6 @@ export default function DocHistory(){
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        padding: 15,
         marginLeft: 'auto',
         marginRight: 'auto',
     },

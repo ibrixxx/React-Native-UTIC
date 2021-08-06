@@ -8,7 +8,7 @@ import {TOKEN} from "../App";
 import {Picker} from "@react-native-picker/picker";
 
 export default function Comments({ navigation }) {
-    const [selectedValue, setSelectedValue] = useState(0);
+    const [selectedValue, setSelectedValue] = useState(1);
     const [mailTypes, setMailTypes] = useState({});
     const [title, setTitle] = useState("");
     const [mail, setMail] = useState("");

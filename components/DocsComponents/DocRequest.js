@@ -6,17 +6,22 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
+    const [filtered, setFiltered] = useState([]);
     const [visible, setVisible] = useState(false)
     const [curr, setCurr] = useState(null)
     const [docsVisible, setDocsVisible] = useState(false)
     const [showFAB, setShowFAB] = useState(true)
 
 
-    const showModal = () => {setVisible(true);}
-    const hideModal = () => setVisible(false)
+    const showModal = () => {setShowFAB(false); setVisible(true);}
+    const hideModal = () => {
+        setVisible(false);
+        setShowFAB(true);
+    }
 
     const showDocsModal = (i) => {setDocsVisible(true); setCurr(i); setShowFAB(false)}
     const hideDocsModal = () => {setDocsVisible(false); setShowFAB(true); getPrevRequests()}
@@ -34,7 +39,14 @@ export default function DocRequest() {
         })
             .then(respnse => {
                 console.log(respnse.data)
-                setPrevRequests(respnse.data)
+                setPrevRequests(respnse.data);
+                console.log("dokumenti")
+                setFiltered(
+                    respnse.data.filter((doc) => (doc.documentStatusName === "primljen zahtjev")
+                    )
+                )
+
+                console.log(filtered);
             })
             .catch(error => {
                 console.error(error);
@@ -62,19 +74,24 @@ export default function DocRequest() {
 
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
-                        <DataTable.Title style={{ flex: 0.75 }}>Tip dokumenta</DataTable.Title>
+                        <DataTable.Title>Tip dokumenta</DataTable.Title>
                         <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
-                    {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
-                        (prev.documentStatusName === "primljen zahtjev" || prev.documentStatusName === "u obradi") ?
+                    {   (filtered && filtered.length > 0) ? filtered.map((prev, i) =>
                             <DataTable.Row key={prev.id} style={styles.yellowStyle} onPress={() => showDocsModal(i)} >
-                                {   (prev.certificateReasonName === "") ? <DataTable.Cell style={{ flex: 0.75 }}>{prev.documentTypeName}</DataTable.Cell> :
-                                    <DataTable.Cell style={{ flex: 0.75 }}>{prev.certificateReasonName}</DataTable.Cell>
-                                }
+                                <DataTable.Cell>
+                                    {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
+                                </DataTable.Cell>
+
                                 <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                            </DataTable.Row> : null
-                    ):<Text>Nema</Text>
+                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+
+                            </DataTable.Row>
+                    ) :
+                        <Text
+                            style={{ textAlign: 'center', padding: 10, marginTop: 5, color: '#434343' }}>Trenutno nemate aktivnih zahtjeva za dokumente.</Text>
 
                     }
 
@@ -83,7 +100,7 @@ export default function DocRequest() {
 
                 <Provider>
                     <Portal>
-                        <AddDocRequestModal visible={visible} hideModal={hideModal}/>
+                        <AddDocRequestModal visible={visible} hideModal={hideModal} prevRequestsF={getPrevRequests}/>
                         <ActiveDocReqModal visible={docsVisible} hideModal={hideDocsModal} index={curr} docs={prevRequests} />
                     </Portal>
                 </Provider>

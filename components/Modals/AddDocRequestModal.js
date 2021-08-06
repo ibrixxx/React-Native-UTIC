@@ -6,13 +6,13 @@ import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
 import {white} from "react-native-paper/src/styles/colors";
 
-export default function AddDocRequestModal({visible, hideModal }) {
+export default function AddDocRequestModal({visible, hideModal, prevRequestsF }) {
     const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
     const [documentTypes, setDocumentTypes] = useState({});
     const [certificateReasons, setCertificateReasons] = useState({});
-    const [selectedValue, setSelectedValue] = useState(0);
+    const [selectedValue, setSelectedValue] = useState(1);
     const [enableTypes, setEnableTypes] = useState(true);
-    const [selectedValueType, setSelectedValueType] = useState(0);
+    const [selectedValueType, setSelectedValueType] = useState(1);
     const [scndDropdownStyle, setScndDropdownStyle] = useState(styles.enabled);
     const [scndDropdownView, setScndDropdownView] = useState(styles.enabledBorder);
     const [note, setNote] = useState("");
@@ -59,7 +59,8 @@ export default function AddDocRequestModal({visible, hideModal }) {
         axios.post('http://192.168.44.79:8080/u/0/student-documents/create-request', {
                 documentTypeId: selectedValue,
                 certificateReasonId: selectedValueType,
-                comment: note
+                comment: note,
+                languageId: 1
             },{ headers:
                     {
                         Accept: 'application/json',
@@ -70,6 +71,7 @@ export default function AddDocRequestModal({visible, hideModal }) {
         )
             .then(respnse => {
                 console.log("Upisan")
+                prevRequestsF();
             })
             .catch(error => {
                 console.error(error);
@@ -78,7 +80,7 @@ export default function AddDocRequestModal({visible, hideModal }) {
 
     function resetFields() {
         setSelectedValue(6);
-        setSelectedValueType(0);
+        setSelectedValueType(1);
         setEnableTypes(true);
         setScndDropdownStyle(styles.enabled);
         setScndDropdownView(styles.enabledBorder);
