@@ -14,7 +14,8 @@ import {
 } from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 export default function SelectedClasses({selected}) {
@@ -62,30 +63,28 @@ export default function SelectedClasses({selected}) {
                 <ScrollView style={{backgroundColor: '#e0e0e0'}}>
                     <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
                         <DataTable style={{backgroundColor: 'white'}}>
-                            <DataTable.Header>
-                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
-                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
+                            <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
+                                <DataTable.Title style={{ flex: 0.5 }}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric style={{ flex: 0.2 }}><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
+                                <DataTable.Title numeric style={{ flex: 0.2 }}><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
+                                <DataTable.Title style={{ flex: 0.2 }} ></DataTable.Title>
                             </DataTable.Header>
                         {
                             selected.map((p, i) => {
                                 return(
                                         <DataTable.Row key={'s'+i} onPress={() => {showModal(i)}}>
-                                            <DataTable.Cell style={{flex: 0.3}}>
-                                                <Icon
-                                                    name='more'
-                                                    type='material'
-                                                    color='#517fa4'
-                                                    size={14}/>
-                                            </DataTable.Cell>
-                                            <DataTable.Cell>
+
+                                            <DataTable.Cell style={{ flex: 0.65 }}>
                                                 {p.courseName}
                                             </DataTable.Cell>
-                                            <DataTable.Cell numeric>
+                                            <DataTable.Cell numeric style={{ flex: 0.3 }}>
                                                 {p.exerciseHours}+{p.lectureHours}+{p.seminarHours}
                                             </DataTable.Cell>
-                                            <DataTable.Cell numeric>
+                                            <DataTable.Cell numeric style={{ flex: 0.2 }}>
                                                 {p.ects}
+                                            </DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.3}} numeric>
+                                                <Icon name="ellipsis-h" size={20} color="#888888" />
                                             </DataTable.Cell>
                                         </DataTable.Row>
                                 );

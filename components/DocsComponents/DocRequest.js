@@ -86,7 +86,7 @@ export default function DocRequest() {
                                 </DataTable.Cell>
 
                                 <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                             </DataTable.Row>
                     ) :

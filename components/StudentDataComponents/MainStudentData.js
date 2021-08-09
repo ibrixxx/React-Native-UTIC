@@ -44,7 +44,6 @@ export default function MainStudentData(){
         <>
             <ScrollView>
                 <View style={style.container}>
-                    <Title style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, marginBottom: 10, textAlign: 'center'}}>Podaci o studentu</Title>
                     <DataTable>
                         <DataTable.Row style={{textAlign: 'right'}}>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
@@ -71,10 +70,12 @@ export default function MainStudentData(){
                             <DataTable.Cell>{student.lastName}</DataTable.Cell>
                         </DataTable.Row>
 
-                        <DataTable.Row>
-                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Djevojačko prezime</Text></DataTable.Cell>
-                            <DataTable.Cell>{student.maidenName}</DataTable.Cell>
-                        </DataTable.Row>
+                        {
+                            (student.gender === "ženski") ? <DataTable.Row>
+                                <DataTable.Cell ><Text style={style.TDStyleLeft}>Djevojačko prezime</Text></DataTable.Cell>
+                                <DataTable.Cell>{student.maidenName}</DataTable.Cell>
+                            </DataTable.Row> : null
+                        }
 
                         <DataTable.Row>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Spol</Text></DataTable.Cell>

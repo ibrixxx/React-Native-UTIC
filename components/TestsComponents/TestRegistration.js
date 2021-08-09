@@ -4,7 +4,8 @@ import {Button, Caption, Card, DataTable, Portal, Provider, Snackbar, Text} from
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddTestModal from "../Modals/AddTestModal";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 export default function TestRegistration({exams, setCurrent, setExams}) {

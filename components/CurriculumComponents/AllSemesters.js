@@ -4,7 +4,7 @@ import {TOKEN} from "../../App";
 import {ActivityIndicator, Button, Divider, List, Portal, Provider} from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function AllSemesters() {
     const [isReady, setIsReady] = React.useState(false);
@@ -83,13 +83,7 @@ export default function AllSemesters() {
                                                         <List.Item
                                                             key={'li'+i}
                                                             title={c.courseName}
-                                                            left={() => <Icon
-                                                                    name='info'
-                                                                    type='material'
-                                                                    color='#517fa4'
-                                                                    size={16}
-                                                                    style={{marginTop: '40%', marginLeft: '2%'}}
-                                                            />}
+                                                            right={() => <Icon name="ellipsis-h" size={20} color="#434343" />}
                                                             titleStyle={{fontWeight: 'bold'}}
                                                             onPress={() => showModal(i)}/>
                                                         <Divider/>

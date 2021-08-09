@@ -78,7 +78,7 @@ export default function Comments({ navigation }) {
 
     return (
         <View>
-            <MyHeader myTitle="Komentari" navigation={navigation}/>
+            <MyHeader myTitle="Komentari/prijedlozi" navigation={navigation}/>
             <View style={{height: '85%', alignItems: 'center', justifyContent: 'center'}}>
                 <View style={style.container}>
                     <Title style={{ marginBottom: 20 }}>Forma za slanje</Title>
@@ -124,7 +124,7 @@ export default function Comments({ navigation }) {
                         multiline
                         numberOfLines={4}
                         placeholder="Tekst poruke"
-                        style={{ width: '90%', padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                        style={{ width: '90%', maxHeight: 100, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
                         onChangeText={msgBody => setText(msgBody)}
                         value={text}/>
 

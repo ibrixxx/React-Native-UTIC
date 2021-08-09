@@ -5,7 +5,8 @@ import {TOKEN} from "../../App";
 import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 export default function TestsOverview({setExams, setCurrentExams,past, current}) {
@@ -111,12 +112,12 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                     current.map((p, i) => {
                                         return (
                                             <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}} style={{backgroundColor: 'whitesmoke'}}>
-                                                <DataTable.Cell style={{flex: 0.3}}>
+                                                <DataTable.Cell style={{flex: 0.2}}>
                                                     <Icon
                                                         name='info'
                                                         type='material'
                                                         color='#517fa4'
-                                                        size={16}/>
+                                                        size={14}/>
                                                 </DataTable.Cell>
                                                 <DataTable.Cell>
                                                     {p.courseName}
@@ -155,12 +156,12 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                 past.map((p, i) => {
                                     return(
                                         <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
-                                            <DataTable.Cell style={{flex: 0.3}}>
+                                            <DataTable.Cell style={{flex: 0.2}}>
                                                 <Icon
                                                     name='info'
                                                     type='material'
                                                     color='#517fa4'
-                                                    size={16}/>
+                                                    size={14}/>
                                             </DataTable.Cell>
                                             <DataTable.Cell>
                                                 {p.courseName}

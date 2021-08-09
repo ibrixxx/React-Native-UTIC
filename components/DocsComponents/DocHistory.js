@@ -61,7 +61,7 @@ export default function DocHistory(){
                                 <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
                                     <DataTable.Cell>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</DataTable.Cell>
                                     <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                                 </DataTable.Row> : null
                         ) :
