@@ -14,6 +14,7 @@ import {
 } from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
+import {Icon} from "react-native-elements";
 
 
 export default function SelectedClasses({selected}) {
@@ -70,6 +71,13 @@ export default function SelectedClasses({selected}) {
                             selected.map((p, i) => {
                                 return(
                                         <DataTable.Row key={'s'+i} onPress={() => {showModal(i)}}>
+                                            <DataTable.Cell style={{flex: 0.3}}>
+                                                <Icon
+                                                    name='more'
+                                                    type='material'
+                                                    color='#517fa4'
+                                                    size={14}/>
+                                            </DataTable.Cell>
                                             <DataTable.Cell>
                                                 {p.courseName}
                                             </DataTable.Cell>
