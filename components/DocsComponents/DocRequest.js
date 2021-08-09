@@ -75,7 +75,7 @@ export default function DocRequest() {
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
                         <DataTable.Title>Tip dokumenta</DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.3 }}>Datum</DataTable.Title>
                         <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
@@ -85,7 +85,7 @@ export default function DocRequest() {
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
                                 </DataTable.Cell>
 
-                                <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
                                 <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
 
                             </DataTable.Row>
