@@ -81,16 +81,14 @@ export default function Professors() {
             <ScrollView>
             <DataTable>
                 <DataTable.Header>
-                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Prezime</Text></DataTable.Title>
-                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Ime</Text></DataTable.Title>
+                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Ime i prezime</Text></DataTable.Title>
                     <DataTable.Title><Text style={{fontWeight: 'bold'}}>Email</Text></DataTable.Title>
                 </DataTable.Header>
                 {
                     returnData().map((prof, index) => {
                         return (
                             <DataTable.Row key={index}>
-                                <DataTable.Cell style={{flex: 0.4}}>{prof.lastName}</DataTable.Cell>
-                                <DataTable.Cell style={{flex: 0.2}}>{prof.firstName}</DataTable.Cell>
+                                <DataTable.Cell style={{flex: 0.6}}>{prof.firstName.trim()} {prof.lastName.trim()}</DataTable.Cell>
                                 <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.6}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )

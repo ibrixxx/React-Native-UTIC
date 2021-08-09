@@ -6,6 +6,7 @@ import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, T
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
 import {Icon} from "react-native-elements";
+import {formatTimestamp, formatType} from "../Formats/MyFormats";
 
 
 export default function TestsOverview({setExams, setCurrentExams,past, current}) {
@@ -62,25 +63,6 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
         else
             setActiveList2(ind)
     }
-
-
-    const formatTimestamp = (num) => {
-        const d = new Date(num);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.';
-    }
-
-
-    const formatType = (num) => {
-        if(num === 1)
-            return 'Parcijalni'
-        else if(num === 2)
-            return 'Završni'
-        else if(num === 3)
-            return 'Popravni'
-        else
-            return 'Socijalni'
-    }
-
 
     const onToggleSnackBar = () => setVisible4(true);
 

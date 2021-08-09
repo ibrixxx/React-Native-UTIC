@@ -71,7 +71,7 @@ export default function AllSemesters() {
                                     <List.Accordion
                                         key={ind}
                                         id={ind}
-                                        title={`Semestar ${sem[0]}`}
+                                        title={`${sem[0]}. semestar`}
                                         titleStyle={{fontWeight: 'bold'}}
                                         theme={{ colors: { primary: 'dodgerblue' }}}
                                         expanded={ind === activeList}
