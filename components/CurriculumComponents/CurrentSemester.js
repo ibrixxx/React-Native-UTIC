@@ -28,7 +28,7 @@ export default function CurrentSemester({classes}) {
                             <DataTable.Row style={{backgroundColor: c.mandatory? 'white':'#e1f2f5'}} key={index} onPress={() => {showModal(index)}}>
                                 <DataTable.Cell style={{flex: 0.3}}>
                                     <Icon
-                                    name='info'
+                                    name='more'
                                     type='material'
                                     color='#517fa4'
                                     size={16}/>
