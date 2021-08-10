@@ -12,10 +12,9 @@ export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
     const[isReady, setIsReady] = useState(false)
     const [FABVisible, setFABVisible] = useState(true);
-    const [visibleAdd, setVisibleAdd] = React.useState(false)
+    const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleContacts, setVisibleContacts] = useState(false);
-    const [curr, setCurr] = React.useState(null)
-    const [visibleSnackbar, setVisibleSnackbar] = React.useState(false)
+    const [curr, setCurr] = useState(null)
 
 
     const showAddModal = () => {setFABVisible(false); setVisibleAdd(true)}

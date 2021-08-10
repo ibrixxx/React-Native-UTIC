@@ -65,8 +65,13 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
             });
     }
 
+    function joined(){
+        setWarning(false);
+        hideContactsModal();
+    }
+
     return (
-        <Modal visible={visibleContacts} onDismiss={hideContactsModal} contentContainerStyle={containerStyle}>
+        <Modal visible={visibleContacts} onDismiss={joined} contentContainerStyle={containerStyle}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Title style={{ color: 'dodgerblue', fontWeight: 'bold', textAlign: 'center', marginBottom: 10, marginLeft: '30%' }}>Uređivanje</Title>
                 <Button color="#434343" onPress={() => hideContactsModal()} labelStyle={{ fontWeight: 'bold' }}>X</Button>

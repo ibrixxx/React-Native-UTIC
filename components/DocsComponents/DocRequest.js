@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import {DataTable, FAB, Portal, Provider} from "react-native-paper";
+import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../../App";
@@ -15,6 +15,7 @@ export default function DocRequest() {
     const [curr, setCurr] = useState(null)
     const [docsVisible, setDocsVisible] = useState(false)
     const [showFAB, setShowFAB] = useState(true)
+    const[isReady, setIsReady] = useState(false)
 
 
     const showModal = () => {setShowFAB(false); setVisible(true);}
@@ -40,6 +41,7 @@ export default function DocRequest() {
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data);
+                setIsReady(true)
                 console.log("dokumenti")
                 setFiltered(
                     respnse.data.filter((doc) => (doc.documentStatusName === "primljen zahtjev")
@@ -51,6 +53,9 @@ export default function DocRequest() {
             .catch(error => {
                 console.error(error);
             });
+    }
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     const getDateFormated = (n) => {

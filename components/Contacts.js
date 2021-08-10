@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import MyHeader from "./MyHeader";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../App";
-import {DataTable, Title} from "react-native-paper";
+import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {Icon} from "react-native-elements";
 import {Linking} from "react-native";
 
 export default function Contacts({ navigation }) {
-    const [importantContacts, setImportantContacts] = React.useState({});
-    const [website, setWebsite] = React.useState({});
+    const [importantContacts, setImportantContacts] = useState({});
+    const[isReady, setIsReady] = useState(false)
 
     const unsaPhone = "0038733565100";
     const unsaMail = "javnost@unsa.ba";
@@ -35,6 +35,7 @@ export default function Contacts({ navigation }) {
             .then(respnse => {
                 console.log(respnse.data)
                 setImportantContacts(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
@@ -50,51 +51,59 @@ export default function Contacts({ navigation }) {
                 style={{ height: '90%', marginBottom: 10 }}>
 
                 <View style={style.container}>
-                    <Title style={style.titleMain}>{(importantContacts && importantContacts.length > 0) ? importantContacts[0].facultyName : ""}</Title>
-                    <DataTable>
-                        <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='phone' /></DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.7 }}>
-                                {(importantContacts && importantContacts.length > 0) ?
-                                    (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
-                                        importantContacts[0].facultyContact.map((cont) => (
-                                            (cont.contactType === "telefon") ?
-                                                cont.value : ""
-                                        ))
-                                        : ""
-                                    : ""}
-                            </DataTable.Cell>
-                        </DataTable.Row>
+                    {
+                        isReady ?
+                            <View style={{ width: '100%' }}>
+                                <Title style={style.titleMain}>{(importantContacts && importantContacts.length > 0) ? importantContacts[0].facultyName : ""}</Title>
 
-                        <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='email' /></DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.7 }}>
-                                {(importantContacts && importantContacts.length > 0) ?
-                                    (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
-                                        importantContacts[0].facultyContact.map((cont) => (
-                                            (cont.contactType === "primarni e-mail") ? cont.value : ""
-                                        ))
-                                        : ""
-                                    : ""}
-                            </DataTable.Cell>
-                        </DataTable.Row>
+                                <DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='phone' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.7 }}>
+                                            {(importantContacts && importantContacts.length > 0) ?
+                                                (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
+                                                    importantContacts[0].facultyContact.map((cont) => (
+                                                        (cont.contactType === "telefon") ?
+                                                            cont.value : ""
+                                                    ))
+                                                    : ""
+                                                : ""}
+                                        </DataTable.Cell>
+                                    </DataTable.Row>
 
-                        <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='language' /></DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 0.7 }}>
-                                {(importantContacts && importantContacts.length > 0) ?
-                                    (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
-                                        importantContacts[0].facultyContact.map((cont) => (
-                                            (cont.contactType === "web stranica") ?
-                                                <Text
-                                                    style={{ color: '#009FFD' }}
-                                                    onPress={() => Linking.openURL(cont.value)}>{cont.value}</Text> : ""
-                                        ))
-                                        : ""
-                                    : ""}
-                            </DataTable.Cell>
-                        </DataTable.Row>
-                    </DataTable>
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='email' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.7 }}>
+                                            {(importantContacts && importantContacts.length > 0) ?
+                                                (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
+                                                    importantContacts[0].facultyContact.map((cont) => (
+                                                        (cont.contactType === "primarni e-mail") ? cont.value : ""
+                                                    ))
+                                                    : ""
+                                                : ""}
+                                        </DataTable.Cell>
+                                    </DataTable.Row>
+
+                                    <DataTable.Row>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='language' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.7 }}>
+                                            {(importantContacts && importantContacts.length > 0) ?
+                                                (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
+                                                    importantContacts[0].facultyContact.map((cont) => (
+                                                        (cont.contactType === "web stranica") ?
+                                                            <Text
+                                                                style={{ color: '#009FFD' }}
+                                                                onPress={() => Linking.openURL(cont.value)}>{cont.value}</Text> : ""
+                                                    ))
+                                                    : ""
+                                                : ""}
+                                        </DataTable.Cell>
+                                    </DataTable.Row>
+                                </DataTable>
+                            </View> :  <ActivityIndicator style={{marginTop: '25%', marginBottom: '25%'}} color={'dodgerblue'} size={'large'}/>
+                    }
+
+
                 </View>
 
                 <View style={style.container}>

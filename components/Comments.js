@@ -108,7 +108,7 @@ export default function Comments({ navigation }) {
 
                     {
                         badMail ? <TextInput
-                            placeholder="Vaša E-mail adresa"
+                            placeholder="Vaša e-mail adresa"
                             style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "red", }}
                             onChangeText={email => setMail(email)}
                             value={mail}/>

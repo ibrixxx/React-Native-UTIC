@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {DataTable, Portal, Provider} from "react-native-paper";
+import {ActivityIndicator, DataTable, Portal, Provider} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import DocsModal from "../Modals/DocsModal";
@@ -10,6 +10,7 @@ export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
     const [visible, setVisible] = React.useState(false)
     const [curr, setCurr] = React.useState(null)
+    const[isReady, setIsReady] = useState(false)
 
     const showModal = (i) => {setVisible(true); setCurr(i)}
     const hideModal = () => setVisible(false)
@@ -28,10 +29,14 @@ export default function DocHistory(){
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
     const getDateFormated = (n) => {
