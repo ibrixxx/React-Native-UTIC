@@ -6,6 +6,7 @@ import axios from "axios";
 import {TOKEN} from "../App";
 import CourseModal from "./Modals/CourseModal";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {formatTimestamp, formatTimestamp2} from "./Formats/MyFormats";
 
 
 export default function Home({ navigation }) {
@@ -33,18 +34,6 @@ export default function Home({ navigation }) {
             })
     }, [])
 
-
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
-
-    const formatTimestamp2 = (num) => {
-        const date = new Date(num);
-        return ""+date.getHours()+
-            ":"+date.getMinutes()+
-            "h";
-    }
 
     const hideModal = () => setVisible(false)
 
@@ -86,7 +75,7 @@ export default function Home({ navigation }) {
                                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
 
                                             <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.3}} numeric>{getDateFormated(e.examDate)}</DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.2}} numeric>{formatTimestamp2(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.1}} numeric>
                                                 <Icon name="ellipsis-h" size={20} color="#888888" />

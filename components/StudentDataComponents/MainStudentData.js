@@ -4,6 +4,7 @@ import {TOKEN} from "../../App";
 import {ScrollView, StyleSheet, View, Text} from "react-native";
 import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 export default function MainStudentData(){
     const[student, setStudent] = useState({})
@@ -15,10 +16,6 @@ export default function MainStudentData(){
         getUserData();
     }, [])
 
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
 
     const getUserData = () => {
         axios.get(' http://192.168.44.79:8080/u/0/students/student/personal-information', {
@@ -84,7 +81,7 @@ export default function MainStudentData(){
 
                         <DataTable.Row>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Datum rođenja</Text></DataTable.Cell>
-                            <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
+                            <DataTable.Cell>{formatTimestamp(student.dateOfBirth)}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>

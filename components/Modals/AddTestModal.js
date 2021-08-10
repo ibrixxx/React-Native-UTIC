@@ -1,37 +1,10 @@
 import React from "react";
 import {Button, DataTable, Modal, Text, Title} from "react-native-paper";
+import {formatTimestamp, formatTimestamp2, formatType} from "../Formats/MyFormats";
 
 
 export default function AddTestModal({visible, hideModal, index, courses, registerTest}) {
     const containerStyle = {backgroundColor: 'white', padding: 20, zIndex: 0}
-
-
-    const formatTimestamp = (num) => {
-        const date = new Date(num);
-        return ""+date.getDate()+
-            "."+(date.getMonth()+1)+
-            "."+date.getFullYear()+".";
-    }
-
-
-    const formatTimestamp2 = (num) => {
-        const date = new Date(num);
-        return ""+date.getHours()+
-            ":"+date.getMinutes()+
-            "h";
-    }
-
-
-    const formatType = (num) => {
-        if(num === 1)
-            return 'Parcijalni'
-        else if(num === 2)
-            return 'Završni'
-        else if(num === 3)
-            return 'Popravni'
-        else
-            return 'Socijalni'
-    }
 
 
     const registerThisExam = () => {
