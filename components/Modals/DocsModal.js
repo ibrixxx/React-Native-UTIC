@@ -2,6 +2,7 @@ import {DataTable, Modal, Title} from "react-native-paper";
 import React from "react";
 import {Text, View} from "react-native";
 import {Icon} from "react-native-elements";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 
 export default function DocsModal({visible, hideModal, index, docs}) {
@@ -12,11 +13,6 @@ export default function DocsModal({visible, hideModal, index, docs}) {
         if (str === "obrađen") return <Icon name="check" color="green"/>
         if (str === "poništen" || str === "odbijen") return <Icon name="close" color="red"/>
 
-    }
-
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
     }
 
     return(
@@ -30,7 +26,7 @@ export default function DocsModal({visible, hideModal, index, docs}) {
             <DataTable style={{ width: '75%', marginLeft: 'auto', marginRight: 'auto' }}>
                 <DataTable.Row>
                     <DataTable.Cell><Text style={{ fontWeight: 'bold' }}>Datum:</Text></DataTable.Cell>
-                    <DataTable.Cell>{docs[index] ? getDateFormated(docs[index].date) : ""}</DataTable.Cell>
+                    <DataTable.Cell>{docs[index] ? formatTimestamp(docs[index].date) : ""}</DataTable.Cell>
                 </DataTable.Row>
 
                 <DataTable.Row>

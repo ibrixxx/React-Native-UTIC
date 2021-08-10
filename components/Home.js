@@ -75,7 +75,7 @@ export default function Home({ navigation }) {
                                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
                                             <DataTable.Cell style={{flex: 0.08}}>
                                                 <Icon
-                                                    name='more'
+                                                    name='search'
                                                     type='material'
                                                     color='#517fa4'
                                                     size={14}/>

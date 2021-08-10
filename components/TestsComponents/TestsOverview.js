@@ -6,6 +6,7 @@ import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, T
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {formatTimestamp, formatType} from "../Formats/MyFormats";
 
 
 
@@ -62,24 +63,6 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
             setActiveList2(null)
         else
             setActiveList2(ind)
-    }
-
-
-    const formatTimestamp = (num) => {
-        const d = new Date(num);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.';
-    }
-
-
-    const formatType = (num) => {
-        if(num === 1)
-            return 'Parcijalni'
-        else if(num === 2)
-            return 'Završni'
-        else if(num === 3)
-            return 'Popravni'
-        else
-            return 'Socijalni'
     }
 
 
@@ -147,7 +130,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         { (past.length > 0)?
                             <DataTable>
                             <DataTable.Header style={{backgroundColor: '#ebeded'}}>
-                                <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.3}}> </DataTable.Title>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>

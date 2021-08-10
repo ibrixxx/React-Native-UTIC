@@ -1,16 +1,19 @@
 import React, {useEffect} from 'react'
 import {
-    Banner,
-    Subheading,
-    Caption,
     ActivityIndicator,
-    List, DataTable, Text, Divider, Title
+    Banner,
+    Caption,
+    DataTable,
+    Portal,
+    Provider,
+    Subheading,
+    Text,
+    Title
 } from "react-native-paper";
-import {RefreshControl, ScrollView, View} from "react-native";
+import {RefreshControl, ScrollView} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {formatTimestamp} from "../Formats/MyFormats";
-import {Icon} from "react-native-elements";
+import GradeModal from "../Modals/GradeModal";
 
 
 const wait = (timeout) => {
@@ -20,12 +23,17 @@ const wait = (timeout) => {
 
 export default function Grades() {
     const [visible, setVisible] = React.useState(false);
+    const [visible2, setVisible2] = React.useState(false);
     const [grades, setGrades] = React.useState([]);
     const [ectsSum, setEctsSum] = React.useState(0);
     const [average, setAverage] = React.useState(0);
     const [isReady, setIsReady] = React.useState(false);
-    const [activeList, setActiveList] = React.useState(null);
     const [refreshing, setRefreshing] = React.useState(false);
+    const [curr, setCurr] = React.useState(null)
+
+
+    const showModal = (i) => {setVisible(true); setCurr(i); if(grades[i].markStatus===0) setVisible2(true)}
+    const hideModal = () => setVisible(false)
 
 
     const onRefresh = React.useCallback(() => {
@@ -48,21 +56,6 @@ export default function Grades() {
             })
         //wait(2000).then(() => setRefreshing(false));
     }, []);
-
-
-    const handlePress = (ind, grade) => {
-        if(activeList === ind) {
-            setActiveList(null)
-            setVisible(false)
-        }
-        else {
-            setActiveList(ind)
-            if(grade.markStatus === 0)
-                setVisible(true)
-            else
-                setVisible(false)
-        }
-    }
 
 
     useEffect(() => {
@@ -93,12 +86,12 @@ export default function Grades() {
     return (
         <>
             <Banner
-                visible={visible}
+                visible={visible2}
                 actions={[
                     {
                         label: 'OK',
                         labelStyle: {color: '#c2a711', backgroundColor: 'whitesmoke'},
-                        onPress: () => setVisible(false),
+                        onPress: () => setVisible2(false),
                     }
                 ]}
             >
@@ -117,8 +110,7 @@ export default function Grades() {
             >
                 <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
                 <DataTable style={{width: '100%'}}>
-                    <DataTable.Header style={{width: '100%', backgroundColor: '#e8eded'}}>
-                        <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
+                    <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
                         <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                         <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Ocjena</Text></DataTable.Title>
                     </DataTable.Header>
@@ -126,15 +118,8 @@ export default function Grades() {
                         (grades.length > 0)?
                             grades.map((grade, ind) => {
                                 return (
-                                    <DataTable.Row style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}} key={ind}>
-                                        <DataTable.Cell style={{flex: 0.3}}>
-                                            <Icon
-                                                name='more'
-                                                type='material'
-                                                color='#517fa4'
-                                                size={16}/>
-                                        </DataTable.Cell>
-                                        <DataTable.Cell style={{flex: 1}}>{grade.courseName}</DataTable.Cell>
+                                    <DataTable.Row style={{backgroundColor: grade.markStatus===0? '#faece8':'white'}} key={ind} onPress={() => showModal(ind)}>
+                                        <DataTable.Cell style={{flex: 2}}>{grade.courseName}</DataTable.Cell>
                                         <DataTable.Cell numeric><Caption style={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}>{grade.mark}</Caption></DataTable.Cell>
                                     </DataTable.Row>
                                 );
@@ -143,6 +128,11 @@ export default function Grades() {
                     }
                 </DataTable>
             </ScrollView>
+            <Provider>
+                <Portal>
+                    <GradeModal index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
+                </Portal>
+            </Provider>
             <DataTable style={{backgroundColor: '#434343'}}>
                 <DataTable.Row>
                     <DataTable.Cell>

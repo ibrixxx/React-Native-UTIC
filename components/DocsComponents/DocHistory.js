@@ -5,6 +5,7 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 import DocsModal from "../Modals/DocsModal";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {formatTimestamp} from "../Formats/MyFormats";
 
 export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
@@ -34,11 +35,6 @@ export default function DocHistory(){
             });
     }
 
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
-
     function getStyle(str){
         if (str === "primljen zahtjev" || str === "u obradi") return styles.yellowStyle
         if (str === "obrađen") return styles.greenStyle
@@ -60,7 +56,7 @@ export default function DocHistory(){
                             (prev.documentStatusName !== "primljen zahtjev") ?
                                 <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
                                     <DataTable.Cell>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.3 }}>{formatTimestamp(prev.date)}</DataTable.Cell>
                                     <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                                 </DataTable.Row> : null
