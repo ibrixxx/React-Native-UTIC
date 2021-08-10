@@ -55,6 +55,8 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
         )
             .then(respnse => {
                 console.log("Upisan")
+                resetFields();
+                hideAddModal();
             })
             .catch(error => {
                 console.error(error);
@@ -64,7 +66,6 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
     function resetFields() {
         setContactValue("")
         setContactTypeValue(1)
-        setContactValue("")
         setWarning(false);
     }
 
@@ -75,7 +76,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
 
     return(
         <Modal visible={visibleAdd} onDismiss={joined} contentContainerStyle={containerStyle}>
-            <Title style={style.title}>Dodaj kontakt</Title>
+            <Title style={style.title}>Dodavanje novog kontakta</Title>
             <View style={{
                 borderWidth: 1,
                 borderColor: "#999999",
@@ -85,10 +86,10 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
             }}>
                 <Picker
                     selectedValue={contactTypeValue}
-                    onValueChange={(itemValue, itemIndex) => setContactTypeValue(itemValue)}>
+                    onValueChange={(itemValue, itemIndex) => {setContactTypeValue(itemValue); setWarning(false);}}>
                     {(contactTypes && contactTypes.length > 0) ? contactTypes.map((type) => (
                         <Picker.Item label={type.name} value={type.id} key={type.id}/>
-                    )) : <Picker.Item>Nema</Picker.Item>
+                    )) : <Picker.Item label="Nema" value={-1} />
                     }
                 </Picker>
             </View>
@@ -97,26 +98,41 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                 warning ? <Text style={{ color: 'red' }}>* E-mail nije validan</Text> : null
             }
 
+            {
+                warning ? <TextInput
+                    style={{
+                        backgroundColor: '#ffffff',
+                        height: 40,
+                        borderWidth: 1,
+                        borderColor: "red",
+                        padding: 5,
+                        marginBottom: 10
+                    }}
+                    placeholder="Vrijednost"
+                    onChangeText={contact => setContactValue(contact)}
+                    value={contactValue}/> :
+                    <TextInput
+                        style={{
+                            backgroundColor: '#ffffff',
+                            height: 40,
+                            borderWidth: 1,
+                            borderColor: "#999999",
+                            padding: 5,
+                            marginBottom: 10
+                        }}
+                        placeholder="Vrijednost"
+                        onChangeText={contact => setContactValue(contact)}
+                        value={contactValue}/>
+            }
 
-            <TextInput
-                style={{
-                    backgroundColor: '#ffffff',
-                    height: 40,
-                    borderWidth: 1,
-                    borderColor: "#999999",
-                    padding: 5,
-                    marginBottom: 10
-                }}
-                placeholder="Vrijednost"
-                onChangeText={contact => setContactValue(contact)}
-                value={contactValue}/>
 
             <View style={{
                 flexDirection: 'row',
                 width: '90%',
                 justifyContent: 'space-between',
                 marginLeft: 'auto',
-                marginRight: 'auto'
+                marginRight: 'auto',
+                marginTop: 10
             }}>
                 <Button
                     onPress={() => {
@@ -133,13 +149,15 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                                     if (validate(contactValue)) {
                                         sendContact();
                                     }
-                                    else setWarning(true)
+                                    else {
+                                        setWarning(true);
+                                        setContactValue("");
+                                    }
                                 }
                                 else {
                                     sendContact();
                                 }
-                                resetFields();
-                                hideAddModal();
+
                             }}
                             style={{backgroundColor: '#2C8BD3'}}
                             color={'white'}>Spremi</Button>
@@ -177,6 +195,6 @@ const style = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 20
     },
 })

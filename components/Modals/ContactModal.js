@@ -5,6 +5,7 @@ import {Picker} from "@react-native-picker/picker";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {white} from "react-native-paper/src/styles/colors";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 
 export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
@@ -26,15 +27,14 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                 id: student.contacts[index].id,
                 value: contactValue,
                 optLock: student.contacts[index].optLock
-                },
+            },
             {
                 headers:
                     {
                         Accept: 'application/json',
                         Authorization: TOKEN
                     }
-                }
-
+            }
         )
             .then(respnse => {
                 console.log("Promijenjen")
@@ -55,7 +55,6 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                         Authorization: TOKEN
                     }
             }
-
         )
             .then(respnse => {
                 console.log("Promijenjen")
@@ -66,24 +65,31 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
             });
     }
 
-    function joined(){
+    function joined() {
         setWarning(false);
         hideContactsModal();
     }
 
     return (
         <Modal visible={visibleContacts} onDismiss={joined} contentContainerStyle={containerStyle}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Title style={{ color: '#2C8BD3', fontWeight: 'bold', textAlign: 'center', marginBottom: 10, marginLeft: 'auto', marginRight: 'auto' }}>Izmjena</Title>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Title style={{
+                    color: '#2C8BD3',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    marginBottom: 10,
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }}>Izmjena</Title>
             </View>
 
             <View>
-                <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10 }}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>
                     {student ? student.contacts[index] ? student.contacts[index].type : "" : ""}:
                 </Text>
 
                 {
-                    warning ? <Text style={{ color: 'red' }}>* E-mail nije validan</Text> : null
+                    warning ? <Text style={{color: 'red'}}>* E-mail nije validan</Text> : null
                 }
 
                 <TextInput
@@ -96,33 +102,43 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                         marginBottom: 10,
                     }}
                     onChangeText={contact => setContactValue(contact)}
-                    >{student ? student.contacts[index] ? student.contacts[index].value : "1" : "2"}
+                >{student ? student.contacts[index] ? student.contacts[index].value : "1" : "2"}
                 </TextInput>
             </View>
 
 
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Button
                     mode='outlined'
                     color="#E47070"
-                    style={{ borderColor: '#E47070', borderWeight: 5 }}
+                    style={{
+                        borderColor: '#E47070',
+                        borderWidth: 2,
+                        borderRadius: 30,
+                        height: 50,
+                        justifyContent: 'center',
+                        minWidth: 50
+                    }}
                     onPress={() => {
                         deleteContact();
                     }}
-                    >Obriši</Button>
+                ><Icon name="trash" size={20}/></Button>
                 <Button
-                    style={{ backgroundColor: '#2C8BD3' }}
                     color="white"
+                    style={{
+                        backgroundColor: '#2C8BD3',
+                        borderRadius: 30,
+                        height: 52,
+                        justifyContent: 'center',
+                        minWidth: 52
+                    }}
                     onPress={() => {
-                        if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail"){
+                        if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail") {
                             if (validate(contactValue)) {
                                 updateContact();
-                            }
-                            else setWarning(true)
-                        }
-                        else updateContact();
-                    }}>Spremi</Button>
+                            } else setWarning(true)
+                        } else updateContact();
+                    }}><Icon name="save" size={20}/></Button>
             </View>
 
 
