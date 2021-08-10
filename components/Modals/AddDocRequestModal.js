@@ -168,15 +168,15 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                             hideModal();
                         }}
                         mode="outlined"
-                        color={'#009FFD'}
-                        style={{ borderColor: '#009FFD' }}>Odustani</Button>
+                        color={'#2C8BD3'}
+                        style={{ borderColor: '#2C8BD3' }}>Odustani</Button>
                     <Button
                         onPress={() => {
                             sendRequest();
                             resetFields();
                             hideModal();
                         }}
-                        style={{backgroundColor: '#009FFD'}}
+                        style={{backgroundColor: '#2C8BD3'}}
                         color={'white'}>Pošalji</Button>
                 </View>
         </Modal>

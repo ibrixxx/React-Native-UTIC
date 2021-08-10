@@ -1,13 +1,14 @@
 import {DataTable, Modal, Title, Button} from "react-native-paper";
 import React, {useEffect, useState} from "react";
-import {Text, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Picker} from "@react-native-picker/picker";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import {white} from "react-native-paper/src/styles/colors";
 
 
 export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
-    const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
+    const containerStyle = style.card;
     const [contactValue, setContactValue] = useState("")
 
     const [warning, setWarning] = useState(false);
@@ -73,8 +74,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
     return (
         <Modal visible={visibleContacts} onDismiss={joined} contentContainerStyle={containerStyle}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Title style={{ color: 'dodgerblue', fontWeight: 'bold', textAlign: 'center', marginBottom: 10, marginLeft: '30%' }}>Uređivanje</Title>
-                <Button color="#434343" onPress={() => hideContactsModal()} labelStyle={{ fontWeight: 'bold' }}>X</Button>
+                <Title style={{ color: '#2C8BD3', fontWeight: 'bold', textAlign: 'center', marginBottom: 10, marginLeft: 'auto', marginRight: 'auto' }}>Izmjena</Title>
             </View>
 
             <View>
@@ -112,7 +112,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                     }}
                     >Obriši</Button>
                 <Button
-                    style={{ backgroundColor: 'dodgerblue' }}
+                    style={{ backgroundColor: '#2C8BD3' }}
                     color="white"
                     onPress={() => {
                         if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail"){
@@ -131,3 +131,17 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
 
 }
+
+const style = StyleSheet.create({
+    card: {
+        backgroundColor: white,
+        width: '90%',
+        padding: 20,
+        borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: '#2C8BD3',
+        elevation: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    }
+})

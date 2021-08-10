@@ -8,7 +8,7 @@ export default function CourseModal2({visible, hideModal, index, courses}) {
     return(
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
             <DataTable style={{borderColor: 'whitesmoke'}}>
-                <Title style={{color: 'dodgerblue', marginBottom: '10%', textAlign: 'center'}}>{courses[index]? courses[index].courseName:''}</Title>
+                <Title style={{color: '#2C8BD3', marginBottom: '10%', textAlign: 'center'}}>{courses[index]? courses[index].courseName:''}</Title>
                 <DataTable.Row>
                     <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Šifra predmeta:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? courses[index].code: ''}</Text></DataTable.Cell>

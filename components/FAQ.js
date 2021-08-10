@@ -36,6 +36,7 @@ export default function FAQ({ navigation }) {
             .then(respnse => {
                 console.log(respnse.data)
                 setQuestions(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
@@ -86,18 +87,18 @@ export default function FAQ({ navigation }) {
             <ScrollView>
                 <List.Section
                     title="Najčešće postavljena pitanja"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
+                    titleStyle={{color: '#2C8BD3', fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
                     {   isReady ?
                         (returnData() && returnData().length > 0) ? returnData().map((ques, i) =>{
                             return(
-                                <View>
+                                <View key={i}>
                                     <List.Accordion
                                         key={i}
                                         id={i}
                                         title={ques.question}
                                         titleStyle={{fontWeight: 'bold'}}
                                         style={{ backgroundColor: 'white' }}
-                                        theme={{ colors: { primary: 'dodgerblue' }}}
+                                        theme={{ colors: { primary: '#2C8BD3' }}}
                                         expanded={i === activeList}
                                         onPress={() => handlePress(i)}>
 
@@ -109,7 +110,7 @@ export default function FAQ({ navigation }) {
                                 </View>
                             )
                         }) : null
-                        : <ActivityIndicator style={{marginTop: '35%'}} color={'dodgerblue'} size={'large'}/>
+                        : <ActivityIndicator style={{marginTop: '35%'}} color={'#2C8BD3'} size={'large'}/>
                     }
                 </List.Section>
             </ScrollView>

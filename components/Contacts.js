@@ -5,7 +5,7 @@ import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {ActivityIndicator, DataTable, Title} from "react-native-paper";
-import {Icon} from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 import {Linking} from "react-native";
 
 export default function Contacts({ navigation }) {
@@ -58,7 +58,7 @@ export default function Contacts({ navigation }) {
 
                                 <DataTable>
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='phone' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
@@ -72,7 +72,7 @@ export default function Contacts({ navigation }) {
                                     </DataTable.Row>
 
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='email' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
@@ -85,14 +85,14 @@ export default function Contacts({ navigation }) {
                                     </DataTable.Row>
 
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name='language' /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
                                                     importantContacts[0].facultyContact.map((cont) => (
                                                         (cont.contactType === "web stranica") ?
                                                             <Text
-                                                                style={{ color: '#009FFD' }}
+                                                                style={{ color: '#2C8BD3' }}
                                                                 onPress={() => Linking.openURL(cont.value)}>{cont.value}</Text> : ""
                                                     ))
                                                     : ""
@@ -100,7 +100,7 @@ export default function Contacts({ navigation }) {
                                         </DataTable.Cell>
                                     </DataTable.Row>
                                 </DataTable>
-                            </View> :  <ActivityIndicator style={{marginTop: '25%', marginBottom: '25%'}} color={'dodgerblue'} size={'large'}/>
+                            </View> :  <ActivityIndicator style={{marginTop: '25%', marginBottom: '25%'}} color={'#2C8BD3'} size={'large'}/>
                     }
 
 
@@ -110,24 +110,24 @@ export default function Contacts({ navigation }) {
                     <Title style={style.titleMain}>UNSA</Title>
                     <DataTable>
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='phone' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 {unsaPhone}
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='email' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 {unsaMail}
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='language' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 <Text
-                                    style={{ color: '#009FFD' }}
+                                    style={{ color: '#2C8BD3' }}
                                     onPress={() => Linking.openURL(unsaWebsite)}>{unsaWebsite}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
@@ -138,31 +138,31 @@ export default function Contacts({ navigation }) {
                     <Title style={style.titleMain}>UTIC</Title>
                     <DataTable>
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='phone' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 {uticPhone}
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='print' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="fax" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 {uticFax}
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='email' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 {uticMail}
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name='language' /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 <Text
-                                    style={{ color: '#009FFD' }}
+                                    style={{ color: '#2C8BD3' }}
                                     onPress={() => Linking.openURL(uticWebsite)}>{uticWebsite}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
@@ -180,7 +180,7 @@ const style = StyleSheet.create({
         backgroundColor: white,
         padding: 15,
         borderRadius: 15,
-        borderTopColor: '#009FFD',
+        borderTopColor: '#2C8BD3',
         borderTopWidth: 2,
         elevation: 8,
         marginLeft: 'auto',
@@ -190,7 +190,7 @@ const style = StyleSheet.create({
     titleMain: {
         fontSize: 20,
         textAlign: 'center',
-        color: "#434343",
+        color: "#263238",
         paddingBottom: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#cccccc',

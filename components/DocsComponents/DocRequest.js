@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
 import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
@@ -16,6 +16,7 @@ export default function DocRequest() {
     const [docsVisible, setDocsVisible] = useState(false)
     const [showFAB, setShowFAB] = useState(true)
     const[isReady, setIsReady] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
 
     const showModal = () => {setShowFAB(false); setVisible(true);}
@@ -30,6 +31,12 @@ export default function DocRequest() {
     useEffect(() => {
         getPrevRequests();
     }, [])
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getPrevRequests();
+        setRefreshing(false);
+    }, []);
 
     const getPrevRequests = () => {
         axios.get(' http://192.168.44.79:8080/u/0/student-documents/requests/bs', {
@@ -55,7 +62,7 @@ export default function DocRequest() {
             });
     }
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
     const getDateFormated = (n) => {
@@ -76,7 +83,13 @@ export default function DocRequest() {
                     /> : null
                 }
 
-
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }>
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
                         <DataTable.Title>Tip dokumenta</DataTable.Title>
@@ -102,6 +115,7 @@ export default function DocRequest() {
 
 
                 </DataTable>
+                </ScrollView>
 
                 <Provider>
                     <Portal>
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
     fab: {
         width: 55,
         height: 55,
-        backgroundColor: '#434343',
+        backgroundColor: '#263238',
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',

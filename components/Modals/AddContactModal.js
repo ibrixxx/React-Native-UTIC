@@ -124,8 +124,8 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                         hideAddModal();
                     }}
                     mode="outlined"
-                    style={{borderColor: '#009FFD'}}
-                    color={'#009FFD'}>Odustani</Button>
+                    style={{borderColor: '#2C8BD3'}}
+                    color={'#2C8BD3'}>Odustani</Button>
                 {
                     (contactValue !== "") ?  <Button
                             onPress={() => {
@@ -141,7 +141,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                                 resetFields();
                                 hideAddModal();
                             }}
-                            style={{backgroundColor: '#009FFD'}}
+                            style={{backgroundColor: '#2C8BD3'}}
                             color={'white'}>Spremi</Button>
                         :
                         <Button
@@ -162,7 +162,7 @@ const style = StyleSheet.create({
         padding: 20,
         borderRadius: 15,
         borderTopWidth: 2,
-        borderTopColor: 'dodgerblue',
+        borderTopColor: '#2C8BD3',
         elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',

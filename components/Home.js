@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Početna" navigation={navigation}/>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
             </View>
         );
     }
@@ -58,7 +58,7 @@ export default function Home({ navigation }) {
             <Card style={{height: '100%'}}>
                 <Card.Title
                     title="Spisak nadolazećih ispita"
-                    titleStyle={{color: 'dodgerblue'}}
+                    titleStyle={{color: '#2C8BD3'}}
                 />
                 <Card.Content>
                     {(exams.length > 0)?

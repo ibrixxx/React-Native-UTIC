@@ -82,7 +82,7 @@ export default function Tests({ navigation }) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Ispiti" navigation={navigation}/>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
             </View>
         );
 
@@ -91,9 +91,9 @@ export default function Tests({ navigation }) {
         <>
             <MyHeader myTitle="Ispiti" navigation={navigation}/>
             <Tab.Navigator tabBarOptions={{
-                activeTintColor: 'dodgerblue',
+                activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#434343'},
+                style: { backgroundColor: '#263238'},
             }}>
                 <Tab.Screen name="ZeroTab" children={() => <TestRegistration exams={exams} setCurrent={getCurrentExams} setExams={getExams}/>} options={{ tabBarLabel: 'Prijava ispita' }}/>
                 <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>

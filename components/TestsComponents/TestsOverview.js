@@ -75,11 +75,11 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
             <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                     title="Prijavljeni ispiti"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                    titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                     <List.Accordion
                         title={`Trenutno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
+                        theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList}
                         onPress={() => handlePress(88)}>
                         { (current.length > 0)?
@@ -123,7 +123,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                     <List.Accordion
                         title={`Prethodno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
+                        theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?

@@ -10,7 +10,7 @@ import {RefreshControl, ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {formatTimestamp} from "../Formats/MyFormats";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const wait = (timeout) => {
@@ -86,7 +86,7 @@ export default function Grades() {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -115,27 +115,23 @@ export default function Grades() {
                     />
                 }
             >
-                <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
+                <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
                 <DataTable style={{width: '100%'}}>
                     <DataTable.Header style={{width: '100%', backgroundColor: '#e8eded'}}>
-                        <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                         <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                         <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Ocjena</Text></DataTable.Title>
+                        <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                     </DataTable.Header>
                     {
                         (grades.length > 0)?
                             grades.map((grade, ind) => {
                                 return (
                                     <DataTable.Row style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}} key={ind}>
-                                        <DataTable.Cell style={{flex: 0.3}}>
-                                            <Icon
-                                                name='more'
-                                                type='material'
-                                                color='#517fa4'
-                                                size={16}/>
-                                        </DataTable.Cell>
                                         <DataTable.Cell style={{flex: 1}}>{grade.courseName}</DataTable.Cell>
                                         <DataTable.Cell numeric><Caption style={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}>{grade.mark}</Caption></DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.3}} numeric>
+                                            <Icon name="ellipsis-h" size={20} color="#888888" />
+                                        </DataTable.Cell>
                                     </DataTable.Row>
                                 );
                             }) :
@@ -143,7 +139,7 @@ export default function Grades() {
                     }
                 </DataTable>
             </ScrollView>
-            <DataTable style={{backgroundColor: '#434343'}}>
+            <DataTable style={{backgroundColor: '#263238'}}>
                 <DataTable.Row>
                     <DataTable.Cell>
                         <Title style={{color: 'white'}}> Prosjek</Title>

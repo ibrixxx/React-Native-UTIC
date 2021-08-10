@@ -14,7 +14,7 @@ export default function CurrentSemester({classes}) {
     return(
         <>
             <ScrollView>
-            <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Spisak predmeta</Text>
+            <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Spisak predmeta</Text>
             <DataTable style={{width: '100%'}}>
                 <DataTable.Header style={{width: '100%'}}>
 

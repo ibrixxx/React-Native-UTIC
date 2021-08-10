@@ -53,7 +53,7 @@ export default function SelectedClasses({selected}) {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -61,7 +61,7 @@ export default function SelectedClasses({selected}) {
         <View style={{backgroundColor: '#e0e0e0', height: '100%'}}>
             {(selected.length > 0)?
                 <ScrollView style={{backgroundColor: '#e0e0e0'}}>
-                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
+                    <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
                         <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
                                 <DataTable.Title style={{ flex: 0.5 }}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
@@ -94,7 +94,7 @@ export default function SelectedClasses({selected}) {
                 </ScrollView>
                 :
                 <ScrollView>
-                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
+                    <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
                         <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
@@ -118,7 +118,7 @@ export default function SelectedClasses({selected}) {
                                         <DataTable.Cell key={'kk'+i} numeric>
                                             <Checkbox
                                                 status={checked===i? 'checked' : 'unchecked'}
-                                                color={'dodgerblue'}
+                                                color={'#2C8BD3'}
                                                 onPress={() => {
                                                     setChecked(i);
                                                 }}
@@ -133,7 +133,7 @@ export default function SelectedClasses({selected}) {
                                 <DataTable.Cell></DataTable.Cell>
                                 <DataTable.Cell></DataTable.Cell>
                                 <DataTable.Cell>
-                                    <Button color={'whitesmoke'} style={{backgroundColor: 'dodgerblue'}} onPress={() => console.log('Pressed')}>Potvrdi</Button>
+                                    <Button color={'whitesmoke'} style={{backgroundColor: '#2C8BD3'}} onPress={() => console.log('Pressed')}>Potvrdi</Button>
                                 </DataTable.Cell>
                             </DataTable.Row>
                         </DataTable>
