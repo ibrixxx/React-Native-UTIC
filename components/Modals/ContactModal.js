@@ -99,8 +99,9 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Button
-                    style={{ backgroundColor: '#E47070' }}
-                    color="white"
+                    mode='outlined'
+                    color="#E47070"
+                    style={{ borderColor: '#E47070', borderWeight: 5 }}
                     onPress={() => {
                         deleteContact();
                     }}

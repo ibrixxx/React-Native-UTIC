@@ -6,6 +6,7 @@ import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import AddContactModal from "../Modals/AddContactModal";
 import ContactModal from "../Modals/ContactModal";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
@@ -57,6 +58,13 @@ export default function StudentContacts({ navigation }) {
         return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
     }
 
+    function getIcon(str) {
+        if (str === "primarni e-mail" || str === "e-mail") return <Icon name="envelope" size={20} color="black" />
+        else if (str === "telefon") return <Icon name="phone" size={20} color="black" />
+        else if (str === "mobilni telefon") return <Icon name="mobile-phone" size={20} color="black" />
+        else if (str === "fax") return <Icon name="fax" size={20} color="black" />
+        else if (str === "web stranica") return <Icon name="globe" size={20} color="black" />
+    }
 
 
 
@@ -74,16 +82,17 @@ export default function StudentContacts({ navigation }) {
 
 
                 <View style={style.container}>
-                    <Title style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, marginBottom: 10, textAlign: 'center'}}>Kontakt</Title>
 
-                    <DataTable style={{ marginRight: 'auto', marginLeft: 'auto' }}>
+                    <DataTable style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: 20 }}>
                         {
                             (student.contacts && student.contacts.length !== 0) ? student.contacts.map((contact, i) => (
                                     <DataTable.Row key={contact.value}>
-                                        <DataTable.Cell style={{ flex: 0.35 }}><Text
-                                            style={style.TDStyleLeft}>{contact.type}</Text></DataTable.Cell>
-                                        <DataTable.Cell style={{ flex: 0.45 }}>{contact.value}</DataTable.Cell>
-                                        <DataTable.Cell style={{ flex: 0.3}}><Button color="dodgerblue" onPress={() => showContactsModal(i)}>Uredi</Button></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.2 }}><Text
+                                            style={style.TDStyleLeft}>{getIcon(contact.type)}</Text></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.7 }}>{contact.value}</DataTable.Cell>
+                                        <DataTable.Cell numeric style={{ flex: 0.1, paddingLeft: 10, paddingRight: 10 }} onPress={() => showContactsModal(i)}>
+                                                <Icon name="edit" size={20} color="dodgerblue"/>
+                                        </DataTable.Cell>
                                     </DataTable.Row>
                                 ))
                                 : <Text>Nema</Text>

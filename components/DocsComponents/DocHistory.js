@@ -52,7 +52,7 @@ export default function DocHistory(){
                     <DataTable>
                         <DataTable.Header style={{ width: '100%' }}>
                             <DataTable.Title>Tip dokumenta</DataTable.Title>
-                            <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
+                            <DataTable.Title style={{ flex: 0.3 }}>Datum</DataTable.Title>
                             <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                         </DataTable.Header>
 
@@ -60,8 +60,8 @@ export default function DocHistory(){
                             (prev.documentStatusName !== "primljen zahtjev") ?
                                 <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
                                     <DataTable.Cell>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                                 </DataTable.Row> : null
                         ) :

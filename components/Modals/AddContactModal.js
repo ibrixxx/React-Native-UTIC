@@ -7,7 +7,7 @@ import {Picker} from "@react-native-picker/picker";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function AddContactModal({visibleAdd, hideAddModal }) {
-    const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
+    const containerStyle = style.card;
     const [contactTypes, setContactTypes] = useState({})
     const [contactTypeValue, setContactTypeValue] = useState(1)
     const [contactValue, setContactValue] = useState("")
@@ -65,6 +65,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
         setContactValue("")
         setContactTypeValue(1)
         setContactValue("")
+        setWarning(false);
     }
 
     function joined() {
@@ -122,8 +123,9 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                         resetFields();
                         hideAddModal();
                     }}
-                    style={{backgroundColor: '#009FFD'}}
-                    color={'white'}>Odustani</Button>
+                    mode="outlined"
+                    style={{borderColor: '#009FFD'}}
+                    color={'#009FFD'}>Odustani</Button>
                 {
                     (contactValue !== "") ?  <Button
                             onPress={() => {
@@ -159,6 +161,8 @@ const style = StyleSheet.create({
         width: '90%',
         padding: 20,
         borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: 'dodgerblue',
         elevation: 8,
         marginLeft: 'auto',
         marginRight: 'auto',
