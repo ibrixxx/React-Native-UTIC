@@ -15,9 +15,9 @@ export default function Staff({ navigation }) {
             <>
                 <MyHeader myTitle="Nastavno osoblje" navigation={navigation}/>
                 <Tab.Navigator tabBarOptions={{
-                    activeTintColor: 'dodgerblue',
+                    activeTintColor: '#2C8BD3',
                     labelStyle: { fontSize: 11, color: 'white'},
-                    style: { backgroundColor: '#434343'},
+                    style: { backgroundColor: '#263238'},
                 }}>
                     <Tab.Screen name="ZeroTab" component={Professors} options={{ tabBarLabel: 'Profesori' }}/>
                     <Tab.Screen name="FirstTab" component={Assistants} options={{ tabBarLabel: 'Asistenti' }}/>

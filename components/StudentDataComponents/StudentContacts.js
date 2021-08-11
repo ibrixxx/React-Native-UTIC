@@ -12,10 +12,9 @@ export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
     const[isReady, setIsReady] = useState(false)
     const [FABVisible, setFABVisible] = useState(true);
-    const [visibleAdd, setVisibleAdd] = React.useState(false)
+    const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleContacts, setVisibleContacts] = useState(false);
-    const [curr, setCurr] = React.useState(null)
-    const [visibleSnackbar, setVisibleSnackbar] = React.useState(false)
+    const [curr, setCurr] = useState(null)
 
 
     const showAddModal = () => {setFABVisible(false); setVisibleAdd(true)}
@@ -55,7 +54,7 @@ export default function StudentContacts({ navigation }) {
     }
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
     function getIcon(str) {
@@ -91,7 +90,7 @@ export default function StudentContacts({ navigation }) {
                                             style={style.TDStyleLeft}>{getIcon(contact.type)}</Text></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>{contact.value}</DataTable.Cell>
                                         <DataTable.Cell numeric style={{ flex: 0.1, paddingLeft: 10, paddingRight: 10 }} onPress={() => showContactsModal(i)}>
-                                                <Icon name="edit" size={20} color="dodgerblue"/>
+                                                <Icon name="pencil" size={20} color="#2C8BD3"/>
                                         </DataTable.Cell>
                                     </DataTable.Row>
                                 ))
@@ -142,7 +141,7 @@ const style = StyleSheet.create({
     fab: {
         width: 55,
         height: 55,
-        backgroundColor: '#434343',
+        backgroundColor: '#263238',
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',

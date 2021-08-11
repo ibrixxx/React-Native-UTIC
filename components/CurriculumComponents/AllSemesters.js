@@ -54,7 +54,7 @@ export default function AllSemesters() {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -63,7 +63,7 @@ export default function AllSemesters() {
         <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                 title="Nastavni plan i program"
-                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                 {
                     semesters.map((sem, ind) => {
                         return (
@@ -73,7 +73,7 @@ export default function AllSemesters() {
                                         id={ind}
                                         title={`${sem[0]}. semestar`}
                                         titleStyle={{fontWeight: 'bold'}}
-                                        theme={{ colors: { primary: 'dodgerblue' }}}
+                                        theme={{ colors: { primary: '#2C8BD3' }}}
                                         expanded={ind === activeList}
                                         onPress={() => handlePress(ind)}>
                                         {

@@ -67,7 +67,7 @@ export default function Assistants() {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -89,7 +89,7 @@ export default function Assistants() {
                         return (
                             <DataTable.Row key={index}>
                                 <DataTable.Cell style={{flex: 0.6}}>{prof.firstName.trim()} {prof.lastName.trim()}</DataTable.Cell>
-                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.5}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: 'dodgerblue'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.5}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )
                     })

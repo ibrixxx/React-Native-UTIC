@@ -108,7 +108,7 @@ export default function Comments({ navigation }) {
 
                     {
                         badMail ? <TextInput
-                            placeholder="Vaša E-mail adresa"
+                            placeholder="Vaša e-mail adresa"
                             style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "red", }}
                             onChangeText={email => setMail(email)}
                             value={mail}/>
@@ -140,7 +140,7 @@ export default function Comments({ navigation }) {
                                         }
                                         else {setBadMail(true); setMail("");}
                                     }}
-                                    style={{backgroundColor: '#009FFD', marginRight: '5%'}}
+                                    style={{backgroundColor: '#2C8BD3', marginRight: '5%'}}
                                     color={'white'}>Pošalji</Button>
                                 : <Button disabled>Pošalji</Button>
                         }
@@ -172,7 +172,7 @@ const style = StyleSheet.create({
         backgroundColor: white,
         padding: 15,
         borderRadius: 15,
-        borderTopColor: '#009FFD',
+        borderTopColor: '#2C8BD3',
         borderTopWidth: 2,
         elevation: 8,
         marginLeft: 'auto',

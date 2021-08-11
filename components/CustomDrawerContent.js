@@ -64,14 +64,15 @@ export default function CustomDrawerContent(props) {
                 onPress={() => props.navigation.navigate("StudentData")}>
                 <View
                     style={{
-                        backgroundColor: '#434343',
+                        marginTop: -5,
+                        backgroundColor: '#263238',
                         padding: 20,
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         flexDirection: 'row'
                     }}
                 >
-                    <Avatar rounded title={getInitials()} size="large" overlayContainerStyle={{ backgroundColor: 'dodgerblue' }}/>
+                    <Avatar rounded title={getInitials()} size="large" overlayContainerStyle={{ backgroundColor: '#2C8BD3' }}/>
                     <View>
                         <Text style={{ color: 'white', fontSize: 20 }}>{student.firstName} {student.lastName}</Text>
                         <Text style={{ color: 'white' }}>Index: {studyProgram.index}</Text>

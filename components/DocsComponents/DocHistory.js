@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {DataTable, Portal, Provider} from "react-native-paper";
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator, DataTable, Portal, Provider} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import DocsModal from "../Modals/DocsModal";
@@ -11,6 +11,8 @@ export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
     const [visible, setVisible] = React.useState(false)
     const [curr, setCurr] = React.useState(null)
+    const [isReady, setIsReady] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
 
     const showModal = (i) => {setVisible(true); setCurr(i)}
     const hideModal = () => setVisible(false)
@@ -18,6 +20,12 @@ export default function DocHistory(){
     useEffect(() => {
         getPrevRequests();
     }, [])
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getPrevRequests();
+        setRefreshing(false);
+    }, []);
 
     const getPrevRequests = () => {
         axios.get(' http://192.168.44.79:8080/u/0/student-documents/requests/bs', {
@@ -29,10 +37,14 @@ export default function DocHistory(){
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data)
+                setIsReady(true)
             })
             .catch(error => {
                 console.error(error);
             });
+    }
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
     function getStyle(str){
@@ -44,7 +56,13 @@ export default function DocHistory(){
     return (
         <>
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }>
                     <DataTable>
                         <DataTable.Header style={{ width: '100%' }}>
                             <DataTable.Title>Tip dokumenta</DataTable.Title>
@@ -62,7 +80,7 @@ export default function DocHistory(){
                                 </DataTable.Row> : null
                         ) :
                             <Text
-                                style={{ textAlign: 'center', padding: 10, marginTop: 5, color: '#434343' }}>Trenutno nemate ranije podnesenih zahtjeva.</Text>
+                                style={{ textAlign: 'center', padding: 10, marginTop: 5, color: '#263238' }}>Trenutno nemate ranije podnesenih zahtjeva.</Text>
 
                         }
                     </DataTable>
