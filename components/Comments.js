@@ -103,13 +103,13 @@ export default function Comments({ navigation }) {
                         </Picker>
                     </View>
                     {
-                        badMail ? <Text style={{ color: 'red', alignSelf: 'flex-start', marginLeft: '5%' }}>* E-mail nije validan</Text> : null
+                        badMail ? <Text style={{ color: '#DF3D3D', alignSelf: 'flex-start', marginLeft: '5%' }}>* E-mail nije validan</Text> : null
                     }
 
                     {
                         badMail ? <TextInput
                             placeholder="Vaša e-mail adresa"
-                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "red", }}
+                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#DF3D3D", }}
                             onChangeText={email => setMail(email)}
                             value={mail}/>
                             : <TextInput

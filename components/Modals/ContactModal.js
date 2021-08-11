@@ -89,7 +89,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                 </Text>
 
                 {
-                    warning ? <Text style={{color: 'red'}}>* E-mail nije validan</Text> : null
+                    warning ? <Text style={{color: '#DF3D3D'}}>* E-mail nije validan</Text> : null
                 }
 
                 <TextInput
@@ -112,7 +112,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                     mode='outlined'
                     color="#E47070"
                     style={{
-                        borderColor: '#E47070',
+                        borderColor: '#DF3D3D',
                         borderWidth: 2,
                         borderRadius: 30,
                         height: 50,
@@ -122,7 +122,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                     onPress={() => {
                         deleteContact();
                     }}
-                ><Icon name="trash" size={20}/></Button>
+                ><Icon name="trash" size={20} color="#DF3D3D"/></Button>
                 <Button
                     color="white"
                     style={{

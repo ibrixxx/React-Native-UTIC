@@ -64,7 +64,7 @@ export default function ActiveDocReqModal({visible, hideModal, index, docs}) {
             </View>
 
                 <Button
-                    style={{ backgroundColor: '#E47070', marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }} color='white'
+                    style={{ backgroundColor: '#DF3D3D', marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }} color='white'
                     onPress={() => cancelRequest()}>Poništi zahtjev</Button>
 
         </Modal>
