@@ -12,12 +12,14 @@ import FAQ from "./FAQ";
 import React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {Icon} from "react-native-elements";
+import { NavigationActions } from "react-navigation";
 
 
 const Drawer = createDrawerNavigator();
 
 
 export default function MyDrawer() {
+
     return (
         <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Home" component={Home} options = {{drawerLabel: 'Početna', drawerIcon: () => (<Icon name='home' />)}} />

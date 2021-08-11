@@ -21,7 +21,7 @@ export default function StudentData({ navigation }) {
                 style: { backgroundColor: '#263238'},
             }}>
                 <Tab.Screen name="ZeroTab" component={MainStudentData} options={{ tabBarLabel: 'Lični podaci' }}/>
-                <Tab.Screen name="FirstTab" component={StudentContacts} options={{ tabBarLabel: 'Kontakt' }}/>
+                <Tab.Screen name="FirstTab" component={StudentContacts} options={{ tabBarLabel: 'Kontakt'}}/>
                 <Tab.Screen name="SecondTab" component={StudyData} options={{ tabBarLabel: 'Studij' }}/>
 
             </Tab.Navigator>

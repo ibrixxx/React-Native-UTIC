@@ -41,7 +41,7 @@ export default function MainStudentData(){
         <>
             <ScrollView>
                 <View style={style.container}>
-                    <DataTable>
+                    <DataTable style={{ marginTop: 20, marginBottom: 20 }}>
                         <DataTable.Row style={{textAlign: 'right'}}>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.username}</DataTable.Cell>

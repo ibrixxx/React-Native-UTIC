@@ -72,7 +72,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
                                         </DataTable.Cell>
                                         <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
                                         <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
-                                        <DataTable.Cell style={{flex: 0.4, marginLeft: '2%'}} numeric><Button color={'dodgerblue'} style={{backgroundColor: 'rgba(64, 171, 181, 0.1)'}} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.4, marginLeft: '2%'}} numeric><Button color={'#2C8BD3'} style={{backgroundColor: 'rgba(64, 171, 181, 0.1)'}} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
                                     </DataTable.Row>
                                 );
                             })
