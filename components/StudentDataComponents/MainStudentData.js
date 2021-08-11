@@ -4,6 +4,7 @@ import {TOKEN} from "../../App";
 import {ScrollView, StyleSheet, View, Text} from "react-native";
 import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 export default function MainStudentData(){
     const[student, setStudent] = useState({})
@@ -15,10 +16,6 @@ export default function MainStudentData(){
         getUserData();
     }, [])
 
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
 
     const getUserData = () => {
         axios.get(' http://192.168.44.79:8080/u/0/students/student/personal-information', {
@@ -37,15 +34,14 @@ export default function MainStudentData(){
             });
     }
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
     return (
         <>
             <ScrollView>
                 <View style={style.container}>
-                    <Title style={{color: 'dodgerblue', fontWeight: 'bold', fontSize: 18, marginBottom: 10, textAlign: 'center'}}>Podaci o studentu</Title>
-                    <DataTable>
+                    <DataTable style={{ marginTop: 20, marginBottom: 20 }}>
                         <DataTable.Row style={{textAlign: 'right'}}>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
                             <DataTable.Cell>{student.username}</DataTable.Cell>
@@ -71,10 +67,12 @@ export default function MainStudentData(){
                             <DataTable.Cell>{student.lastName}</DataTable.Cell>
                         </DataTable.Row>
 
-                        <DataTable.Row>
-                            <DataTable.Cell ><Text style={style.TDStyleLeft}>Djevojačko prezime</Text></DataTable.Cell>
-                            <DataTable.Cell>{student.maidenName}</DataTable.Cell>
-                        </DataTable.Row>
+                        {
+                            (student.gender === "ženski") ? <DataTable.Row>
+                                <DataTable.Cell ><Text style={style.TDStyleLeft}>Djevojačko prezime</Text></DataTable.Cell>
+                                <DataTable.Cell>{student.maidenName}</DataTable.Cell>
+                            </DataTable.Row> : null
+                        }
 
                         <DataTable.Row>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Spol</Text></DataTable.Cell>
@@ -83,7 +81,7 @@ export default function MainStudentData(){
 
                         <DataTable.Row>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Datum rođenja</Text></DataTable.Cell>
-                            <DataTable.Cell>{getDateFormated(student.dateOfBirth)}</DataTable.Cell>
+                            <DataTable.Cell>{formatTimestamp(student.dateOfBirth)}</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>

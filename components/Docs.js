@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {StyleSheet, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import MyHeader from "./MyHeader";
@@ -6,26 +6,27 @@ import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs
 import DocRequest from './DocsComponents/DocRequest';
 import DocHistory from './DocsComponents/DocHistory';
 import {Title} from "react-native-paper";
+import { useIsFocused } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Docs({ navigation }) {
+    const focus = useIsFocused();
 
-
-    return (
+    return(
         <>
             <MyHeader myTitle="Dokumenti" navigation={navigation}/>
 
             <Tab.Navigator tabBarOptions={{
-                activeTintColor: 'dodgerblue',
+                activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#434343'},
+                style: { backgroundColor: '#263238'},
             }}>
                 <Tab.Screen name="ZeroTab" component={DocRequest} options={{ tabBarLabel: 'Aktivni zahtjevi' }}/>
                 <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
             </Tab.Navigator>
         </>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

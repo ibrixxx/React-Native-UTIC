@@ -14,15 +14,15 @@ export default function StudentData({ navigation }) {
 
     return (
         <>
-            <MyHeader myTitle="Lični podaci" navigation={navigation}/>
+            <MyHeader myTitle="Podaci o studentu" navigation={navigation}/>
             <Tab.Navigator tabBarOptions={{
-                activeTintColor: 'dodgerblue',
+                activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#434343'},
+                style: { backgroundColor: '#263238'},
             }}>
-                <Tab.Screen name="ZeroTab" component={MainStudentData} options={{ tabBarLabel: 'Podaci o studentu' }}/>
-                <Tab.Screen name="FirstTab" component={StudentContacts} options={{ tabBarLabel: 'Kontakti' }}/>
-                <Tab.Screen name="SecondTab" component={StudyData} options={{ tabBarLabel: 'Podaci o studiju' }}/>
+                <Tab.Screen name="ZeroTab" component={MainStudentData} options={{ tabBarLabel: 'Lični podaci' }}/>
+                <Tab.Screen name="FirstTab" component={StudentContacts} options={{ tabBarLabel: 'Kontakt'}}/>
+                <Tab.Screen name="SecondTab" component={StudyData} options={{ tabBarLabel: 'Studij' }}/>
 
             </Tab.Navigator>
         </>

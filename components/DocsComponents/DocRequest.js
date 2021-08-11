@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
-import {DataTable, FAB, Portal, Provider} from "react-native-paper";
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
 import Icon from "react-native-vector-icons/FontAwesome";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
@@ -15,6 +16,8 @@ export default function DocRequest() {
     const [curr, setCurr] = useState(null)
     const [docsVisible, setDocsVisible] = useState(false)
     const [showFAB, setShowFAB] = useState(true)
+    const[isReady, setIsReady] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
 
     const showModal = () => {setShowFAB(false); setVisible(true);}
@@ -30,6 +33,12 @@ export default function DocRequest() {
         getPrevRequests();
     }, [])
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getPrevRequests();
+        setRefreshing(false);
+    }, []);
+
     const getPrevRequests = () => {
         axios.get(' http://192.168.44.79:8080/u/0/student-documents/requests/bs', {
             headers: {
@@ -40,6 +49,7 @@ export default function DocRequest() {
             .then(respnse => {
                 console.log(respnse.data)
                 setPrevRequests(respnse.data);
+                setIsReady(true)
                 console.log("dokumenti")
                 setFiltered(
                     respnse.data.filter((doc) => (doc.documentStatusName === "primljen zahtjev")
@@ -52,10 +62,8 @@ export default function DocRequest() {
                 console.error(error);
             });
     }
-
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+    if (!isReady) {
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -71,11 +79,18 @@ export default function DocRequest() {
                     /> : null
                 }
 
-
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }>
+                    <Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
-                        <DataTable.Title>Tip dokumenta</DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.25 }}>Datum</DataTable.Title>
+                        <DataTable.Title><Text style={{ fontWeight: 'bold', color: 'black' }}>Tip dokumenta</Text></DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.4 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
                         <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
@@ -85,8 +100,8 @@ export default function DocRequest() {
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
                                 </DataTable.Cell>
 
-                                <DataTable.Cell style={{ flex: 0.25 }}>{getDateFormated(prev.date)}</DataTable.Cell>
-                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#434343" /></DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.4 }}>{formatTimestamp(prev.date)}</DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                             </DataTable.Row>
                     ) :
@@ -97,6 +112,7 @@ export default function DocRequest() {
 
 
                 </DataTable>
+                </ScrollView>
 
                 <Provider>
                     <Portal>
@@ -129,7 +145,7 @@ const styles = StyleSheet.create({
     fab: {
         width: 55,
         height: 55,
-        backgroundColor: '#434343',
+        backgroundColor: '#263238',
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',

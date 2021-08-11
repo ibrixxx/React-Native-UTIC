@@ -17,7 +17,7 @@ export default function FAQModal({visible, hideModal, index, questions}) {
 
 const style = StyleSheet.create({
    mainTitle: {
-       color: 'dodgerblue',
+       color: '#2C8BD3',
        marginBottom: '10%',
        textAlign: 'center'
    }

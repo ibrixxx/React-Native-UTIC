@@ -7,7 +7,7 @@ import {Picker} from "@react-native-picker/picker";
 import {white} from "react-native-paper/src/styles/colors";
 
 export default function AddDocRequestModal({visible, hideModal, prevRequestsF }) {
-    const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
+    const containerStyle = styles.card;
     const [documentTypes, setDocumentTypes] = useState({});
     const [certificateReasons, setCertificateReasons] = useState({});
     const [selectedValue, setSelectedValue] = useState(1);
@@ -104,11 +104,13 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                         onValueChange={(itemValue, itemIndex) => {
                             setSelectedValue(itemValue);
                             if (itemValue === 7) {
+                                setSelectedValueType(null)
                                 setEnableTypes(false);
                                 setScndDropdownView(styles.disabledBorder);
                                 setScndDropdownStyle(styles.disabled);
                             }
                             if (itemValue === 6) {
+                                setSelectedValueType(1);
                                 setEnableTypes(true);
                                 setScndDropdownView(styles.enabledBorder);
                                 setScndDropdownStyle(styles.enabled);
@@ -165,16 +167,17 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                             resetFields();
                             hideModal();
                         }}
-                        style={{backgroundColor: '#009FFD'}}
-                        color={'white'}>Odustani</Button>
+                        mode="outlined"
+                        color={'#2C8BD3'}
+                        style={{ borderColor: '#2C8BD3' }}>Odustani</Button>
                     <Button
                         onPress={() => {
                             sendRequest();
                             resetFields();
                             hideModal();
                         }}
-                        style={{backgroundColor: '#009FFD'}}
-                        color={'white'}>Spremi</Button>
+                        style={{backgroundColor: '#2C8BD3'}}
+                        color={'white'}>Pošalji</Button>
                 </View>
         </Modal>
     )
@@ -186,7 +189,8 @@ const styles = StyleSheet.create({
         width: '90%',
         padding: 20,
         borderRadius: 15,
-        elevation: 8,
+        borderTopWidth: 2,
+        borderTopColor: 'dodgerblue',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 20,

@@ -1,43 +1,16 @@
 import React from "react";
 import {DataTable, IconButton, Modal, Text, Title} from "react-native-paper";
+import {formatTimestamp, formatTimestamp2, formatType} from "../Formats/MyFormats";
 
 
 export default function CourseModal({visible, hideModal, index, courses}) {
     const containerStyle = {backgroundColor: 'white', padding: 20, zIndex: 0}
 
 
-    const formatTimestamp = (num) => {
-        const date = new Date(num);
-        return ""+date.getDate()+
-            "/"+(date.getMonth()+1)+
-            "/"+date.getFullYear();
-    }
-
-
-    const formatTimestamp2 = (num) => {
-        const date = new Date(num);
-        return ""+date.getHours()+
-            ":"+date.getMinutes()+
-            "h";
-    }
-
-
-    const formatType = (num) => {
-        if(num === 1)
-            return 'Parcijalni'
-        else if(num === 2)
-            return 'Završni'
-        else if(num === 3)
-            return 'Popravni'
-        else
-            return 'Socijalni'
-    }
-
-
     return(
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
             <DataTable style={{borderColor: 'whitesmoke'}}>
-                <Title style={{color: 'dodgerblue', marginBottom: '10%', textAlign: 'center'}}>{courses[index]? courses[index].courseName:''}</Title>
+                <Title style={{color: '#2C8BD3', marginBottom: '10%', textAlign: 'center'}}>{courses[index]? courses[index].courseName:''}</Title>
                 <DataTable.Row>
                     <DataTable.Cell><Text style={{color: 'black', fontWeight: 'bold'}}>Datum ispita:</Text></DataTable.Cell>
                     <DataTable.Cell><Text style={{color: 'black'}}>{courses[index]? formatTimestamp(courses[index].examDate): ''}</Text></DataTable.Cell>

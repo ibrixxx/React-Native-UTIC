@@ -78,7 +78,7 @@ export default function Comments({ navigation }) {
 
     return (
         <View>
-            <MyHeader myTitle="Komentari" navigation={navigation}/>
+            <MyHeader myTitle="Komentari/prijedlozi" navigation={navigation}/>
             <View style={{height: '85%', alignItems: 'center', justifyContent: 'center'}}>
                 <View style={style.container}>
                     <Title style={{ marginBottom: 20 }}>Forma za slanje</Title>
@@ -103,14 +103,17 @@ export default function Comments({ navigation }) {
                         </Picker>
                     </View>
                     {
-                        badMail ? <Text style={{ color: 'red', alignSelf: 'flex-start', marginLeft: '5%' }}>* E-mail nije validan</Text> : null
+                        badMail ? <Text style={{ color: '#DF3D3D', alignSelf: 'flex-start', marginLeft: '5%' }}>* E-mail nije validan</Text> : null
                     }
 
                     {
                         badMail ? <TextInput
-                            placeholder="Vaša E-mail adresa"
-                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "red", }}
-                            onChangeText={email => setMail(email)}
+                            placeholder="Vaša e-mail adresa"
+                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#DF3D3D", }}
+                            onChangeText={email => {
+                                setMail(email);
+                                setBadMail(false)
+                            }}
                             value={mail}/>
                             : <TextInput
                                 placeholder="Vaša E-mail adresa"
@@ -124,7 +127,7 @@ export default function Comments({ navigation }) {
                         multiline
                         numberOfLines={4}
                         placeholder="Tekst poruke"
-                        style={{ width: '90%', padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                        style={{ width: '90%', maxHeight: 90, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
                         onChangeText={msgBody => setText(msgBody)}
                         value={text}/>
 
@@ -140,7 +143,7 @@ export default function Comments({ navigation }) {
                                         }
                                         else {setBadMail(true); setMail("");}
                                     }}
-                                    style={{backgroundColor: '#009FFD', marginRight: '5%'}}
+                                    style={{backgroundColor: '#2C8BD3', marginRight: '5%'}}
                                     color={'white'}>Pošalji</Button>
                                 : <Button disabled>Pošalji</Button>
                         }
@@ -172,7 +175,7 @@ const style = StyleSheet.create({
         backgroundColor: white,
         padding: 15,
         borderRadius: 15,
-        borderTopColor: '#009FFD',
+        borderTopColor: '#2C8BD3',
         borderTopWidth: 2,
         elevation: 8,
         marginLeft: 'auto',

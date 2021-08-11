@@ -1,46 +1,38 @@
 import React, {useEffect} from 'react'
 import {
-    Banner,
-    Subheading,
-    Caption,
     ActivityIndicator,
-    List, DataTable, Text, Divider, Title
+    Banner,
+    Caption,
+    DataTable,
+    Portal,
+    Provider,
+    Subheading,
+    Text,
+    Title
 } from "react-native-paper";
-import {ScrollView, View} from "react-native";
+import {RefreshControl, ScrollView} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import GradeModal from "../Modals/GradeModal";
 
 
 
 export default function Grades() {
     const [visible, setVisible] = React.useState(false);
+    const [visible2, setVisible2] = React.useState(false);
     const [grades, setGrades] = React.useState([]);
     const [ectsSum, setEctsSum] = React.useState(0);
     const [average, setAverage] = React.useState(0);
     const [isReady, setIsReady] = React.useState(false);
-    const [activeList, setActiveList] = React.useState(null);
-
-    const handlePress = (ind, grade) => {
-        if(activeList === ind) {
-            setActiveList(null)
-            setVisible(false)
-        }
-        else {
-            setActiveList(ind)
-            if(grade.markStatus === 0)
-                setVisible(true)
-            else
-                setVisible(false)
-        }
-    }
-
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [curr, setCurr] = React.useState(null)
 
 
-    useEffect(() => {
+    const showModal = (i) => {setVisible(true); setCurr(i); if(grades[i].markStatus===0) setVisible2(true)}
+    const hideModal = () => setVisible(false)
+
+
+    const getAllGrades = (i) => {
         axios.get('http://192.168.44.79:8080/u/0/student-exams/all-grades/'
             , {
                 headers: {
@@ -52,11 +44,25 @@ export default function Grades() {
                 setGrades(response.data.grades)
                 setAverage(response.data.gradeAverage)
                 setEctsSum(response.data.ectsTotal)
-                setIsReady(true)
+                if(i === 1)
+                    setRefreshing(false)
+                else
+                    setIsReady(true)
             })
             .catch(function (error) {
                 console.log('error: ',error);
             })
+    }
+
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getAllGrades(1);
+    }, []);
+
+
+    useEffect(() => {
+        getAllGrades(0);
     }, [])
 
 
@@ -68,12 +74,12 @@ export default function Grades() {
     return (
         <>
             <Banner
-                visible={visible}
+                visible={visible2}
                 actions={[
                     {
                         label: 'OK',
                         labelStyle: {color: '#c2a711', backgroundColor: 'whitesmoke'},
-                        onPress: () => setVisible(false),
+                        onPress: () => setVisible2(false),
                     }
                 ]}
             >
@@ -82,60 +88,40 @@ export default function Grades() {
                 <Caption>U slučaju greške, obratite se odgovarajućem profesuru/ici ili
                     studentskoj službi.</Caption>
             </Banner>
-            <ScrollView style={{backgroundColor: '#e0e0e0'}}>
-                <List.Section
-                    title="Predmeti"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+            <ScrollView style={{backgroundColor: '#e0e0e0'}}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+            >
+                <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
+                <DataTable style={{width: '100%'}}>
+                    <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
+                        <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                        <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Ocjena</Text></DataTable.Title>
+                    </DataTable.Header>
                     {
                         (grades.length > 0)?
                             grades.map((grade, ind) => {
                                 return (
-                                    <View key={ind}>
-                                        <List.Accordion
-                                            key={ind}
-                                            id={ind}
-                                            theme={{ colors: { primary: 'dodgerblue' }}}
-                                            title={`${grade.courseName}`}
-                                            titleStyle={{fontWeight: 'bold'}}
-                                            style={{backgroundColor: grade.markStatus===0? '#faece8':'whitesmoke'}}
-                                            expanded={ind === activeList}
-                                            onPress={() => handlePress(ind, grade)}
-                                        >
-                                            <List.Item
-                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Predmet: </Caption>}
-                                                title={grade.courseName}
-                                                titleStyle={{fontWeight: 'bold'}}
-                                            />
-                                            <List.Item
-                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Nastavnik: </Caption>}
-                                                title={grade.teacher}
-                                                titleStyle={{fontWeight: 'bold'}}
-                                            />
-                                            <List.Item
-                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Datum: </Caption>}
-                                                title={getDateFormated(grade.examDate)}
-                                                titleStyle={{fontWeight: 'bold'}}
-                                            />
-                                            <List.Item
-                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>ECTS: </Caption>}
-                                                title={grade.ects}
-                                                titleStyle={{fontWeight: 'bold'}}
-                                            />
-                                            <List.Item
-                                                left={() => <Caption style={{marginLeft: '2%', marginTop: '2%'}}>Ocjena: </Caption>}
-                                                title={grade.mark}
-                                                titleStyle={{color: (grade.markStatus === 1) ? 'black' : '#c2a711', fontWeight: 'bold'}}
-                                            />
-                                        </List.Accordion>
-                                        <Divider key={'dev'+ind}/>
-                                    </View>
+                                    <DataTable.Row style={{backgroundColor: grade.markStatus===0? '#faece8':'white'}} key={ind} onPress={() => showModal(ind)}>
+                                        <DataTable.Cell style={{flex: 2}}>{grade.courseName}</DataTable.Cell>
+                                        <DataTable.Cell numeric><Caption style={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}>{grade.mark}</Caption></DataTable.Cell>
+                                    </DataTable.Row>
                                 );
                             }) :
-                        <Text style={{textAlign: 'center'}}>Nemate upisanih ocjena</Text>
+                            <Text style={{textAlign: 'center'}}>Nemate upisanih ocjena</Text>
                     }
-                </List.Section>
+                </DataTable>
             </ScrollView>
-            <DataTable style={{backgroundColor: '#434343'}}>
+            <Provider>
+                <Portal>
+                    <GradeModal index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
+                </Portal>
+            </Provider>
+            <DataTable style={{backgroundColor: '#263238'}}>
                 <DataTable.Row>
                     <DataTable.Cell>
                         <Title style={{color: 'white'}}> Prosjek</Title>
@@ -146,10 +132,10 @@ export default function Grades() {
                 </DataTable.Row>
                 <DataTable.Row>
                     <DataTable.Cell>
-                        <Subheading style={{color: 'white'}}>    {average}</Subheading>
+                        <Subheading style={{color: 'white', fontWeight: 'bold'}}>    {average}</Subheading>
                     </DataTable.Cell>
                     <DataTable.Cell numeric>
-                        <Subheading style={{color: 'white'}}>{ectsSum}    </Subheading>
+                        <Subheading style={{color: 'white', fontWeight: 'bold'}}>{ectsSum}    </Subheading>
                     </DataTable.Cell>
                 </DataTable.Row>
             </DataTable>

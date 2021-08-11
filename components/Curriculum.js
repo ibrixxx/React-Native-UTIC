@@ -20,6 +20,11 @@ export default function Curriculum({ navigation }) {
 
 
     useEffect(() => {
+        getCurrentCourses()
+    }, [])
+
+
+    const getCurrentCourses = () => {
         axios.get('http://192.168.44.79:8080/u/0/students/courses/current'
             , {
                 headers: {
@@ -34,14 +39,14 @@ export default function Curriculum({ navigation }) {
             .catch(function (error) {
                 console.log('error: ',error);
             })
-    }, [])
+    }
 
 
     if (!isReady) {
         return (
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Studij" navigation={navigation}/>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
             </View>
         )
     }
@@ -51,13 +56,13 @@ export default function Curriculum({ navigation }) {
         <>
             <MyHeader myTitle="Studij" navigation={navigation}/>
             <Tab.Navigator tabBarOptions={{
-                activeTintColor: 'dodgerblue',
+                activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#434343'},
+                style: { backgroundColor: '#263238'},
             }}>
                 <Tab.Screen name="ThirdTab" children={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
                 <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
-                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
+                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)} getSelected={getCurrentCourses}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
                 <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
             </Tab.Navigator>
         </>

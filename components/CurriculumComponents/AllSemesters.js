@@ -4,7 +4,7 @@ import {TOKEN} from "../../App";
 import {ActivityIndicator, Button, Divider, List, Portal, Provider} from "react-native-paper";
 import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function AllSemesters() {
     const [isReady, setIsReady] = React.useState(false);
@@ -54,7 +54,7 @@ export default function AllSemesters() {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
@@ -63,7 +63,7 @@ export default function AllSemesters() {
         <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                 title="Nastavni plan i program"
-                titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                 {
                     semesters.map((sem, ind) => {
                         return (
@@ -71,9 +71,9 @@ export default function AllSemesters() {
                                     <List.Accordion
                                         key={ind}
                                         id={ind}
-                                        title={`Semestar ${sem[0]}`}
+                                        title={`${sem[0]}. semestar`}
                                         titleStyle={{fontWeight: 'bold'}}
-                                        theme={{ colors: { primary: 'dodgerblue' }}}
+                                        theme={{ colors: { primary: '#2C8BD3' }}}
                                         expanded={ind === activeList}
                                         onPress={() => handlePress(ind)}>
                                         {
@@ -83,13 +83,7 @@ export default function AllSemesters() {
                                                         <List.Item
                                                             key={'li'+i}
                                                             title={c.courseName}
-                                                            left={() => <Icon
-                                                                    name='info'
-                                                                    type='material'
-                                                                    color='#517fa4'
-                                                                    size={16}
-                                                                    style={{marginTop: '40%', marginLeft: '2%'}}
-                                                            />}
+                                                            right={() => <Icon style={{margin: '2%'}} name="ellipsis-h" size={20} color="#434343" />}
                                                             titleStyle={{fontWeight: 'bold'}}
                                                             onPress={() => showModal(i)}/>
                                                         <Divider/>

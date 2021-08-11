@@ -1,13 +1,15 @@
 import {DataTable, Modal, Title, Button} from "react-native-paper";
 import React, {useEffect, useState} from "react";
-import {Text, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Picker} from "@react-native-picker/picker";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import {white} from "react-native-paper/src/styles/colors";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 
 export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
-    const containerStyle = {backgroundColor: 'white', padding: 20, width: '90%', marginLeft: 'auto', marginRight: 'auto', zIndex: 0}
+    const containerStyle = style.card;
     const [contactValue, setContactValue] = useState("")
 
     const [warning, setWarning] = useState(false);
@@ -25,15 +27,14 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                 id: student.contacts[index].id,
                 value: contactValue,
                 optLock: student.contacts[index].optLock
-                },
+            },
             {
                 headers:
                     {
                         Accept: 'application/json',
                         Authorization: TOKEN
                     }
-                }
-
+            }
         )
             .then(respnse => {
                 console.log("Promijenjen")
@@ -54,7 +55,6 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                         Authorization: TOKEN
                     }
             }
-
         )
             .then(respnse => {
                 console.log("Promijenjen")
@@ -65,20 +65,31 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
             });
     }
 
+    function joined() {
+        setWarning(false);
+        hideContactsModal();
+    }
+
     return (
-        <Modal visible={visibleContacts} onDismiss={hideContactsModal} contentContainerStyle={containerStyle}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Title style={{ color: 'dodgerblue', fontWeight: 'bold', textAlign: 'center', marginBottom: 10, marginLeft: '30%' }}>Uređivanje</Title>
-                <Button color="#434343" onPress={() => hideContactsModal()} labelStyle={{ fontWeight: 'bold' }}>X</Button>
+        <Modal visible={visibleContacts} onDismiss={joined} contentContainerStyle={containerStyle}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Title style={{
+                    color: '#2C8BD3',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    marginBottom: 10,
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }}>Izmjena</Title>
             </View>
 
             <View>
-                <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10 }}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>
                     {student ? student.contacts[index] ? student.contacts[index].type : "" : ""}:
                 </Text>
 
                 {
-                    warning ? <Text style={{ color: 'red' }}>* E-mail nije validan</Text> : null
+                    warning ? <Text style={{color: '#DF3D3D'}}>* E-mail nije validan</Text> : null
                 }
 
                 <TextInput
@@ -91,32 +102,43 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
                         marginBottom: 10,
                     }}
                     onChangeText={contact => setContactValue(contact)}
-                    >{student ? student.contacts[index] ? student.contacts[index].value : "1" : "2"}
+                >{student ? student.contacts[index] ? student.contacts[index].value : "1" : "2"}
                 </TextInput>
             </View>
 
 
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Button
-                    style={{ backgroundColor: '#E47070' }}
-                    color="white"
+                    mode='outlined'
+                    color="#E47070"
+                    style={{
+                        borderColor: '#DF3D3D',
+                        borderWidth: 2,
+                        borderRadius: 30,
+                        height: 50,
+                        justifyContent: 'center',
+                        minWidth: 50
+                    }}
                     onPress={() => {
                         deleteContact();
                     }}
-                    >Obriši</Button>
+                ><Icon name="trash" size={20} color="#DF3D3D"/></Button>
                 <Button
-                    style={{ backgroundColor: 'dodgerblue' }}
                     color="white"
+                    style={{
+                        backgroundColor: '#2C8BD3',
+                        borderRadius: 30,
+                        height: 52,
+                        justifyContent: 'center',
+                        minWidth: 52
+                    }}
                     onPress={() => {
-                        if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail"){
+                        if (student.contacts[index].type === "primarni e-mail" || student.contacts[index].type === "e-mail") {
                             if (validate(contactValue)) {
                                 updateContact();
-                            }
-                            else setWarning(true)
-                        }
-                        else updateContact();
-                    }}>Spremi</Button>
+                            } else setWarning(true)
+                        } else updateContact();
+                    }}><Icon name="save" size={20}/></Button>
             </View>
 
 
@@ -125,3 +147,17 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
 
 }
+
+const style = StyleSheet.create({
+    card: {
+        backgroundColor: white,
+        width: '90%',
+        padding: 20,
+        borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: '#2C8BD3',
+        elevation: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    }
+})

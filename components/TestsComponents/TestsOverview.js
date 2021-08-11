@@ -5,7 +5,9 @@ import {TOKEN} from "../../App";
 import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import CourseModal from "../Modals/CourseModal";
 import AreYouSureModal from "../Modals/AreYouSureModal";
-import {Icon} from "react-native-elements";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {formatTimestamp, formatType} from "../Formats/MyFormats";
+
 
 
 export default function TestsOverview({setExams, setCurrentExams,past, current}) {
@@ -64,24 +66,6 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
     }
 
 
-    const formatTimestamp = (num) => {
-        const d = new Date(num);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.';
-    }
-
-
-    const formatType = (num) => {
-        if(num === 1)
-            return 'Parcijalni'
-        else if(num === 2)
-            return 'Završni'
-        else if(num === 3)
-            return 'Popravni'
-        else
-            return 'Socijalni'
-    }
-
-
     const onToggleSnackBar = () => setVisible4(true);
 
     const onDismissSnackBar = () => setVisible4(false);
@@ -92,11 +76,11 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
             <ScrollView style={{backgroundColor: '#e0e0e0'}}>
             <List.Section
                     title="Prijavljeni ispiti"
-                    titleStyle={{color: 'dodgerblue', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                    titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
                     <List.Accordion
                         title={`Trenutno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
+                        theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList}
                         onPress={() => handlePress(88)}>
                         { (current.length > 0)?
@@ -111,12 +95,12 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                     current.map((p, i) => {
                                         return (
                                             <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}} style={{backgroundColor: 'whitesmoke'}}>
-                                                <DataTable.Cell style={{flex: 0.3}}>
+                                                <DataTable.Cell style={{flex: 0.2}}>
                                                     <Icon
                                                         name='info'
                                                         type='material'
                                                         color='#517fa4'
-                                                        size={16}/>
+                                                        size={14}/>
                                                 </DataTable.Cell>
                                                 <DataTable.Cell>
                                                     {p.courseName}
@@ -125,7 +109,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                                     {formatTimestamp(p.examDate)}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    <Button key={'bb'+i} color={'darkred'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
+                                                    <Button key={'bb'+i} color={'#DF3D3D'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
                                                 </DataTable.Cell>
                                             </DataTable.Row>
                                         );
@@ -140,13 +124,13 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                     <List.Accordion
                         title={`Prethodno prijavljeni ispiti`}
                         titleStyle={{fontWeight: 'bold'}}
-                        theme={{ colors: { primary: 'dodgerblue' }}}
+                        theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?
                             <DataTable>
                             <DataTable.Header style={{backgroundColor: '#ebeded'}}>
-                                <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.3}}> </DataTable.Title>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>
@@ -155,12 +139,12 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                 past.map((p, i) => {
                                     return(
                                         <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
-                                            <DataTable.Cell style={{flex: 0.3}}>
+                                            <DataTable.Cell style={{flex: 0.2}}>
                                                 <Icon
                                                     name='info'
                                                     type='material'
                                                     color='#517fa4'
-                                                    size={16}/>
+                                                    size={14}/>
                                             </DataTable.Cell>
                                             <DataTable.Cell>
                                                 {p.courseName}
