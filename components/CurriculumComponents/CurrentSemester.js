@@ -17,11 +17,9 @@ export default function CurrentSemester({classes}) {
             <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Spisak predmeta</Text>
             <DataTable style={{width: '100%'}}>
                 <DataTable.Header style={{width: '100%'}}>
-
                     <DataTable.Title style={{flex: 2}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                     <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
                     <DataTable.Title style={{flex: 0.7}} numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
-                    <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
                 </DataTable.Header>
                 {
                     classes.map((c, index) => {
@@ -30,9 +28,6 @@ export default function CurrentSemester({classes}) {
                                 <DataTable.Cell style={{flex: 2}}><Text>{c.courseName}</Text></DataTable.Cell>
                                 <DataTable.Cell numeric><Text>{c.exerciseHours}+{c.lectureHours}+{c.seminarHours}</Text></DataTable.Cell>
                                 <DataTable.Cell style={{flex: 0.5}} numeric><Text>{c.ects}</Text></DataTable.Cell>
-                                <DataTable.Cell style={{flex: 0.3}} numeric>
-                                    <Icon name="ellipsis-h" size={20} color="#888888" />
-                                </DataTable.Cell>
                             </DataTable.Row>
                         );
                     })

@@ -1,21 +1,10 @@
 import React, {useEffect} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {
-    ActivityIndicator,
-    Button,
-    Checkbox,
-    DataTable,
-    Divider, FAB,
-    List,
-    Portal,
-    Provider,
-    Text
-} from "react-native-paper";
+import {ActivityIndicator, Button, Checkbox, DataTable, FAB, Portal, Provider, Text} from "react-native-paper";
 import {ScrollView, StyleSheet, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 
 export default function SelectedClasses({selected}) {
@@ -61,31 +50,27 @@ export default function SelectedClasses({selected}) {
             {!addVisible?
                 <>
                 <ScrollView style={{backgroundColor: '#e0e0e0'}}>
-                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
+                    <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Odabrani izborni predmeti</Text>
                         <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
-                                <DataTable.Title style={{ flex: 0.8 }}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title numeric style={{ flex: 0.2 }}><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
-                                <DataTable.Title numeric style={{ flex: 0.2 }}><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
-                                <DataTable.Title style={{ flex: 0.2 }}> </DataTable.Title>
+                                <DataTable.Title style={{ flex: 3}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>P+V+S</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>ECTS</Text></DataTable.Title>
                             </DataTable.Header>
                         {
                             selected.map((p, i) => {
                                 return(
-                                        <DataTable.Row key={'s'+i} onPress={() => {showModal(i)}}>
-                                            <DataTable.Cell style={{ flex: 0.8 }}>
-                                                {p.courseName}
-                                            </DataTable.Cell>
-                                            <DataTable.Cell numeric style={{ flex: 0.45 }}>
-                                                {p.exerciseHours}+{p.lectureHours}+{p.seminarHours}
-                                            </DataTable.Cell>
-                                            <DataTable.Cell numeric style={{ flex: 0.15 }}>
-                                                {p.ects}
-                                            </DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.3}} numeric>
-                                                <Icon name="ellipsis-h" size={20} color="#888888" />
-                                            </DataTable.Cell>
-                                        </DataTable.Row>
+                                    <DataTable.Row key={'s'+i} onPress={() => {showModal(i)}}>
+                                        <DataTable.Cell style={{ flex: 3.5}}>
+                                            {p.courseName}
+                                        </DataTable.Cell>
+                                        <DataTable.Cell numeric>
+                                            {p.exerciseHours}+{p.lectureHours}+{p.seminarHours}
+                                        </DataTable.Cell>
+                                        <DataTable.Cell numeric>
+                                            {p.ects}
+                                        </DataTable.Cell>
+                                    </DataTable.Row>
                                 );
                             })
                         }
@@ -101,7 +86,7 @@ export default function SelectedClasses({selected}) {
                 :
                 <>
                 <ScrollView>
-                    <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Dostupni izborni predmeti</Text>
+                    <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Dostupni izborni predmeti</Text>
                         <DataTable style={{backgroundColor: 'white'}}>
                             <DataTable.Header>
                                 <DataTable.Title style={{flex: 0.2}}> </DataTable.Title>
@@ -157,7 +142,7 @@ export default function SelectedClasses({selected}) {
                         </DataTable>
                 </ScrollView>
                     <FAB
-                        style={style.fab}
+                        style={style.fab2}
                         small
                         icon="close"
                         onPress={() => setAddVisible(false)}
@@ -180,6 +165,20 @@ const style = StyleSheet.create({
         width: 55,
         height: 55,
         backgroundColor: '#434343',
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        marginBottom: 20,
+        marginRight: 20,
+        bottom: 0,
+        right: 0,
+        zIndex: 2
+    },
+    fab2: {
+        width: 55,
+        height: 55,
+        backgroundColor: 'darkred',
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',
