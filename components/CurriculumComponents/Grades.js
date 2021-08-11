@@ -121,7 +121,7 @@ export default function Grades() {
                     <GradeModal index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
                 </Portal>
             </Provider>
-            <DataTable style={{backgroundColor: '#434343'}}>
+            <DataTable style={{backgroundColor: '#263238'}}>
                 <DataTable.Row>
                     <DataTable.Cell>
                         <Title style={{color: 'white'}}> Prosjek</Title>

@@ -109,7 +109,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                                     {formatTimestamp(p.examDate)}
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    <Button key={'bb'+i} color={'darkred'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
+                                                    <Button key={'bb'+i} color={'#DF3D3D'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
                                                 </DataTable.Cell>
                                             </DataTable.Row>
                                         );

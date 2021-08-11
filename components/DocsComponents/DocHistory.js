@@ -63,10 +63,11 @@ export default function DocHistory(){
                             onRefresh={onRefresh}
                         />
                     }>
+                    <Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>
                     <DataTable>
                         <DataTable.Header style={{ width: '100%' }}>
-                            <DataTable.Title>Tip dokumenta</DataTable.Title>
-                            <DataTable.Title style={{ flex: 0.3 }}>Datum</DataTable.Title>
+                            <DataTable.Title><Text style={{ fontWeight: 'bold', color: 'black' }}>Tip dokumenta</Text></DataTable.Title>
+                            <DataTable.Title style={{ flex: 0.3 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
                             <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                         </DataTable.Header>
 

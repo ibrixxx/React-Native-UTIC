@@ -164,7 +164,7 @@ const style = StyleSheet.create({
     fab: {
         width: 55,
         height: 55,
-        backgroundColor: '#434343',
+        backgroundColor: '#263238',
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',

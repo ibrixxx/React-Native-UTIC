@@ -110,7 +110,10 @@ export default function Comments({ navigation }) {
                         badMail ? <TextInput
                             placeholder="Vaša e-mail adresa"
                             style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#DF3D3D", }}
-                            onChangeText={email => setMail(email)}
+                            onChangeText={email => {
+                                setMail(email);
+                                setBadMail(false)
+                            }}
                             value={mail}/>
                             : <TextInput
                                 placeholder="Vaša E-mail adresa"
@@ -124,7 +127,7 @@ export default function Comments({ navigation }) {
                         multiline
                         numberOfLines={4}
                         placeholder="Tekst poruke"
-                        style={{ width: '90%', maxHeight: 100, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                        style={{ width: '90%', maxHeight: 90, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
                         onChangeText={msgBody => setText(msgBody)}
                         value={text}/>
 
