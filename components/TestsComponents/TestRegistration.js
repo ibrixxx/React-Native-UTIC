@@ -50,7 +50,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
     return (
         <View style={{height: '100%'}}>
             <ScrollView>
-                <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
+                <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
                 {(exams.length > 0)?
                     <DataTable>
                         <DataTable.Header style={{backgroundColor: '#ebeded'}}>

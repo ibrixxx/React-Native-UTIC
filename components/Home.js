@@ -58,7 +58,7 @@ export default function Home({ navigation }) {
             <Card style={{height: '100%'}}>
                 <Card.Title
                     title="Spisak nadolazećih ispita"
-                    titleStyle={{color: 'dodgerblue'}}
+                    titleStyle={{color: '#2C8BD3'}}
                 />
                 <Card.Content>
                     {(exams.length > 0)?

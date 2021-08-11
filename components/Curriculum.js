@@ -20,6 +20,11 @@ export default function Curriculum({ navigation }) {
 
 
     useEffect(() => {
+        getCurrentCourses()
+    }, [])
+
+
+    const getCurrentCourses = () => {
         axios.get('http://192.168.44.79:8080/u/0/students/courses/current'
             , {
                 headers: {
@@ -34,7 +39,7 @@ export default function Curriculum({ navigation }) {
             .catch(function (error) {
                 console.log('error: ',error);
             })
-    }, [])
+    }
 
 
     if (!isReady) {
@@ -57,7 +62,7 @@ export default function Curriculum({ navigation }) {
             }}>
                 <Tab.Screen name="ThirdTab" children={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
                 <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
-                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
+                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)} getSelected={getCurrentCourses}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
                 <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
             </Tab.Navigator>
         </>
