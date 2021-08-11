@@ -3,15 +3,12 @@ import React from "react";
 import {Text, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 
 export default function ActiveDocReqModal({visible, hideModal, index, docs}) {
     const containerStyle = {backgroundColor: 'white', padding: 20, paddingTop: 30, paddingBottom: 30, zIndex: 0}
 
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
 
     const cancelRequest = () => {
         axios.put(`http://192.168.44.79:8080/u/0/student-documents/request-cancellation/${docs[index].id}`,
@@ -45,7 +42,7 @@ export default function ActiveDocReqModal({visible, hideModal, index, docs}) {
             <DataTable style={{ width: '75%', marginLeft: 'auto', marginRight: 'auto' }}>
                 <DataTable.Row>
                     <DataTable.Cell><Text style={{ fontWeight: 'bold' }}>Datum:</Text></DataTable.Cell>
-                    <DataTable.Cell>{docs[index] ? getDateFormated(docs[index].date) : ""}</DataTable.Cell>
+                    <DataTable.Cell>{docs[index] ? formatTimestamp(docs[index].date) : ""}</DataTable.Cell>
                 </DataTable.Row>
 
                 <DataTable.Row>

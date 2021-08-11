@@ -5,7 +5,7 @@ import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} fro
 import axios from "axios";
 import {TOKEN} from "../App";
 import CourseModal from "./Modals/CourseModal";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Icon} from "react-native-elements";
 import {formatTimestamp, formatTimestamp2} from "./Formats/MyFormats";
 
 
@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Početna" navigation={navigation}/>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
             </View>
         );
     }
@@ -54,32 +54,35 @@ export default function Home({ navigation }) {
 
     return (
         <View>
-            <MyHeader myTitle="Početna" navigation={navigation}/>
+            <MyHeader myTitle="Home" navigation={navigation}/>
             <Card style={{height: '100%'}}>
                 <Card.Title
                     title="Spisak nadolazećih ispita"
-                    titleStyle={{color: '#2C8BD3'}}
+                    titleStyle={{color: 'dodgerblue'}}
                 />
                 <Card.Content>
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
+                                <DataTable.Title style={{flex: 0.08}}></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
                                 <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.1}}></DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
                                     return (
                                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
-
+                                            <DataTable.Cell style={{flex: 0.08}}>
+                                                <Icon
+                                                    name='search'
+                                                    type='material'
+                                                    color='#517fa4'
+                                                    size={14}/>
+                                            </DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
                                             <DataTable.Cell style={{flex: 0.2}} numeric>{formatTimestamp2(e.examDate)}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.1}} numeric>
-                                                <Icon name="ellipsis-h" size={20} color="#888888" />
-                                            </DataTable.Cell>
                                         </DataTable.Row>
                                     );
                                 })

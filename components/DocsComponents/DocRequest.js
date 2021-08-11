@@ -7,6 +7,7 @@ import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
 import Icon from "react-native-vector-icons/FontAwesome";
+import {formatTimestamp} from "../Formats/MyFormats";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
@@ -65,11 +66,6 @@ export default function DocRequest() {
         return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
-    const getDateFormated = (n) => {
-        const d = new Date(n);
-        return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-    }
-
 
     return (
         <>
@@ -93,7 +89,7 @@ export default function DocRequest() {
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
                         <DataTable.Title>Tip dokumenta</DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.3 }}>Datum</DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.4 }}>Datum</DataTable.Title>
                         <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
@@ -103,7 +99,7 @@ export default function DocRequest() {
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
                                 </DataTable.Cell>
 
-                                <DataTable.Cell style={{ flex: 0.3 }}>{getDateFormated(prev.date)}</DataTable.Cell>
+                                <DataTable.Cell style={{ flex: 0.4 }}>{formatTimestamp(prev.date)}</DataTable.Cell>
                                 <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
 
                             </DataTable.Row>

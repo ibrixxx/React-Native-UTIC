@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {formatTimestamp} from "../Formats/MyFormats";
 
 
+
 export default function TestRegistration({exams, setCurrent, setExams}) {
     const [visible, setVisible] = React.useState(false);
     const [visible2, setVisible2] = React.useState(false);
@@ -17,6 +18,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
     const onToggleSnackBar = () => setVisible2(true);
 
     const onDismissSnackBar = () => setVisible2(false);
+
 
     const showModal = (i) => {setVisible(true); setCurr(i)}
 
@@ -48,7 +50,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
     return (
         <View style={{height: '100%'}}>
             <ScrollView>
-                <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
+                <Text style={{color: 'dodgerblue', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
                 {(exams.length > 0)?
                     <DataTable>
                         <DataTable.Header style={{backgroundColor: '#ebeded'}}>
@@ -70,7 +72,7 @@ export default function TestRegistration({exams, setCurrent, setExams}) {
                                         </DataTable.Cell>
                                         <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
                                         <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
-                                        <DataTable.Cell style={{flex: 0.4, marginLeft: '2%'}} numeric><Button color={'#2C8BD3'} style={{backgroundColor: 'rgba(64, 171, 181, 0.1)'}} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
+                                        <DataTable.Cell style={{flex: 0.4, marginLeft: '2%'}} numeric><Button color={'dodgerblue'} style={{backgroundColor: 'rgba(64, 171, 181, 0.1)'}} onPress={() => registerExam(e.gradedActivityId, e.studentCourseImplementationId)}>PRIJAVI</Button></DataTable.Cell>
                                     </DataTable.Row>
                                 );
                             })

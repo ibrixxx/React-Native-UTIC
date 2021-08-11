@@ -83,7 +83,7 @@ export default function AllSemesters() {
                                                         <List.Item
                                                             key={'li'+i}
                                                             title={c.courseName}
-                                                            right={() => <Icon name="ellipsis-h" size={20} color="#434343" />}
+                                                            right={() => <Icon style={{margin: '2%'}} name="ellipsis-h" size={20} color="#434343" />}
                                                             titleStyle={{fontWeight: 'bold'}}
                                                             onPress={() => showModal(i)}/>
                                                         <Divider/>

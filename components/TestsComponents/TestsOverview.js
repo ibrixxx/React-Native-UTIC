@@ -65,6 +65,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
             setActiveList2(ind)
     }
 
+
     const onToggleSnackBar = () => setVisible4(true);
 
     const onDismissSnackBar = () => setVisible4(false);
@@ -129,7 +130,7 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                         { (past.length > 0)?
                             <DataTable>
                             <DataTable.Header style={{backgroundColor: '#ebeded'}}>
-                                <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.3}}> </DataTable.Title>
                                 <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
                                 <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>
