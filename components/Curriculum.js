@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import MyHeader from "./MyHeader";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Grades from "./CurriculumComponents/Grades";
@@ -9,6 +9,7 @@ import axios from "axios";
 import {TOKEN} from "../App";
 import {ActivityIndicator} from "react-native-paper";
 import {View} from "react-native";
+import BottomSheet from "./BottomSheet";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -17,6 +18,7 @@ const Tab = createMaterialTopTabNavigator();
 export default function Curriculum({ navigation }) {
     const [classes, setClasses] = React.useState([]);
     const [isReady, setIsReady] = React.useState(false);
+    const refRBSheet = useRef();
 
 
     useEffect(() => {
@@ -54,7 +56,7 @@ export default function Curriculum({ navigation }) {
 
     return (
         <>
-            <MyHeader myTitle="Studij" navigation={navigation}/>
+            <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
             <Tab.Navigator tabBarOptions={{
                 activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
@@ -65,6 +67,7 @@ export default function Curriculum({ navigation }) {
                 <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)} getSelected={getCurrentCourses}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
                 <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
             </Tab.Navigator>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
         </>
     )
 }

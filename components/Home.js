@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {View} from "react-native";
+import React, {useEffect, useRef, useState} from 'react'
+import {Button, View} from "react-native";
 import MyHeader from "./MyHeader";
 import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} from "react-native-paper";
 import axios from "axios";
@@ -7,6 +7,7 @@ import {TOKEN} from "../App";
 import CourseModal from "./Modals/CourseModal";
 import {Icon} from "react-native-elements";
 import {formatTimestamp, formatTimestamp2} from "./Formats/MyFormats";
+import BottomSheet from "./BottomSheet";
 
 
 export default function Home({ navigation }) {
@@ -14,7 +15,7 @@ export default function Home({ navigation }) {
     const [isReady, setIsReady] = React.useState(false)
     const [visible, setVisible] = React.useState(false)
     const [curr, setCurr] = React.useState(null)
-
+    const refRBSheet = useRef();
 
 
     useEffect(() => {
@@ -53,9 +54,9 @@ export default function Home({ navigation }) {
 
 
     return (
-        <View>
-            <MyHeader myTitle="Home" navigation={navigation}/>
-            <Card style={{height: '100%'}}>
+        <>
+            <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
+            <Card style={{height: '100%', flex: 1}}>
                 <Card.Title
                     title="Spisak nadolazećih ispita"
                     titleStyle={{color: '#2C8BD3'}}
@@ -91,6 +92,7 @@ export default function Home({ navigation }) {
                         :
                         <Caption>Nemate nadolazećih ispita</Caption>
                     }
+                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
                 </Card.Content>
                 <Provider>
                     <Portal>
@@ -98,6 +100,6 @@ export default function Home({ navigation }) {
                     </Portal>
                 </Provider>
             </Card>
-        </View>
+        </>
     );
 }

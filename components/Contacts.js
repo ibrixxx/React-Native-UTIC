@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import MyHeader from "./MyHeader";
 import {white} from "react-native-paper/src/styles/colors";
@@ -7,10 +7,13 @@ import {TOKEN} from "../App";
 import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {Linking} from "react-native";
+import BottomSheet from "./BottomSheet";
 
 export default function Contacts({ navigation }) {
     const [importantContacts, setImportantContacts] = useState({});
     const[isReady, setIsReady] = useState(false)
+    const refRBSheet = useRef();
+
 
     const unsaPhone = "0038733565100";
     const unsaMail = "javnost@unsa.ba";
@@ -44,7 +47,7 @@ export default function Contacts({ navigation }) {
 
     return (
         <View>
-            <MyHeader myTitle="Kontakti" navigation={navigation}/>
+            <MyHeader myTitle="Kontakti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
 
             <ScrollView
                 contentContainerStyle={{ padding: 10, paddingBottom: 30}}
@@ -169,6 +172,7 @@ export default function Contacts({ navigation }) {
                     </DataTable>
                 </View>
             </ScrollView>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
         </View>
     );
 }

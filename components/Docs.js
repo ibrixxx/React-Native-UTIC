@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useRef} from 'react'
 import {StyleSheet, View} from "react-native";
 import {white} from "react-native-paper/src/styles/colors";
 import MyHeader from "./MyHeader";
@@ -7,15 +7,18 @@ import DocRequest from './DocsComponents/DocRequest';
 import DocHistory from './DocsComponents/DocHistory';
 import {Title} from "react-native-paper";
 import { useIsFocused } from '@react-navigation/native';
+import BottomSheet from "./BottomSheet";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Docs({ navigation }) {
     const focus = useIsFocused();
+    const refRBSheet = useRef();
+
 
     return(
         <>
-            <MyHeader myTitle="Dokumenti" navigation={navigation}/>
+            <MyHeader myTitle="Dokumenti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
 
             <Tab.Navigator tabBarOptions={{
                 activeTintColor: '#2C8BD3',
@@ -25,6 +28,7 @@ export default function Docs({ navigation }) {
                 <Tab.Screen name="ZeroTab" component={DocRequest} options={{ tabBarLabel: 'Aktivni zahtjevi' }}/>
                 <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
             </Tab.Navigator>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
         </>
     )
 }

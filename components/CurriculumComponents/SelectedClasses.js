@@ -101,14 +101,6 @@ export default function SelectedClasses({selected, getSelected}) {
     }
 
 
-    const checkTheBox = (i) => {
-        for(const e of checked)
-            if(e === i)
-                return true
-        return false
-    }
-
-
 
     if (!isReady) {
         return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
