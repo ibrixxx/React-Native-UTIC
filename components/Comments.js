@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
 import {Title, Button, Snackbar} from "react-native-paper";
 import {white} from "react-native-paper/src/styles/colors";
@@ -6,6 +6,7 @@ import MyHeader from "./MyHeader";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {Picker} from "@react-native-picker/picker";
+import BottomSheet from "./BottomSheet";
 
 export default function Comments({ navigation }) {
     const [selectedValue, setSelectedValue] = useState(1);
@@ -15,6 +16,8 @@ export default function Comments({ navigation }) {
     const [text, setText] = useState("");
     const [visibleSnackbar, setVisibleSnackbar] = useState(false);
     const [badMail, setBadMail] = useState(false);
+    const refRBSheet = useRef();
+
 
     const onToggleSnackBar = () => setVisibleSnackbar(!visibleSnackbar);
     const onDismissSnackBar = () => setVisibleSnackbar(false);
@@ -31,7 +34,6 @@ export default function Comments({ navigation }) {
             }
         })
             .then(respnse => {
-                console.log(respnse.data)
                 setMailTypes(respnse.data);
             })
             .catch(error => {
@@ -57,11 +59,9 @@ export default function Comments({ navigation }) {
                         Authorization: TOKEN
                     }
             }
-
         )
             .then(respnse => {
-                console.log("Poslan")
-                console.log({title: title, typeId: selectedValue, email: mail, text: text});
+
             })
             .catch(error => {
                 console.error(error);
@@ -78,7 +78,7 @@ export default function Comments({ navigation }) {
 
     return (
         <View>
-            <MyHeader myTitle="Komentari/prijedlozi" navigation={navigation}/>
+            <MyHeader myTitle="Komentari/prijedlozi" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
             <View style={{height: '85%', alignItems: 'center', justifyContent: 'center'}}>
                 <View style={style.container}>
                     <Title style={{ marginBottom: 20 }}>Forma za slanje</Title>
@@ -151,19 +151,17 @@ export default function Comments({ navigation }) {
                     </View>
 
                 </View>
-
-
-
             </View>
             <Snackbar
                 visible={visibleSnackbar}
                 onDismiss={onDismissSnackBar}
                 action={{
-                    label: 'Zatvori',
+                    label: 'X',
                     onDismissSnackBar
                 }}>
                 E-mail uspješno poslan!
             </Snackbar>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
         </View>
     );
 }

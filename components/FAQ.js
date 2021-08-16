@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {ScrollView, Text, View} from "react-native";
 import MyHeader from "./MyHeader";
 import {ActivityIndicator, DataTable, List, Portal, Provider, Searchbar, Title} from "react-native-paper";
@@ -6,6 +6,7 @@ import axios from "axios";
 import {TOKEN} from "../App";
 import FAQModal from "./Modals/FAQModal";
 import {Icon} from "react-native-elements";
+import BottomSheet from "./BottomSheet";
 
 export default function FAQ({ navigation }) {
 
@@ -18,6 +19,8 @@ export default function FAQ({ navigation }) {
     const [showSearchbar, setShowSearchBar] = useState(true);
     const [activeList, setActiveList] = React.useState(null);
     const [isReady, setIsReady] = useState(false)
+    const refRBSheet = useRef();
+
 
     const showModal = (i) => {setVisible(true); setCurr(i); setShowSearchBar(false);}
     const hideModal = () => {setVisible(false); setShowSearchBar(true);}
@@ -73,17 +76,13 @@ export default function FAQ({ navigation }) {
     }
 
     return (
-        <>
-            <MyHeader myTitle="FAQ" navigation={navigation}/>
-            {
-                showSearchbar ? <Searchbar
+        <View style={{zIndex: 1}}>
+            <MyHeader myTitle="FAQ" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
+            <Searchbar
                     placeholder="Search"
                     onChangeText={onChangeSearch}
                     value={searchQuery}
-                    style={{}}
-                /> : <Title style={{ fontSize: 33, padding: 7, paddingLeft: 12 }}><Icon name="search" color="#777777"/></Title>
-            }
-
+            />
             <ScrollView>
                 <List.Section
                     title="Najčešće postavljena pitanja"
@@ -114,24 +113,7 @@ export default function FAQ({ navigation }) {
                     }
                 </List.Section>
             </ScrollView>
-
-            {/*<DataTable style={{width: '100%', backgroundColor: 'white'}}>*/}
-            {/*    {(returnData() && returnData().length > 0)? returnData().map((ques, index) => (*/}
-            {/*            <DataTable.Row key={index} onPress={() => {showModal(index)}}>*/}
-            {/*                <DataTable.Cell ><Text >{ques.question}</Text></DataTable.Cell>*/}
-            {/*            </DataTable.Row>*/}
-            {/*        )) :*/}
-            {/*        <Text*/}
-            {/*            style={{ padding: 10, textAlign: 'center', fontWeight: 'bold', fontSize: 15, color: "#434343", backgroundColor: '#f2f2f2' }}>Nema postavljenih pitanja</Text>*/}
-
-            {/*    }*/}
-            {/*</DataTable>*/}
-
-            <Provider>
-                <Portal>
-                    <FAQModal index={curr} visible={visible} questions={questions} hideModal={hideModal}/>
-                </Portal>
-            </Provider>
-        </>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+        </View>
     );
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import MyHeader from "./MyHeader";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import TestRegistration from "./TestsComponents/TestRegistration";
@@ -7,6 +7,7 @@ import axios from "axios";
 import {TOKEN} from "../App";
 import {View} from "react-native";
 import {ActivityIndicator} from "react-native-paper";
+import BottomSheet from "./BottomSheet";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -17,6 +18,8 @@ export default function Tests({ navigation }) {
     const [past, setPast] = React.useState([]);
     const [exams, setExams] = useState([])
     const [isReady, setIsReady] = React.useState(false)
+    const refRBSheet = useRef();
+
 
 
     useEffect(() => {
@@ -89,15 +92,16 @@ export default function Tests({ navigation }) {
 
     return (
         <>
-            <MyHeader myTitle="Ispiti" navigation={navigation}/>
+            <MyHeader myTitle="Ispiti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
             <Tab.Navigator tabBarOptions={{
                 activeTintColor: '#2C8BD3',
                 labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#263238'},
+                style: { backgroundColor: '#263238', zIndex: 0},
             }}>
                 <Tab.Screen name="ZeroTab" children={() => <TestRegistration exams={exams} setCurrent={getCurrentExams} setExams={getExams}/>} options={{ tabBarLabel: 'Prijava ispita' }}/>
                 <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
             </Tab.Navigator>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
         </>
     );
 }

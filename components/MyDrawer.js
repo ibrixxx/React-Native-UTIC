@@ -12,7 +12,6 @@ import FAQ from "./FAQ";
 import React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {Icon} from "react-native-elements";
-import { NavigationActions } from "react-navigation";
 
 
 const Drawer = createDrawerNavigator();
