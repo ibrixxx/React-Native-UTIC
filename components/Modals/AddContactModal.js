@@ -1,13 +1,13 @@
-import {Modal, Title, Button, Snackbar} from "react-native-paper";
-import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Modal, Title} from "react-native-paper";
+import {Text, TextInput, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
-import {white} from "react-native-paper/src/styles/colors";
+import style from "../styles/DarkMode";
 
 export default function AddContactModal({visibleAdd, hideAddModal }) {
-    const containerStyle = style.card;
+    const containerStyle = style.cardAC;
     const [contactTypes, setContactTypes] = useState({})
     const [contactTypeValue, setContactTypeValue] = useState(1)
     const [contactValue, setContactValue] = useState("")
@@ -172,29 +172,3 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
         </Modal>
     )
 }
-
-const style = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        borderTopWidth: 2,
-        borderTopColor: '#2C8BD3',
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 20,
-        marginBottom: 20
-    },
-    container: {
-        width: '100%',
-        padding: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 20
-    },
-})

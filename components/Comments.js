@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
-import {Title, Button, Snackbar} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
+import {Text, TextInput, View} from "react-native";
+import {Button, Snackbar, Title} from "react-native-paper";
 import MyHeader from "./MyHeader";
 import axios from "axios";
 import {TOKEN} from "../App";
 import {Picker} from "@react-native-picker/picker";
 import BottomSheet from "./BottomSheet";
+import style from "./styles/DarkMode";
 
 export default function Comments({ navigation }) {
     const [selectedValue, setSelectedValue] = useState(1);
@@ -165,27 +165,3 @@ export default function Comments({ navigation }) {
         </View>
     );
 }
-
-const style = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        width: '90%',
-        backgroundColor: white,
-        padding: 15,
-        borderRadius: 15,
-        borderTopColor: '#2C8BD3',
-        borderTopWidth: 2,
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 15
-    },
-    dropdownView: {
-        borderWidth: 1,
-        borderColor: "#888888",
-        height: 40,
-        paddingTop: '3%',
-        marginBottom: 5,
-        width: '90%'
-    }
-});

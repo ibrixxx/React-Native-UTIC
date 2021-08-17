@@ -6,6 +6,7 @@ import {TOKEN} from "../../App";
 import DocsModal from "../Modals/DocsModal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {formatTimestamp} from "../Formats/MyFormats";
+import styles from "../styles/DarkMode";
 
 export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
@@ -55,7 +56,7 @@ export default function DocHistory(){
 
     return (
         <>
-            <View style={styles.container}>
+            <View style={styles.containerDoc}>
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -97,26 +98,3 @@ export default function DocHistory(){
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#aaa'
-    },
-    yellowStyle: {
-        backgroundColor: '#F6F5DB'
-    },
-    redStyle: {
-        backgroundColor: '#FBE9E9'
-    },
-    greenStyle: {
-        backgroundColor: '#E9FBE4'
-    }
-});

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ActivityIndicator, DataTable, Title} from "react-native-paper";
-import {StyleSheet, Text, View} from "react-native";
-import {white} from "react-native-paper/src/styles/colors";
+import {ActivityIndicator, DataTable} from "react-native-paper";
+import {Text, View} from "react-native";
+import style from "../styles/DarkMode";
 
 export default function StudyData(){
     const[studyProgram, setStudyProgram] = useState({})
@@ -36,7 +36,7 @@ export default function StudyData(){
 
     return (
         <>
-            <View style={style.container}>
+            <View style={style.containerSD}>
                 <DataTable style={{ marginTop: 20 }}>
                     <DataTable.Row>
                         <DataTable.Cell><Text style={style.TDStyleLeft}>Index</Text></DataTable.Cell>
@@ -73,19 +73,3 @@ export default function StudyData(){
         </>
     );
 }
-
-const style = StyleSheet.create({
-    container: {
-        width: '100%',
-        padding: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    TDStyleLeft: {
-        fontWeight: 'bold'
-    }
-});

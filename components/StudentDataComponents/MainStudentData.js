@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ScrollView, StyleSheet, View, Text} from "react-native";
-import {ActivityIndicator, DataTable, Title} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
+import {ScrollView, Text, View} from "react-native";
+import {ActivityIndicator, DataTable} from "react-native-paper";
 import {formatTimestamp} from "../Formats/MyFormats";
+import style from "../styles/DarkMode";
 
 export default function MainStudentData(){
     const[student, setStudent] = useState({})
@@ -40,7 +40,7 @@ export default function MainStudentData(){
     return (
         <>
             <ScrollView>
-                <View style={style.container}>
+                <View style={style.containerMSD}>
                     <DataTable style={{ marginTop: 20, marginBottom: 20 }}>
                         <DataTable.Row style={{textAlign: 'right'}}>
                             <DataTable.Cell ><Text style={style.TDStyleLeft}>Korisničko ime</Text></DataTable.Cell>
@@ -124,19 +124,3 @@ export default function MainStudentData(){
         </>
     );
 }
-
-const style = StyleSheet.create({
-    container: {
-        width: '100%',
-        padding: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    TDStyleLeft: {
-        fontWeight: 'bold'
-    }
-});

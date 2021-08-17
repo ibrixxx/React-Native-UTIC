@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
+import {RefreshControl, ScrollView, Text, View} from "react-native";
 import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {formatTimestamp} from "../Formats/MyFormats";
+import styles from "../styles/DarkMode";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
@@ -125,45 +125,3 @@ export default function DocRequest() {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 20,
-        marginBottom: 20
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    fab: {
-        width: 55,
-        height: 55,
-        backgroundColor: '#263238',
-        color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        marginBottom: 20,
-        marginRight: 20,
-        bottom: 0,
-        right: 0,
-        zIndex: 1000
-    },
-    yellowStyle: {
-        backgroundColor: '#F4F3A9'
-    },
-    redStyle: {
-        color: '#EDBBBB'
-    },
-    greenStyle: {
-        color: '#C5EDBB'
-    }
-
-});

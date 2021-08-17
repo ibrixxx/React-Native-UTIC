@@ -16,6 +16,7 @@ import {RefreshControl, ScrollView, StyleSheet, View, CheckBox} from "react-nati
 import CourseModal2 from "../Modals/CourseModal2";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import style from "../styles/DarkMode";
 
 
 
@@ -253,35 +254,3 @@ export default function SelectedClasses({selected, getSelected}) {
         </View>
     );
 }
-
-
-const style = StyleSheet.create({
-    fab: {
-        width: 55,
-        height: 55,
-        backgroundColor: '#263238',
-        color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        marginBottom: 20,
-        marginRight: 20,
-        bottom: 0,
-        right: 0,
-        zIndex: 2
-    },
-    fab2: {
-        width: 55,
-        height: 55,
-        backgroundColor: 'darkred',
-        color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        marginBottom: 20,
-        marginRight: 20,
-        bottom: 0,
-        right: 0,
-        zIndex: 2
-    }
-});
