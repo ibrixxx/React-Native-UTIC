@@ -1,5 +1,5 @@
 import React from 'react';
-import {Caption, DataTable, Switch, Text, Title} from "react-native-paper";
+import {DataTable, Switch, Text, Title} from "react-native-paper";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {Icon as Icon2} from 'react-native-elements'
@@ -36,16 +36,17 @@ export default function BottomSheet({myRef, navigateHome}){
                 </DataTable.Row>
                 <DataTable.Row>
                     <DataTable.Cell style={{flex: 0.1}}><Icon name={'graduation-cap'} color={'whitesmoke'} size={20}/></DataTable.Cell>
-                    <DataTable.Cell style={{flex: 0.40}}><Title style={{color: 'whitesmoke'}}>Promijeni rolu:</Title></DataTable.Cell>
-                </DataTable.Row>
-                <DataTable.Row>
-                    <DataTable.Cell style={{flex: 0.50}} numeric><Text style={{color: '#2C8BD3'}}>Diplomirani student</Text></DataTable.Cell>
-                    <DataTable.Cell style={{flex: 0.50}} numeric><Text style={{color: 'lightgray'}}>Normalni student</Text></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.5}} numeric><Text style={{color: '#2C8BD3'}}>Diplomirani student</Text></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.4}} numeric><Text style={{color: 'lightgray'}}>Normalni student</Text></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
                     <DataTable.Cell style={{flex: 0.1}}><Icon2 name={'opacity'} color={'whitesmoke'}/></DataTable.Cell>
-                    <DataTable.Cell style={{flex: 0.40}}><Title style={{color: 'whitesmoke'}}>Tamna tema</Title></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.4}}><Title style={{color: 'whitesmoke'}}>Tamna tema</Title></DataTable.Cell>
                     <DataTable.Cell style={{flex: 0.15, paddingTop: '1%'}}><Switch value={isSwitchOn} onValueChange={onToggleSwitch}/></DataTable.Cell>
+                </DataTable.Row>
+                <DataTable.Row>
+                    <DataTable.Cell style={{flex: 0.1}}><Icon2 name={'logout'} color={'whitesmoke'}/></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.9}}><Title style={{color: 'whitesmoke'}}>Odjavi se</Title></DataTable.Cell>
                 </DataTable.Row>
             </DataTable>
         </RBSheet>

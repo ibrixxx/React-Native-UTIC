@@ -8,10 +8,6 @@ import {TouchableRipple} from "react-native-paper";
 
 
 export default function CustomDrawerContent(props) {
-    //console.log(props)
-    //const {state, ...rest} = props;
-    //const newState = {...state};
-    //newState.routes = newState.routes.filter(item => item.name !== 'AddPhone')
 
     const [student, setStudent] = useState({});
     const [studyProgram, setStudyProgram] = useState({});
@@ -21,6 +17,7 @@ export default function CustomDrawerContent(props) {
         getUserData();
         getStudyProgram();
     }, [])
+
 
     const getUserData = () => {
         axios.get(' http://192.168.44.79:8080/u/0/students/student/personal-information', {
