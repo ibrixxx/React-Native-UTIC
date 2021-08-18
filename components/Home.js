@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Button, View} from "react-native";
+import {View} from "react-native";
 import MyHeader from "./MyHeader";
 import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} from "react-native-paper";
 import axios from "axios";
@@ -10,7 +10,7 @@ import {formatTimestamp, formatTimestamp2} from "./Formats/MyFormats";
 import BottomSheet from "./BottomSheet";
 
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, theme, changeTheme, role}) {
     const [exams, setExams] = useState([])
     const [isReady, setIsReady] = React.useState(false)
     const [visible, setVisible] = React.useState(false)
@@ -45,22 +45,22 @@ export default function Home({ navigation }) {
     if (!isReady) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
-                <MyHeader myTitle="Početna" navigation={navigation}/>
+                <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
                 <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
             </View>
         );
     }
 
 
-
     return (
         <>
             <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
-            <Card style={{height: '100%', flex: 1}}>
-                <Card.Title
+            <Card style={{height: '100%', flex: 1, backgroundColor: theme? theme.mainBackground:'orange'}}>
+                {!role && <Card.Title
                     title="Spisak nadolazećih ispita"
                     titleStyle={{color: '#2C8BD3'}}
-                />
+                />}
                 <Card.Content>
                     {(exams.length > 0)?
                         <DataTable>
