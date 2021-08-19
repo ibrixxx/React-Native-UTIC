@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from "react-native";
 import {Header} from "react-native-elements";
-
+import style from "./styles/DarkMode";
 
 export default function MyHeader({ myTitle, navigation, sheetOpen }){
 
@@ -16,10 +16,3 @@ export default function MyHeader({ myTitle, navigation, sheetOpen }){
         </View>
     );
 }
-
-const style = StyleSheet.create({
-    headerText: {
-        fontSize: 22,
-        color: 'white',
-    }
-})

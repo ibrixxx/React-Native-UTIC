@@ -1,12 +1,10 @@
-import {DataTable, Modal, Title, Button} from "react-native-paper";
-import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TextInput, View} from "react-native";
-import {Picker} from "@react-native-picker/picker";
+import {Button, Modal, Title} from "react-native-paper";
+import React, {useState} from "react";
+import {Text, TextInput, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {white} from "react-native-paper/src/styles/colors";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import style from "../styles/DarkMode";
 
 export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
     const containerStyle = style.card;
@@ -147,17 +145,3 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
 
 }
-
-const style = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        borderTopWidth: 2,
-        borderTopColor: '#2C8BD3',
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    }
-})

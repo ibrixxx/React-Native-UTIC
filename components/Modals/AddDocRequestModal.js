@@ -1,13 +1,13 @@
-import {Modal, Title, Button} from "react-native-paper";
-import { StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Modal, Title} from "react-native-paper";
+import {TextInput, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
-import {white} from "react-native-paper/src/styles/colors";
+import styles from "../styles/DarkMode";
 
 export default function AddDocRequestModal({visible, hideModal, prevRequestsF }) {
-    const containerStyle = styles.card;
+    const containerStyle = styles.cardAC;
     const [documentTypes, setDocumentTypes] = useState({});
     const [certificateReasons, setCertificateReasons] = useState({});
     const [selectedValue, setSelectedValue] = useState(1);
@@ -182,52 +182,3 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        borderTopWidth: 2,
-        borderTopColor: 'dodgerblue',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 20,
-        marginBottom: 20
-    },
-    container: {
-        width: '100%',
-        padding: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    disabledBorder: {
-        borderWidth: 1,
-        borderColor: "#dddddd",
-        height: 40,
-        paddingTop: '3%',
-        marginBottom: 10
-
-    },
-    enabledBorder: {
-        borderWidth: 1,
-        borderColor: "#888888",
-        height: 40,
-        paddingTop: '3%',
-        marginBottom: 10
-
-    },
-    disabled: {
-        width: '100%',
-        color: "#dddddd"
-    },
-    enabled: {
-        width: '100%',
-        color: '#000000'
-    }
-})

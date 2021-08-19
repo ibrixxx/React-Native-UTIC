@@ -6,6 +6,7 @@ import {TOKEN} from "../../App";
 import DocsModal from "../Modals/DocsModal";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {formatTimestamp} from "../Formats/MyFormats";
+import styles from "../styles/DarkMode";
 
 export default function DocHistory(){
     const [prevRequests, setPrevRequests] = useState({});
@@ -55,7 +56,7 @@ export default function DocHistory(){
 
     return (
         <>
-            <View style={styles.container}>
+            <View style={styles.containerDoc}>
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -63,20 +64,20 @@ export default function DocHistory(){
                             onRefresh={onRefresh}
                         />
                     }>
-                    <Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>
+                    {/*<Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>*/}
                     <DataTable>
                         <DataTable.Header style={{ width: '100%' }}>
                             <DataTable.Title><Text style={{ fontWeight: 'bold', color: 'black' }}>Tip dokumenta</Text></DataTable.Title>
-                            <DataTable.Title style={{ flex: 0.3 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
+                            <DataTable.Title style={{ flex: 0.35 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
                             <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                         </DataTable.Header>
 
                         {   (prevRequests && prevRequests.length > 0) ? prevRequests.map((prev, i) =>
                             (prev.documentStatusName !== "primljen zahtjev") ?
                                 <DataTable.Row key={prev.id} style={getStyle(prev.documentStatusName)} onPress={() => showModal(i)} >
-                                    <DataTable.Cell>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.3 }}>{formatTimestamp(prev.date)}</DataTable.Cell>
-                                    <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
+                                    <Text style={{ width: '60%', textAlignVertical: 'center' }}>{prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}</Text>
+                                    <Text style={{ width: '30%', textAlign: 'center', textAlignVertical: 'center' }}>{formatTimestamp(prev.date)}</Text>
+                                    <Text style={{ width: '10%', textAlign: 'center', textAlignVertical: 'center' }}><Icon name="ellipsis-h" size={20} color="#888888" /></Text>
 
                                 </DataTable.Row> : null
                         ) :
@@ -97,26 +98,3 @@ export default function DocHistory(){
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#aaa'
-    },
-    yellowStyle: {
-        backgroundColor: '#F6F5DB'
-    },
-    redStyle: {
-        backgroundColor: '#FBE9E9'
-    },
-    greenStyle: {
-        backgroundColor: '#E9FBE4'
-    }
-});

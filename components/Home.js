@@ -46,7 +46,7 @@ export default function Home({ navigation, theme, changeTheme, role}) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
-                <ActivityIndicator style={{marginTop: '50%', backgroundColor: theme.mainBackground}} color={'dodgerblue'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
                 <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
             </View>
         );

@@ -8,8 +8,9 @@ import {ActivityIndicator, DataTable, Title} from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {Linking} from "react-native";
 import BottomSheet from "./BottomSheet";
+import style from "./styles/DarkMode";
 
-export default function Contacts({ navigation }) {
+export default function Contacts({ navigation, theme, changeTheme, role}) {
     const [importantContacts, setImportantContacts] = useState({});
     const[isReady, setIsReady] = useState(false)
     const refRBSheet = useRef();
@@ -176,28 +177,3 @@ export default function Contacts({ navigation }) {
         </View>
     );
 }
-
-const style = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        width: '90%',
-        backgroundColor: white,
-        padding: 15,
-        borderRadius: 15,
-        borderTopColor: '#2C8BD3',
-        borderTopWidth: 2,
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 15
-    },
-    titleMain: {
-        fontSize: 20,
-        textAlign: 'center',
-        color: "#263238",
-        paddingBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#cccccc',
-        width: '100%'
-    }
-});

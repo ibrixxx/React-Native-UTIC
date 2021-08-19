@@ -88,8 +88,8 @@ export default function Assistants() {
                     returnData().map((prof, index) => {
                         return (
                             <DataTable.Row key={index}>
-                                <DataTable.Cell style={{flex: 0.6}}>{prof.firstName.trim()} {prof.lastName.trim()}</DataTable.Cell>
-                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 0.5}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                <Text style={{width: '50%', textAlignVertical: 'center'}}>{prof.firstName.trim()} {prof.lastName.trim()}</Text>
+                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )
                     })

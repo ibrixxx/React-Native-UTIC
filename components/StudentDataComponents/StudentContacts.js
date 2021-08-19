@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {TOKEN} from "../../App";
-import {ActivityIndicator, DataTable, FAB, Portal, Provider, Title, Button, Snackbar} from "react-native-paper";
-import {Clipboard, StyleSheet, Text, TextInput, View} from "react-native";
-import {white} from "react-native-paper/src/styles/colors";
+import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
+import {Text, View} from "react-native";
 import AddContactModal from "../Modals/AddContactModal";
 import ContactModal from "../Modals/ContactModal";
 import Icon from "react-native-vector-icons/FontAwesome";
+import style from '../styles/DarkMode';
 
 export default function StudentContacts({ navigation }) {
     const [student, setStudent] = useState({})
@@ -80,7 +80,7 @@ export default function StudentContacts({ navigation }) {
                 }
 
 
-                <View style={style.container}>
+                <View style={style.containerSD}>
 
                     <DataTable style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: 20 }}>
                         {
@@ -116,43 +116,3 @@ export default function StudentContacts({ navigation }) {
     );
 }
 
-const style = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 20,
-        marginBottom: 20
-    },
-    container: {
-        width: '100%',
-        padding: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    fab: {
-        width: 55,
-        height: 55,
-        backgroundColor: '#263238',
-        color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        marginBottom: 20,
-        marginRight: 20,
-        bottom: 0,
-        right: 0,
-        zIndex: 2
-    },
-    TDStyleLeft: {
-        fontWeight: 'bold'
-    }
-});

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
+import {RefreshControl, ScrollView, Text, View} from "react-native";
 import {ActivityIndicator, DataTable, FAB, Portal, Provider} from "react-native-paper";
-import {white} from "react-native-paper/src/styles/colors";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import AddDocRequestModal from "../Modals/AddDocRequestModal";
 import ActiveDocReqModal from "../Modals/ActiveDocReqModal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {formatTimestamp} from "../Formats/MyFormats";
+import styles from "../styles/DarkMode";
 
 export default function DocRequest() {
     const [prevRequests, setPrevRequests] = useState([]);
@@ -86,22 +86,22 @@ export default function DocRequest() {
                             onRefresh={onRefresh}
                         />
                     }>
-                    <Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>
+                    {/*<Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>*/}
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
                         <DataTable.Title><Text style={{ fontWeight: 'bold', color: 'black' }}>Tip dokumenta</Text></DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.4 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.35 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
                         <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
                     {   (filtered && filtered.length > 0) ? filtered.map((prev, i) =>
                             <DataTable.Row key={prev.id} style={styles.yellowStyle} onPress={() => showDocsModal(i)} >
-                                <DataTable.Cell>
+                                <Text style={{ width: '60%', textAlignVertical: 'center' }}>
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
-                                </DataTable.Cell>
+                                </Text>
 
-                                <DataTable.Cell style={{ flex: 0.4 }}>{formatTimestamp(prev.date)}</DataTable.Cell>
-                                <DataTable.Cell style={{ flex: 0.1 }} numeric><Icon name="ellipsis-h" size={20} color="#888888" /></DataTable.Cell>
+                                <Text style={{ width: '30%', textAlign: 'center', textAlignVertical: 'center' }}>{formatTimestamp(prev.date)}</Text>
+                                <Text style={{ width: '10%', textAlign: 'center', textAlignVertical: 'center' }}><Icon name="ellipsis-h" size={20} color="#888888" /></Text>
 
                             </DataTable.Row>
                     ) :
@@ -125,45 +125,3 @@ export default function DocRequest() {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: white,
-        width: '90%',
-        padding: 20,
-        borderRadius: 15,
-        elevation: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 20,
-        marginBottom: 20
-    },
-    title: {
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    fab: {
-        width: 55,
-        height: 55,
-        backgroundColor: '#263238',
-        color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        marginBottom: 20,
-        marginRight: 20,
-        bottom: 0,
-        right: 0,
-        zIndex: 1000
-    },
-    yellowStyle: {
-        backgroundColor: '#F4F3A9'
-    },
-    redStyle: {
-        color: '#EDBBBB'
-    },
-    greenStyle: {
-        color: '#C5EDBB'
-    }
-
-});
