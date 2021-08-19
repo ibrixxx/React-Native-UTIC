@@ -78,7 +78,7 @@ export default function CustomDrawerContent(props) {
                 </View>
             </TouchableRipple>
 
-            <DrawerItemList {...props} />
+            <DrawerItemList {...props} labelStyle={{color: props.theme.text}}/>
 
         </DrawerContentScrollView>
     );

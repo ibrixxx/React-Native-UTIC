@@ -46,7 +46,7 @@ export default function Home({ navigation, theme, changeTheme, role}) {
         return(
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+                <ActivityIndicator style={{marginTop: '50%', backgroundColor: theme.mainBackground}} color={'dodgerblue'} size={'large'}/>
                 <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
             </View>
         );
@@ -57,18 +57,18 @@ export default function Home({ navigation, theme, changeTheme, role}) {
         <>
             <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
             <Card style={{height: '100%', flex: 1, backgroundColor: theme? theme.mainBackground:'orange'}}>
-                {!role && <Card.Title
+                <Card.Title
                     title="Spisak nadolazećih ispita"
                     titleStyle={{color: '#2C8BD3'}}
-                />}
+                />
                 <Card.Content>
                     {(exams.length > 0)?
                         <DataTable>
                             <DataTable.Header>
                                 <DataTable.Title style={{flex: 0.08}}></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold', color: theme.text}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Datum ispita</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Vrijeme</Text></DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
@@ -81,9 +81,9 @@ export default function Home({ navigation, theme, changeTheme, role}) {
                                                     color='#517fa4'
                                                     size={14}/>
                                             </DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.2}} numeric>{formatTimestamp2(e.examDate)}</DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.5}}><Text style={{color: theme.text}}>{e.courseName}</Text></DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.3}} numeric><Text style={{color: theme.text}}>{formatTimestamp(e.examDate)}</Text></DataTable.Cell>
+                                            <DataTable.Cell style={{flex: 0.2}} numeric><Text style={{color: theme.text}}>{formatTimestamp2(e.examDate)}</Text></DataTable.Cell>
                                         </DataTable.Row>
                                     );
                                 })
@@ -92,7 +92,7 @@ export default function Home({ navigation, theme, changeTheme, role}) {
                         :
                         <Caption>Nemate nadolazećih ispita</Caption>
                     }
-                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
                 </Card.Content>
                 <Provider>
                     <Portal>
