@@ -22,10 +22,10 @@ export default function Docs({ navigation, theme, changeTheme, role}) {
                     labelStyle: { fontSize: 11, color: 'white'},
                     style: { backgroundColor: '#263238'},
                 }}>
-                    <Tab.Screen name="ZeroTab" component={DocRequest} options={{ tabBarLabel: 'Aktivni zahtjevi' }}/>
-                    <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
+                    <Tab.Screen name="ZeroTab" children={() => <DocRequest theme={theme}/>} options={{ tabBarLabel: 'Aktivni zahtjevi' }}/>
+                    <Tab.Screen name="FirstTab" children={() => <DocHistory theme={theme}/>} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
             </>
         )
     else
@@ -40,7 +40,7 @@ export default function Docs({ navigation, theme, changeTheme, role}) {
                 }}>
                     <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
             </>
         );
 }

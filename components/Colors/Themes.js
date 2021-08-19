@@ -2,14 +2,18 @@ export const lightTheme = {
     primary: '#263238',
     secondary: '#2C8BD3',
     text: 'black',
-    mainBackground: 'white',
-    secondaryBackground: 'whitesmoke',
+    mainBackground: 'whitesmoke',
+    secondaryBackground: 'white',
     titleBackground: '#e0e0e0',
     tableHeaderBackground: '#f2f2f2',
     listTableHeaderBackground: '#ebeded',
     alertGradeRowBackground: '#faece8',
     helperIcon: '#517fa4',
     gradeNotFinalized: '#c2a711',
+    yellowStyle: '#F6F5DB',
+    greenStyle: '#E9FBE4',
+    redStyle: '#FBE9E9',
+    placeholderColor: "#555"
 }
 
 
@@ -25,4 +29,8 @@ export const darkTheme = {
     alertGradeRowBackground: '#6d4c41',
     helperIcon: '#517fa4',
     gradeNotFinalized: '#c2a711',
+    yellowStyle: '#3A380D',
+    greenStyle: '#192F12',
+    redStyle: '#2F0D0D',
+    placeholderColor: "#999"
 }

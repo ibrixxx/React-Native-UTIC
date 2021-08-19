@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
-import {Clipboard, Text} from "react-native";
+import {Clipboard, Text, View} from "react-native";
 import {ActivityIndicator, DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
 
 
-export default function Assistants() {
+export default function Assistants({ theme }) {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData, setFilterData] = React.useState([]);
     const [data, setData] = React.useState([]);
@@ -72,23 +72,23 @@ export default function Assistants() {
 
 
     return (
-        <>
+        <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
-                style={{}}
+                style={{backgroundColor: theme.secondaryBackground}}
             />
-            <DataTable>
+            <DataTable style={{ backgroundColor: theme.mainBackground }}>
                 <DataTable.Header>
-                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Ime i prezime</Text></DataTable.Title>
-                    <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.5}}>Email</Text></DataTable.Title>
+                    <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Ime i prezime</Text></DataTable.Title>
+                    <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.5, color: theme.text}}>Email</Text></DataTable.Title>
                 </DataTable.Header>
                 {
                     returnData().map((prof, index) => {
                         return (
                             <DataTable.Row key={index}>
-                                <Text style={{width: '50%', textAlignVertical: 'center'}}>{prof.firstName.trim()} {prof.lastName.trim()}</Text>
+                                <Text style={{width: '50%', textAlignVertical: 'center', color: theme.text}}>{prof.firstName.trim()} {prof.lastName.trim()}</Text>
                                 <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )
@@ -106,6 +106,6 @@ export default function Assistants() {
                 }}>
                 Email copied to clipboard
             </Snackbar>
-        </>
+        </View>
     );
 }

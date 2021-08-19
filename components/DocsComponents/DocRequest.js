@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import {formatTimestamp} from "../Formats/MyFormats";
 import styles from "../styles/DarkMode";
 
-export default function DocRequest() {
+export default function DocRequest({ theme }) {
     const [prevRequests, setPrevRequests] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [visible, setVisible] = useState(false)
@@ -69,7 +69,7 @@ export default function DocRequest() {
 
     return (
         <>
-            <View style={{height: '100%'}}>
+            <View style={{height: '100%', backgroundColor: theme.mainBackground}}>
                 {
                     showFAB ?  <FAB
                         style={styles.fab}
@@ -89,13 +89,13 @@ export default function DocRequest() {
                     {/*<Text style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}> </Text>*/}
                 <DataTable>
                     <DataTable.Header style={{ width: '100%' }}>
-                        <DataTable.Title><Text style={{ fontWeight: 'bold', color: 'black' }}>Tip dokumenta</Text></DataTable.Title>
-                        <DataTable.Title style={{ flex: 0.35 }}><Text style={{ fontWeight: 'bold', color: 'black' }}>Datum</Text></DataTable.Title>
+                        <DataTable.Title><Text style={{ fontWeight: 'bold', color: theme.text }}>Tip dokumenta</Text></DataTable.Title>
+                        <DataTable.Title style={{ flex: 0.35 }}><Text style={{ fontWeight: 'bold', color: theme.text }}>Datum</Text></DataTable.Title>
                         <DataTable.Title style={{ flex: 0.1 }}></DataTable.Title>
                     </DataTable.Header>
 
                     {   (filtered && filtered.length > 0) ? filtered.map((prev, i) =>
-                            <DataTable.Row key={prev.id} style={styles.yellowStyle} onPress={() => showDocsModal(i)} >
+                            <DataTable.Row key={prev.id} style={theme.yellowStyle} onPress={() => showDocsModal(i)} >
                                 <Text style={{ width: '60%', textAlignVertical: 'center' }}>
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
                                 </Text>
@@ -106,7 +106,7 @@ export default function DocRequest() {
                             </DataTable.Row>
                     ) :
                         <Text
-                            style={{ textAlign: 'center', padding: 10, marginTop: 5, color: '#434343' }}>Trenutno nemate aktivnih zahtjeva za dokumente.</Text>
+                            style={{ textAlign: 'center', padding: 10, marginTop: 5, color: theme.text }}>Trenutno nemate aktivnih zahtjeva za dokumente.</Text>
 
                     }
 

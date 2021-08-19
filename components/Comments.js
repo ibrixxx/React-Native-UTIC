@@ -7,6 +7,7 @@ import {TOKEN} from "../App";
 import {Picker} from "@react-native-picker/picker";
 import BottomSheet from "./BottomSheet";
 import style from "./styles/DarkMode";
+import {white} from "react-native-paper/src/styles/colors";
 
 export default function Comments({ navigation, theme, changeTheme, role}) {
     const [selectedValue, setSelectedValue] = useState(1);
@@ -77,15 +78,28 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
     }
 
     return (
-        <View>
+        <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
             <MyHeader myTitle="Komentari/prijedlozi" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
-            <View style={{height: '85%', alignItems: 'center', justifyContent: 'center'}}>
-                <View style={style.container}>
-                    <Title style={{ marginBottom: 20 }}>Forma za slanje</Title>
+            <View style={{height: '85%', alignItems: 'center', justifyContent: 'center', backgroundColor: theme.mainBackground}}>
+                <View style={{
+                    alignItems: 'center',
+                    width: '90%',
+                    backgroundColor: theme.secondaryBackground,
+                    padding: 15,
+                    borderRadius: 15,
+                    borderTopColor: '#2C8BD3',
+                    borderTopWidth: 2,
+                    elevation: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 15
+                }}>
+                    <Title style={{ marginBottom: 20, color: theme.text }}>Forma za slanje</Title>
 
                     <TextInput
                         placeholder="Naslov poruke"
-                        style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                        placeholderTextColor={theme.placeholderColor}
+                        style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", color: theme.text }}
                         onChangeText={naslov => setTitle(naslov)}
                         value={title}/>
 
@@ -93,11 +107,10 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                         <Picker
                             selectedValue={selectedValue}
                             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-
                         >
                             {(mailTypes && mailTypes.length > 0) ? mailTypes.map((type) =>
-                                <Picker.Item label={type.name} value={type.id} key={type.id}/>
-                            ) : <Picker.Item label="Nema" value={-1} />
+                                <Picker.Item label={type.name} value={type.id} key={type.id} color={theme.text}/>
+                            ) : <Picker.Item label="Nema" value={-1} color={theme.text}/>
 
                             }
                         </Picker>
@@ -109,7 +122,8 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                     {
                         badMail ? <TextInput
                             placeholder="Vaša e-mail adresa"
-                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#DF3D3D", }}
+                            placeholderTextColor={theme.placeholderColor}
+                            style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#DF3D3D", color: theme.text }}
                             onChangeText={email => {
                                 setMail(email);
                                 setBadMail(false)
@@ -117,7 +131,8 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                             value={mail}/>
                             : <TextInput
                                 placeholder="Vaša E-mail adresa"
-                                style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                                placeholderTextColor={theme.placeholderColor}
+                                style={{ width: '90%', padding: 5, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", color: theme.text}}
                                 onChangeText={email => setMail(email)}
                                 value={mail}/>
                     }
@@ -127,7 +142,8 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                         multiline
                         numberOfLines={4}
                         placeholder="Tekst poruke"
-                        style={{ width: '90%', maxHeight: 90, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", }}
+                        placeholderTextColor={theme.placeholderColor}
+                        style={{ width: '90%', maxHeight: 90, padding: 10, textAlign: 'left', borderWidth: 1, marginBottom: 5, borderColor: "#888888", color: theme.text}}
                         onChangeText={msgBody => setText(msgBody)}
                         value={text}/>
 
@@ -161,7 +177,7 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                 }}>
                 E-mail uspješno poslan!
             </Snackbar>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
         </View>
     );
 }

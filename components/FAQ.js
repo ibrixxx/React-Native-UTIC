@@ -76,12 +76,13 @@ export default function FAQ({ navigation, theme, changeTheme, role}) {
     }
 
     return (
-        <View style={{zIndex: 1}}>
+        <View style={{zIndex: 1, backgroundColor: theme.mainBackground, height: '100%'}}>
             <MyHeader myTitle="FAQ" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
             <Searchbar
                     placeholder="Search"
                     onChangeText={onChangeSearch}
                     value={searchQuery}
+                    style={{ backgroundColor: theme.secondaryBackground }}
             />
             <ScrollView>
                 <List.Section
@@ -95,14 +96,14 @@ export default function FAQ({ navigation, theme, changeTheme, role}) {
                                         key={i}
                                         id={i}
                                         title={ques.question}
-                                        titleStyle={{fontWeight: 'bold'}}
-                                        style={{ backgroundColor: 'white' }}
+                                        titleStyle={{fontWeight: 'bold', color: theme.text}}
+                                        style={{ backgroundColor: theme.mainBackground }}
                                         theme={{ colors: { primary: '#2C8BD3' }}}
                                         expanded={i === activeList}
                                         onPress={() => handlePress(i)}>
 
-                                        <View style={{ padding: 20, backgroundColor: '#eeeeee'}}>
-                                            <Text style={{ textAlign: 'justify'}}>{ques.answer}</Text>
+                                        <View style={{ padding: 20, backgroundColor: theme.secondaryBackground}}>
+                                            <Text style={{ textAlign: 'justify', color: theme.text }}>{ques.answer}</Text>
                                         </View>
 
                                     </List.Accordion>
@@ -113,7 +114,7 @@ export default function FAQ({ navigation, theme, changeTheme, role}) {
                     }
                 </List.Section>
             </ScrollView>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
         </View>
     );
 }

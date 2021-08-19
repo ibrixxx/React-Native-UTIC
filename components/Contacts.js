@@ -47,28 +47,50 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
     }
 
     return (
-        <View>
+        <View style={{ backgroundColor: theme.mainBackground }}>
             <MyHeader myTitle="Kontakti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
 
             <ScrollView
                 contentContainerStyle={{ padding: 10, paddingBottom: 30}}
                 style={{ height: '90%', marginBottom: 10 }}>
 
-                <View style={style.container}>
+                <View style={{
+                    alignItems: 'center',
+                    width: '90%',
+                    backgroundColor: theme.secondaryBackground,
+                    padding: 15,
+                    borderRadius: 15,
+                    borderTopColor: '#2C8BD3',
+                    borderTopWidth: 2,
+                    elevation: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 15
+                }}>
                     {
                         isReady ?
                             <View style={{ width: '100%' }}>
-                                <Title style={style.titleMain}>{(importantContacts && importantContacts.length > 0) ? importantContacts[0].facultyName : ""}</Title>
+                                <Title style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                    color: theme.text,
+                                    paddingBottom: 10,
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: '#cccccc',
+                                    width: '100%'
+                                }}>
+                                    {(importantContacts && importantContacts.length > 0) ? importantContacts[0].facultyName : ""}
+                                </Title>
 
                                 <DataTable>
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color={theme.text} /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
                                                     importantContacts[0].facultyContact.map((cont) => (
                                                         (cont.contactType === "telefon") ?
-                                                            cont.value : ""
+                                                            <Text style={{ color: theme.text }}>{cont.value}</Text> :<Text> </Text>
                                                     ))
                                                     : ""
                                                 : ""}
@@ -76,12 +98,13 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
                                     </DataTable.Row>
 
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color={theme.text} /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
                                                     importantContacts[0].facultyContact.map((cont) => (
-                                                        (cont.contactType === "primarni e-mail") ? cont.value : ""
+                                                        (cont.contactType === "primarni e-mail") ?
+                                                            <Text style={{ color: theme.text }}>{cont.value}</Text> : <Text> </Text>
                                                     ))
                                                     : ""
                                                 : ""}
@@ -89,7 +112,7 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
                                     </DataTable.Row>
 
                                     <DataTable.Row>
-                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color={theme.text} /></DataTable.Cell>
                                         <DataTable.Cell style={{ flex: 0.7 }}>
                                             {(importantContacts && importantContacts.length > 0) ?
                                                 (importantContacts[0].facultyContact && importantContacts[0].facultyContact.length > 0) ?
@@ -110,25 +133,45 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
 
                 </View>
 
-                <View style={style.container}>
-                    <Title style={style.titleMain}>UNSA</Title>
+                <View style={{
+                    alignItems: 'center',
+                    width: '90%',
+                    backgroundColor: theme.secondaryBackground,
+                    padding: 15,
+                    borderRadius: 15,
+                    borderTopColor: '#2C8BD3',
+                    borderTopWidth: 2,
+                    elevation: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 15
+                }}>
+                    <Title style={{
+                        fontSize: 20,
+                        textAlign: 'center',
+                        color: theme.text,
+                        paddingBottom: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#cccccc',
+                        width: '100%'
+                    }}>UNSA</Title>
                     <DataTable>
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
-                                {unsaPhone}
+                                <Text style={{ color: theme.text }}>{unsaPhone}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
-                                {unsaMail}
+                                <Text style={{ color: theme.text }}>{unsaMail}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 <Text
                                     style={{ color: '#2C8BD3' }}
@@ -138,32 +181,52 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
                 </DataTable>
                 </View>
 
-                <View style={style.container}>
-                    <Title style={style.titleMain}>UTIC</Title>
+                <View style={{
+                    alignItems: 'center',
+                    width: '90%',
+                    backgroundColor: theme.secondaryBackground,
+                    padding: 15,
+                    borderRadius: 15,
+                    borderTopColor: '#2C8BD3',
+                    borderTopWidth: 2,
+                    elevation: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 15
+                }}>
+                    <Title style={{
+                        fontSize: 20,
+                        textAlign: 'center',
+                        color: theme.text,
+                        paddingBottom: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#cccccc',
+                        width: '100%'
+                    }}>UTIC</Title>
                     <DataTable>
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="phone" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
-                                {uticPhone}
+                                <Text style={{ color: theme.text }}>{uticPhone}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="fax" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="fax" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
-                                {uticFax}
+                                <Text style={{ color: theme.text }}>{uticFax}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="envelope" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
-                                {uticMail}
+                                <Text style={{ color: theme.text }}>{uticMail}</Text>
                             </DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color="black" /></DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 0.3 }}><Icon name="globe" size={20} color={theme.text} /></DataTable.Cell>
                             <DataTable.Cell style={{ flex: 0.7 }}>
                                 <Text
                                     style={{ color: '#2C8BD3' }}
@@ -173,7 +236,7 @@ export default function Contacts({ navigation, theme, changeTheme, role}) {
                     </DataTable>
                 </View>
             </ScrollView>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
         </View>
     );
 }
