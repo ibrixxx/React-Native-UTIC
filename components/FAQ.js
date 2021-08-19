@@ -8,7 +8,7 @@ import FAQModal from "./Modals/FAQModal";
 import {Icon} from "react-native-elements";
 import BottomSheet from "./BottomSheet";
 
-export default function FAQ({ navigation }) {
+export default function FAQ({ navigation, theme, changeTheme, role}) {
 
     const [questions, setQuestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');

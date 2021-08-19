@@ -10,7 +10,7 @@ import BottomSheet from "./BottomSheet";
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function StudentData({ navigation }) {
+export default function StudentData({ navigation, theme, changeTheme, role}) {
     const refRBSheet = useRef();
 
     return (

@@ -4,7 +4,7 @@ import MyHeader from "./MyHeader";
 import {ActivityIndicator, Caption, Card, DataTable, Text} from "react-native-paper";
 import BottomSheet from "./BottomSheet";
 
-export default function Survey({ navigation }) {
+export default function Survey({ navigation, theme, changeTheme, role}) {
     const [surveys, setSurvey] = useState([])
     const [isReady, setIsReady] = React.useState(true)
     const refRBSheet = useRef();

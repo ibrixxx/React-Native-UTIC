@@ -15,7 +15,7 @@ import BottomSheet from "./BottomSheet";
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function Curriculum({ navigation }) {
+export default function Curriculum({ navigation, theme, changeTheme, role}) {
     const [classes, setClasses] = React.useState([]);
     const [isReady, setIsReady] = React.useState(false);
     const refRBSheet = useRef();
@@ -53,21 +53,37 @@ export default function Curriculum({ navigation }) {
         )
     }
 
+    if (role)
+        return (
+            <>
+                <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
+                <Tab.Navigator tabBarOptions={{
+                    activeTintColor: '#2C8BD3',
+                    labelStyle: { fontSize: 11, color: 'white'},
+                    style: { backgroundColor: '#263238'},
+                }}>
+                    <Tab.Screen name="ThirdTab" children={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
+                    <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
+                    <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)} getSelected={getCurrentCourses}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
+                    <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
+                </Tab.Navigator>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            </>
+        )
+    else
+        return(
+            <>
+                <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
+                <Tab.Navigator tabBarOptions={{
+                    activeTintColor: '#2C8BD3',
+                    labelStyle: { fontSize: 11, color: 'white'},
+                    style: { backgroundColor: '#263238'},
+                }}>
+                    <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
+                    <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
+                </Tab.Navigator>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            </>
+        );
 
-    return (
-        <>
-            <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
-            <Tab.Navigator tabBarOptions={{
-                activeTintColor: '#2C8BD3',
-                labelStyle: { fontSize: 11, color: 'white'},
-                style: { backgroundColor: '#263238'},
-            }}>
-                <Tab.Screen name="ThirdTab" children={() => <CurrentSemester classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
-                <Tab.Screen name="ZeroTab" component={Grades} options={{ tabBarLabel: 'Ocjene' }}/>
-                <Tab.Screen name="SecondTab" children={() => <SelectedClasses selected={classes.filter((c) => c.mandatory===false)} getSelected={getCurrentCourses}/>} options={{ tabBarLabel: 'Izborni predmeti' }}/>
-                <Tab.Screen name="FirstTab" component={AllSemesters} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
-            </Tab.Navigator>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
-        </>
-    )
 }

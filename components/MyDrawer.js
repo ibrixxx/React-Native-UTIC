@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator();
 
 
 export default function MyDrawer({theme, changeTheme}) {
-    //diplomirani student je true
+    //obični student je true
     const [studentRole, setStudentRole] = useState(null)
     const [isReady, setIsReady] = React.useState(false)
 
@@ -54,27 +54,27 @@ export default function MyDrawer({theme, changeTheme}) {
         return (
             <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <CustomDrawerContent {...props}/>}>
                 <Drawer.Screen name="Home" children={props => <Home {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Početna', drawerIcon: () => (<Icon name='home' />)}}/>
-                <Drawer.Screen name="StudentData" component={StudentData} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
-                <Drawer.Screen name="Curriculum" component={Curriculum} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>
-                <Drawer.Screen name="Tests" component={Tests} options = {{drawerLabel: 'Ispiti', drawerIcon: () => (<Icon name='description' />)}}/>
-                <Drawer.Screen name="Survey" component={Survey} options = {{drawerLabel: 'Ankete', drawerIcon: () => (<Icon name='help' />)}}/>
-                <Drawer.Screen name="Docs" component={Docs} options = {{drawerLabel: 'Dokumenti', drawerIcon: () => (<Icon name='folder' />)}}/>
-                <Drawer.Screen name="Staff" component={Staff} options = {{drawerLabel: 'Nastavno osoblje', drawerIcon: () => (<Icon name='people' />)}}/>
-                <Drawer.Screen name="Comments" component={Comments} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
-                <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt informacije', drawerIcon: () => (<Icon name='info' />)}}/>
-                <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
+                <Drawer.Screen name="StudentData" children={props => <StudentData {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
+                <Drawer.Screen name="Curriculum" children={props => <Curriculum {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>
+                <Drawer.Screen name="Tests" children={props => <Tests {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Ispiti', drawerIcon: () => (<Icon name='description' />)}}/>
+                <Drawer.Screen name="Survey" children={props => <Survey {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Ankete', drawerIcon: () => (<Icon name='help' />)}}/>
+                <Drawer.Screen name="Docs" children={props => <Docs {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Dokumenti', drawerIcon: () => (<Icon name='folder' />)}}/>
+                <Drawer.Screen name="Staff" children={props => <Staff {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Nastavno osoblje', drawerIcon: () => (<Icon name='people' />)}}/>
+                <Drawer.Screen name="Comments" children={props => <Comments {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Komentari i prijedlozi', drawerIcon: () => (<Icon name='email' />)}}/>
+                <Drawer.Screen name="Contacts" children={props => <Contacts {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Kontakt informacije', drawerIcon: () => (<Icon name='info' />)}}/>
+                <Drawer.Screen name="FAQ" children={props => <FAQ {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
             </Drawer.Navigator>
         );
 
     return (
         <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <CustomDrawerContent {...props}/>}>
             <Drawer.Screen name="Home" children={props => <Home {...props} theme={theme} role={studentRole}/>} options = {{drawerLabel: 'Početna', drawerIcon: () => (<Icon name='home' />)}}/>
-            <Drawer.Screen name="StudentData" component={StudentData} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
-            <Drawer.Screen name="Curriculum" component={Curriculum} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>
-            <Drawer.Screen name="Tests" component={Tests} options = {{drawerLabel: 'Ispiti', drawerIcon: () => (<Icon name='description' />)}}/>
-            <Drawer.Screen name="Docs" component={Docs} options = {{drawerLabel: 'Dokumenti', drawerIcon: () => (<Icon name='folder' />)}}/>
-            <Drawer.Screen name="Contacts" component={Contacts} options = {{drawerLabel: 'Kontakt informacije', drawerIcon: () => (<Icon name='info' />)}}/>
-            <Drawer.Screen name="FAQ" component={FAQ} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
+            <Drawer.Screen name="StudentData" children={props => <StudentData {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Lični podaci', drawerIcon: () => (<Icon name='person' />)}}/>
+            <Drawer.Screen name="Curriculum" children={props => <Curriculum  {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Studij', drawerIcon: () => (<Icon name='school' />)}}/>
+            <Drawer.Screen name="Tests" children={props => <Tests {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Ispiti', drawerIcon: () => (<Icon name='description' />)}}/>
+            <Drawer.Screen name="Docs" children={props => <Docs {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Dokumenti', drawerIcon: () => (<Icon name='folder' />)}}/>
+            <Drawer.Screen name="Contacts" children={props => <Contacts {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'Kontakt informacije', drawerIcon: () => (<Icon name='info' />)}}/>
+            <Drawer.Screen name="FAQ" children={props => <FAQ {...props} theme={theme} role={studentRole} />} options = {{drawerLabel: 'FAQ', drawerIcon: () => (<Icon name='live-help' />)}}/>
         </Drawer.Navigator>
     );
 }

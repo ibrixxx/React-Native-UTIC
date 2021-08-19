@@ -10,7 +10,7 @@ import {Linking} from "react-native";
 import BottomSheet from "./BottomSheet";
 import style from "./styles/DarkMode";
 
-export default function Contacts({ navigation }) {
+export default function Contacts({ navigation, theme, changeTheme, role}) {
     const [importantContacts, setImportantContacts] = useState({});
     const[isReady, setIsReady] = useState(false)
     const refRBSheet = useRef();

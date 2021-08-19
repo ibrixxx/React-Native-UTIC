@@ -8,7 +8,7 @@ import {Picker} from "@react-native-picker/picker";
 import BottomSheet from "./BottomSheet";
 import style from "./styles/DarkMode";
 
-export default function Comments({ navigation }) {
+export default function Comments({ navigation, theme, changeTheme, role}) {
     const [selectedValue, setSelectedValue] = useState(1);
     const [mailTypes, setMailTypes] = useState({});
     const [title, setTitle] = useState("");
