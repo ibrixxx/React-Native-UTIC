@@ -6,7 +6,7 @@ import {ScrollView, View} from "react-native";
 import CourseModal2 from "../Modals/CourseModal2";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function AllSemesters() {
+export default function AllSemesters({theme}) {
     const [isReady, setIsReady] = React.useState(false);
     const [semesters, setSemesters] = React.useState([]);
     const [activeList, setActiveList] = React.useState(null);
@@ -60,10 +60,10 @@ export default function AllSemesters() {
 
 
     return (
-        <ScrollView style={{backgroundColor: '#e0e0e0'}}>
+        <ScrollView style={{backgroundColor: theme.titleBackground}}>
             <List.Section
                 title="Nastavni plan i program"
-                titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                titleStyle={{color: theme.secondary, fontWeight: 'bold', backgroundColor: theme.titleBackground, fontSize: 18, textAlign: 'center'}}>
                 {
                     semesters.map((sem, ind) => {
                         return (
@@ -71,9 +71,10 @@ export default function AllSemesters() {
                                     <List.Accordion
                                         key={ind}
                                         id={ind}
+                                        style={{backgroundColor: theme.listTableHeaderBackground, color: theme.text}}
                                         title={`${sem[0]}. semestar`}
-                                        titleStyle={{fontWeight: 'bold'}}
-                                        theme={{ colors: { primary: '#2C8BD3' }}}
+                                        titleStyle={{fontWeight: 'bold', color: theme.text}}
+                                        theme={{ colors: { primary: theme.secondary}}}
                                         expanded={ind === activeList}
                                         onPress={() => handlePress(ind)}>
                                         {
@@ -83,8 +84,8 @@ export default function AllSemesters() {
                                                         <List.Item
                                                             key={'li'+i}
                                                             title={c.courseName}
-                                                            right={() => <Icon style={{margin: '2%'}} name="ellipsis-h" size={20} color="#434343" />}
-                                                            titleStyle={{fontWeight: 'bold'}}
+                                                            right={() => <Icon style={{margin: '2%'}} name="ellipsis-h" size={20} color={theme.text} />}
+                                                            titleStyle={{fontWeight: 'bold', color: theme.text}}
                                                             onPress={() => showModal(i)}/>
                                                         <Divider/>
                                                     </View>

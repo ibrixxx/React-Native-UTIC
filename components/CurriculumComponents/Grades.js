@@ -17,7 +17,7 @@ import GradeModal from "../Modals/GradeModal";
 
 
 
-export default function Grades() {
+export default function Grades({theme}) {
     const [visible, setVisible] = React.useState(false);
     const [visible2, setVisible2] = React.useState(false);
     const [grades, setGrades] = React.useState([]);
@@ -78,17 +78,17 @@ export default function Grades() {
                 actions={[
                     {
                         label: 'OK',
-                        labelStyle: {color: '#c2a711', backgroundColor: 'whitesmoke'},
+                        labelStyle: {color: '#c2a711', backgroundColor: theme.secondaryBackground},
                         onPress: () => setVisible2(false),
                     }
                 ]}
             >
-                <Subheading>Žutom bojom su označene ocjene koje još uvijek nisu
+                <Subheading style={{color: theme.text}}>Žutom bojom su označene ocjene koje još uvijek nisu
                     finalizirane. {"\n"}</Subheading>
-                <Caption>U slučaju greške, obratite se odgovarajućem profesuru/ici ili
+                <Caption style={{color: theme.text}}>U slučaju greške, obratite se odgovarajućem profesuru/ici ili
                     studentskoj službi.</Caption>
             </Banner>
-            <ScrollView style={{backgroundColor: '#e0e0e0'}}
+            <ScrollView style={{backgroundColor: theme.mainBackground}}
                         refreshControl={
                             <RefreshControl
                                 refreshing={refreshing}
@@ -96,19 +96,19 @@ export default function Grades() {
                             />
                         }
             >
-                <Text style={{color: '#2C8BD3', fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
+                <Text style={{color: theme.secondary, fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: theme.titleBackground, fontSize: 18, textAlign: 'center'}}>Položeni predmeti</Text>
                 <DataTable style={{width: '100%'}}>
-                    <DataTable.Header style={{backgroundColor: '#f2f2f2'}}>
-                        <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                        <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Ocjena</Text></DataTable.Title>
+                    <DataTable.Header style={{backgroundColor: theme.tableHeaderBackground}}>
+                        <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Predmet</Text></DataTable.Title>
+                        <DataTable.Title numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Ocjena</Text></DataTable.Title>
                     </DataTable.Header>
                     {
                         (grades.length > 0)?
                             grades.map((grade, ind) => {
                                 return (
-                                    <DataTable.Row style={{backgroundColor: grade.markStatus===0? '#faece8':'white'}} key={ind} onPress={() => showModal(ind)}>
-                                        <DataTable.Cell style={{flex: 2}}>{grade.courseName}</DataTable.Cell>
-                                        <DataTable.Cell numeric><Caption style={{color: (grade.markStatus === 1) ? 'black' : '#c2a711'}}>{grade.mark}</Caption></DataTable.Cell>
+                                    <DataTable.Row style={{backgroundColor: grade.markStatus===0? theme.alertGradeRowBackground:theme.secondaryBackground}} key={ind} onPress={() => showModal(ind)}>
+                                        <DataTable.Cell style={{flex: 2}}><Text style={{color: theme.text}}>{grade.courseName}</Text></DataTable.Cell>
+                                        <DataTable.Cell numeric><Caption style={{color: (grade.markStatus === 1) ? theme.text : theme.gradeNotFinalized}}>{grade.mark}</Caption></DataTable.Cell>
                                     </DataTable.Row>
                                 );
                             }) :
@@ -121,7 +121,7 @@ export default function Grades() {
                     <GradeModal index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
                 </Portal>
             </Provider>
-            <DataTable style={{backgroundColor: '#263238'}}>
+            <DataTable style={{backgroundColor: theme.primary}}>
                 <DataTable.Row>
                     <DataTable.Cell>
                         <Title style={{color: 'white'}}> Prosjek</Title>
