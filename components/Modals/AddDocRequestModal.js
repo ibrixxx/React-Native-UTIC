@@ -1,11 +1,10 @@
-import {Modal, Title, Button} from "react-native-paper";
-import { StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Modal, Title} from "react-native-paper";
+import {TextInput, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
-import {white} from "react-native-paper/src/styles/colors";
-import style from "../styles/DarkMode";
+import styles from "../styles/DarkMode";
 
 export default function AddDocRequestModal({visible, hideModal, prevRequestsF }) {
     const containerStyle = styles.cardAC;

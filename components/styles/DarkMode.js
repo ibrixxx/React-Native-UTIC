@@ -58,7 +58,22 @@ export default StyleSheet.create({
         marginRight: 'auto',
     },
     TDStyleLeft: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        width: '50%',
+        textAlignVertical: 'center',
+        textAlign: 'right',
+        paddingTop: '2%',
+        paddingBottom: '2%',
+        paddingRight: '4%',
+        borderRightWidth: 0.3,
+        borderRightColor: "#aaa"
+    },
+    TDStyleRight: {
+        width: '50%',
+        textAlignVertical: 'center',
+        paddingTop: '2%',
+        paddingBottom: '2%',
+        paddingLeft: '4%',
     },
     fab: {
         width: 55,

@@ -108,7 +108,7 @@ export default function FAQ({ navigation }) {
                                     </List.Accordion>
                                 </View>
                             )
-                        }) : null
+                        }) : <Title>Nema postavljenih pitanja</Title>
                         : <ActivityIndicator style={{marginTop: '35%'}} color={'#2C8BD3'} size={'large'}/>
                     }
                 </List.Section>

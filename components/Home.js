@@ -66,24 +66,24 @@ export default function Home({ navigation, theme, changeTheme, role}) {
                         <DataTable>
                             <DataTable.Header>
                                 <DataTable.Title style={{flex: 0.08}}></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.5}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.3}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
-                                <DataTable.Title style={{flex: 0.2}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.55}}><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.35}} numeric><Text style={{fontWeight: 'bold'}}>Datum ispita</Text></DataTable.Title>
+                                <DataTable.Title style={{flex: 0.25}} numeric><Text style={{fontWeight: 'bold'}}>Vrijeme</Text></DataTable.Title>
                             </DataTable.Header>
                             {
                                 exams.map((e, index) => {
                                     return (
                                         <DataTable.Row key={index} onPress={() => {showModal(index)}}>
-                                            <DataTable.Cell style={{flex: 0.08}}>
+                                           {/* <DataTable.Cell style={{flex: 0.08}}>
                                                 <Icon
                                                     name='search'
                                                     type='material'
                                                     color='#517fa4'
                                                     size={14}/>
-                                            </DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.5}}>{e.courseName}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.3}} numeric>{formatTimestamp(e.examDate)}</DataTable.Cell>
-                                            <DataTable.Cell style={{flex: 0.2}} numeric>{formatTimestamp2(e.examDate)}</DataTable.Cell>
+                                            </DataTable.Cell>*/}
+                                            <Text style={{width: '55%', textAlignVertical: 'center', padding: '2%',}}>{e.courseName}</Text>
+                                            <Text style={{width: '30%', textAlignVertical: 'center', padding: '2%',}} numeric>{formatTimestamp(e.examDate)}</Text>
+                                            <Text style={{width: '30%', textAlignVertical: 'center', padding: '2%',}} numeric>{formatTimestamp2(e.examDate)}</Text>
                                         </DataTable.Row>
                                     );
                                 })
