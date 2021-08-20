@@ -105,7 +105,7 @@ export default function AllSemesters({theme}) {
             </List.Section>
                 <Provider>
                     <Portal>
-                        <CourseModal2 index={curr} visible={visible} courses={semesters[activeList]? semesters[activeList][1]:[]} hideModal={hideModal}/>
+                        <CourseModal2 theme={theme} index={curr} visible={visible} courses={semesters[activeList]? semesters[activeList][1]:[]} hideModal={hideModal}/>
                     </Portal>
                 </Provider>
         </ScrollView>

@@ -36,7 +36,7 @@ export default function CurrentSemester({classes, theme}) {
             </ScrollView>
             <Provider>
                 <Portal>
-                    <CourseModal2 index={curr} visible={visible} courses={classes} hideModal={hideModal}/>
+                    <CourseModal2 theme={theme} index={curr} visible={visible} courses={classes} hideModal={hideModal}/>
                 </Portal>
             </Provider>
         </>

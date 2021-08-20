@@ -15,7 +15,7 @@ import BottomSheet from "./BottomSheet";
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function Curriculum({ navigation, theme, changeTheme, role}) {
+export default function Curriculum({ navigation, theme, changeTheme, role, isDark}) {
     const [classes, setClasses] = React.useState([]);
     const [isReady, setIsReady] = React.useState(false);
     const refRBSheet = useRef();
@@ -58,9 +58,9 @@ export default function Curriculum({ navigation, theme, changeTheme, role}) {
             <>
                 <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
                 <Tab.Navigator tabBarOptions={{
-                    activeTintColor: '#2C8BD3',
+                    activeTintColor: theme.secondary,
                     labelStyle: { fontSize: 11, color: 'white'},
-                    style: { backgroundColor: '#263238'},
+                    style: { backgroundColor: theme.primary},
                 }}>
                     <Tab.Screen name="ThirdTab" children={() => <CurrentSemester theme={theme} classes={classes}/>} options={{ tabBarLabel: 'Trenutni semestar' }}/>
                     <Tab.Screen name="ZeroTab" children={() => <Grades theme={theme}/>} options={{ tabBarLabel: 'Ocjene' }}/>
@@ -75,14 +75,14 @@ export default function Curriculum({ navigation, theme, changeTheme, role}) {
             <>
                 <MyHeader myTitle="Studij" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
                 <Tab.Navigator tabBarOptions={{
-                    activeTintColor: '#2C8BD3',
+                    activeTintColor: theme.secondary,
                     labelStyle: { fontSize: 11, color: 'white'},
-                    style: { backgroundColor: '#263238'},
+                    style: { backgroundColor: theme.primary},
                 }}>
                     <Tab.Screen name="ZeroTab" children={() => <Grades theme={theme}/>} options={{ tabBarLabel: 'Ocjene' }}/>
                     <Tab.Screen name="FirstTab" children={() => <AllSemesters theme={theme}/>} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
             </>
         );
 

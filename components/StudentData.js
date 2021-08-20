@@ -10,7 +10,7 @@ import BottomSheet from "./BottomSheet";
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function StudentData({ navigation, theme, changeTheme, role}) {
+export default function StudentData({ navigation, theme, changeTheme, role, isDark}) {
     const refRBSheet = useRef();
 
     return (
@@ -25,7 +25,7 @@ export default function StudentData({ navigation, theme, changeTheme, role}) {
                 <Tab.Screen name="FirstTab" children={() => <StudentContacts theme={theme}/>} options={{ tabBarLabel: 'Kontakt'}}/>
                 <Tab.Screen name="SecondTab" children={() => <StudyData theme={theme}/>} options={{ tabBarLabel: 'Studij' }}/>
             </Tab.Navigator>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
         </>
     );
 }

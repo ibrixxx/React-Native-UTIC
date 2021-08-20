@@ -8,7 +8,7 @@ import FAQModal from "./Modals/FAQModal";
 import {Icon} from "react-native-elements";
 import BottomSheet from "./BottomSheet";
 
-export default function FAQ({ navigation, theme, changeTheme, role}) {
+export default function FAQ({ navigation, theme, changeTheme, role, isDark}) {
 
     const [questions, setQuestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -114,7 +114,7 @@ export default function FAQ({ navigation, theme, changeTheme, role}) {
                     }
                 </List.Section>
             </ScrollView>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
         </View>
     );
 }

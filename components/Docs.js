@@ -8,7 +8,7 @@ import BottomSheet from "./BottomSheet";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Docs({ navigation, theme, changeTheme, role}) {
+export default function Docs({ navigation, theme, changeTheme, role, isDark}) {
     const focus = useIsFocused();
     const refRBSheet = useRef();
 
@@ -40,7 +40,7 @@ export default function Docs({ navigation, theme, changeTheme, role}) {
                 }}>
                     <Tab.Screen name="FirstTab" component={DocHistory} options={{ tabBarLabel: 'Ranije podneseni zahtjevi' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
             </>
         );
 }

@@ -11,10 +11,11 @@ export const TOKEN = 'BEARER eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ
 
 export default function App() {
     const [currentTheme, setTheme] = useState(lightTheme)
+    const [isDark, setIsDark] = useState(false)
 
     const changeTheme = () => {
         (currentTheme === lightTheme)? setTheme(darkTheme):setTheme(lightTheme)
-        console.log('tu sam')
+        setIsDark(!isDark)
     }
     // useEffect(() => {
     //
@@ -25,7 +26,7 @@ export default function App() {
     return (
 
         <NavigationContainer>
-            <MyDrawer theme={currentTheme} changeTheme={() => {changeTheme()}}/>
+            <MyDrawer theme={currentTheme} changeTheme={() => {changeTheme()}} isDark={isDark}/>
         </NavigationContainer>
 
     );

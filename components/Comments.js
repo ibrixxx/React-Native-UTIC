@@ -7,9 +7,8 @@ import {TOKEN} from "../App";
 import {Picker} from "@react-native-picker/picker";
 import BottomSheet from "./BottomSheet";
 import style from "./styles/DarkMode";
-import {white} from "react-native-paper/src/styles/colors";
 
-export default function Comments({ navigation, theme, changeTheme, role}) {
+export default function Comments({ navigation, theme, changeTheme, role, isDark}) {
     const [selectedValue, setSelectedValue] = useState(1);
     const [mailTypes, setMailTypes] = useState({});
     const [title, setTitle] = useState("");
@@ -107,6 +106,7 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                         <Picker
                             selectedValue={selectedValue}
                             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+
                         >
                             {(mailTypes && mailTypes.length > 0) ? mailTypes.map((type) =>
                                 <Picker.Item label={type.name} value={type.id} key={type.id} color={theme.text}/>
@@ -177,7 +177,7 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                 }}>
                 E-mail uspješno poslan!
             </Snackbar>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
         </View>
     );
 }

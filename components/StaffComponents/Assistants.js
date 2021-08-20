@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Clipboard, Text, View} from "react-native";
+import {Clipboard, ScrollView, Text} from "react-native";
 import {ActivityIndicator, DataTable, Searchbar, Snackbar} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
@@ -67,38 +67,39 @@ export default function Assistants({ theme }) {
 
 
     if (!isReady) {
-        return (
-            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
-                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
-            </View>
-        )
+        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
     }
 
 
     return (
-        <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+        <>
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
-                style={{backgroundColor: theme.secondaryBackground}}
+                placeholderTextColor={theme.text}
+                iconColor={theme.text}
+                selectionColor={theme.text}
+                style={{backgroundColor: theme.mainBackground}}
             />
-            <DataTable style={{ backgroundColor: theme.mainBackground }}>
-                <DataTable.Header>
+            <ScrollView style={{backgroundColor: theme.mainBackground, height: '100%'}}>
+            <DataTable>
+                <DataTable.Header style={{backgroundColor: theme.tableHeaderBackground}}>
                     <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Ime i prezime</Text></DataTable.Title>
                     <DataTable.Title><Text style={{fontWeight: 'bold', flex: 0.5, color: theme.text}}>Email</Text></DataTable.Title>
                 </DataTable.Header>
                 {
                     returnData().map((prof, index) => {
                         return (
-                            <DataTable.Row key={index}>
+                            <DataTable.Row key={index} style={{backgroundColor: theme.secondaryBackground}}>
                                 <Text style={{width: '50%', textAlignVertical: 'center', color: theme.text}}>{prof.firstName.trim()} {prof.lastName.trim()}</Text>
-                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: theme.secondary}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )
                     })
                 }
             </DataTable>
+            </ScrollView>
             <Snackbar
                 visible={visibleSnackbar}
                 onDismiss={onDismissSnackBar}
@@ -110,6 +111,6 @@ export default function Assistants({ theme }) {
                 }}>
                 Email copied to clipboard
             </Snackbar>
-        </View>
+        </>
     );
 }

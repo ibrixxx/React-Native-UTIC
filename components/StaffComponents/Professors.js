@@ -5,7 +5,7 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 
 
-export default function Professors({ theme }) {
+export default function Professors({theme}) {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData, setFilterData] = React.useState([]);
     const [data, setData] = React.useState([]);
@@ -75,25 +75,28 @@ export default function Professors({ theme }) {
 
 
     return (
-        <View style={{ backgroundColor: theme.mainBackground }}>
+        <>
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
-                style={{ backgroundColor: theme.secondaryBackground}}
+                placeholderTextColor={theme.text}
+                iconColor={theme.text}
+                selectionColor={theme.text}
+                style={{backgroundColor: theme.mainBackground}}
             />
-            <ScrollView>
+            <ScrollView style={{backgroundColor: theme.mainBackground, height: '100%'}}>
             <DataTable>
-                <DataTable.Header>
+                <DataTable.Header style={{backgroundColor: theme.tableHeaderBackground}}>
                     <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Ime i prezime</Text></DataTable.Title>
                     <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Email</Text></DataTable.Title>
                 </DataTable.Header>
                 {
                     returnData().map((prof, index) => {
                         return (
-                            <DataTable.Row key={index}>
+                            <DataTable.Row key={index} style={{backgroundColor: theme.secondaryBackground}}>
                                 <Text style={{width: '50%', textAlignVertical: 'center', color: theme.text}}>{prof.firstName.trim()} {prof.lastName.trim()}</Text>
-                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: '#2C8BD3'}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
+                                <DataTable.Cell style={{borderColor: '#dcf3f5', flex: 1}} onPress={() => {if(prof.emails.length > 0) copyToClipboard(prof.emails[0].value)}}> <Text style={{color: theme.secondary}}>{(prof.emails.length > 0)? prof.emails[0].value:''}</Text></DataTable.Cell>
                             </DataTable.Row>
                         )
                     })
@@ -111,6 +114,6 @@ export default function Professors({ theme }) {
                 }}>
                 Email copied to clipboard
             </Snackbar>
-        </View>
+        </>
     );
 }
