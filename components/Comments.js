@@ -8,7 +8,7 @@ import {Picker} from "@react-native-picker/picker";
 import BottomSheet from "./BottomSheet";
 import style from "./styles/DarkMode";
 
-export default function Comments({ navigation, theme, changeTheme, role}) {
+export default function Comments({ navigation, theme, changeTheme, role, isDark}) {
     const [selectedValue, setSelectedValue] = useState(1);
     const [mailTypes, setMailTypes] = useState({});
     const [title, setTitle] = useState("");
@@ -161,7 +161,7 @@ export default function Comments({ navigation, theme, changeTheme, role}) {
                 }}>
                 E-mail uspješno poslan!
             </Snackbar>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} isDark={isDark}/>
         </View>
     );
 }

@@ -13,7 +13,7 @@ import BottomSheet from "./BottomSheet";
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function Tests({ navigation, theme, changeTheme, role}) {
+export default function Tests({ navigation, theme, changeTheme, role, isDark}) {
     const [current, setCurrent] = React.useState([]);
     const [past, setPast] = React.useState([]);
     const [exams, setExams] = useState([])
@@ -94,14 +94,14 @@ export default function Tests({ navigation, theme, changeTheme, role}) {
             <>
                 <MyHeader myTitle="Ispiti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
                 <Tab.Navigator tabBarOptions={{
-                    activeTintColor: '#2C8BD3',
+                    activeTintColor: theme.secondary,
                     labelStyle: { fontSize: 11, color: 'white'},
-                    style: { backgroundColor: '#263238', zIndex: 0},
+                    style: { backgroundColor: theme.primary, zIndex: 0},
                 }}>
-                    <Tab.Screen name="ZeroTab" children={() => <TestRegistration exams={exams} setCurrent={getCurrentExams} setExams={getExams}/>} options={{ tabBarLabel: 'Prijava ispita' }}/>
-                    <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
+                    <Tab.Screen name="ZeroTab" children={() => <TestRegistration exams={exams} setCurrent={getCurrentExams} setExams={getExams} theme={theme}/>} options={{ tabBarLabel: 'Prijava ispita' }}/>
+                    <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past} theme={theme}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
             </>
         );
     else
@@ -109,13 +109,13 @@ export default function Tests({ navigation, theme, changeTheme, role}) {
             <>
                 <MyHeader myTitle="Ispiti" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
                 <Tab.Navigator tabBarOptions={{
-                    activeTintColor: '#2C8BD3',
+                    activeTintColor: theme.secondary,
                     labelStyle: { fontSize: 11, color: 'white'},
-                    style: { backgroundColor: '#263238', zIndex: 0},
+                    style: { backgroundColor: theme.primary, zIndex: 0},
                 }}>
-                    <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
+                    <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past} theme={theme}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
             </>
         );
 }

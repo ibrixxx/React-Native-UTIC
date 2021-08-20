@@ -235,8 +235,8 @@ export default function SelectedClasses({selected, getSelected, theme}) {
             }
             <Provider>
                 <Portal>
-                    <CourseModal2 index={curr} visible={visible} courses={selected} hideModal={hideModal}/>
-                    <CourseModal2 index={curr2} visible={visible2} courses={notSelected} hideModal={hideModal2}/>
+                    <CourseModal2 theme={theme} index={curr} visible={visible} courses={selected} hideModal={hideModal}/>
+                    <CourseModal2 theme={theme} index={curr2} visible={visible2} courses={notSelected} hideModal={hideModal2}/>
                 </Portal>
             </Provider>
             <Snackbar

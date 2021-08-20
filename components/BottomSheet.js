@@ -5,8 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import {Icon as Icon2} from 'react-native-elements'
 
 
-export default function BottomSheet({myRef, navigateHome, changeTheme}){
-    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+export default function BottomSheet({myRef, navigateHome, changeTheme, isDark}){
+    const [isSwitchOn, setIsSwitchOn] = React.useState(isDark);
 
     const onToggleSwitch = () => {
         setIsSwitchOn(!isSwitchOn);

@@ -118,7 +118,7 @@ export default function Grades({theme}) {
             </ScrollView>
             <Provider>
                 <Portal>
-                    <GradeModal index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
+                    <GradeModal theme={theme} index={curr} visible={visible} courses={grades} hideModal={hideModal}/>
                 </Portal>
             </Provider>
             <DataTable style={{backgroundColor: theme.primary}}>

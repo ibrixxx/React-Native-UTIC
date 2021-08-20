@@ -10,7 +10,7 @@ import {formatTimestamp, formatType} from "../Formats/MyFormats";
 
 
 
-export default function TestsOverview({setExams, setCurrentExams,past, current}) {
+export default function TestsOverview({setExams, setCurrentExams,past, current, theme}) {
     const [activeList, setActiveList] = React.useState(88);
     const [activeList2, setActiveList2] = React.useState(null);
     const [visible, setVisible] = React.useState(false)
@@ -72,41 +72,42 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
 
 
     return (
-        <View style={{backgroundColor: '#e0e0e0', height: '100%'}}>
-            <ScrollView style={{backgroundColor: '#e0e0e0'}}>
+        <View style={{backgroundColor: theme.mainBackground, height: '100%'}}>
+            <ScrollView style={{backgroundColor: theme.mainBackground}}>
             <List.Section
                     title="Prijavljeni ispiti"
-                    titleStyle={{color: '#2C8BD3', fontWeight: 'bold', backgroundColor: '#e0e0e0', fontSize: 18, textAlign: 'center'}}>
+                    titleStyle={{color: theme.secondary, fontWeight: 'bold', backgroundColor: theme.titleBackground, fontSize: 18, textAlign: 'center'}}>
                     <List.Accordion
                         title={`Trenutno prijavljeni ispiti`}
-                        titleStyle={{fontWeight: 'bold'}}
+                        titleStyle={{fontWeight: 'bold', color: theme.text}}
+                        style={{backgroundColor: theme.listTableHeaderBackground}}
                         theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList}
                         onPress={() => handlePress(88)}>
                         { (current.length > 0)?
                             <DataTable>
-                                <DataTable.Header style={{backgroundColor: '#ebeded'}}>
-                                    <DataTable.Title style={{flex: 0.3}}></DataTable.Title>
-                                    <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                    <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
+                                <DataTable.Header style={{backgroundColor: theme.tableHeaderBackground}}>
+                                    <DataTable.Title style={{flex: 0.3}}> </DataTable.Title>
+                                    <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Predmet</Text></DataTable.Title>
+                                    <DataTable.Title numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Datum</Text></DataTable.Title>
                                     <DataTable.Title numeric> </DataTable.Title>
                                 </DataTable.Header>
                                 {
                                     current.map((p, i) => {
                                         return (
-                                            <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}} style={{backgroundColor: 'whitesmoke'}}>
+                                            <DataTable.Row key={'s' + i} onPress={() => {showModal(i)}} style={{backgroundColor: theme.secondaryBackground}}>
                                                 <DataTable.Cell style={{flex: 0.2}}>
                                                     <Icon
                                                         name='info'
                                                         type='material'
-                                                        color='#517fa4'
+                                                        color={theme.helperIcon}
                                                         size={14}/>
                                                 </DataTable.Cell>
                                                 <DataTable.Cell>
-                                                    {p.courseName}
+                                                    <Text style={{color: theme.text}}>{p.courseName}</Text>
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
-                                                    {formatTimestamp(p.examDate)}
+                                                    <Text style={{color: theme.text}}>{formatTimestamp(p.examDate)}</Text>
                                                 </DataTable.Cell>
                                                 <DataTable.Cell numeric>
                                                     <Button key={'bb'+i} color={'#DF3D3D'} style={{backgroundColor: 'rgba(164, 171, 181, 0.1)'}} onPress={() => {showModal3(); setCourseToDelete(p)}}>Odjavi</Button>
@@ -117,43 +118,44 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                                 }
                             </DataTable>
                             :
-                            <Caption style={{textAlign: 'center', padding: '10%'}}>Nemate prijavljenih ispita</Caption>
+                            <Caption style={{textAlign: 'center', padding: '10%', color: theme.text}}>Nemate prijavljenih ispita</Caption>
                         }
                     </List.Accordion>
                     <Divider key={'dev'+88}/>
                     <List.Accordion
                         title={`Prethodno prijavljeni ispiti`}
-                        titleStyle={{fontWeight: 'bold'}}
+                        titleStyle={{fontWeight: 'bold', color: theme.text}}
+                        style={{backgroundColor: theme.listTableHeaderBackground}}
                         theme={{ colors: { primary: '#2C8BD3' }}}
                         expanded={88 === activeList2}
                         onPress={() => handlePress2(88)}>
                         { (past.length > 0)?
                             <DataTable>
-                            <DataTable.Header style={{backgroundColor: '#ebeded'}}>
+                            <DataTable.Header style={{backgroundColor: theme.tableHeaderBackground}}>
                                 <DataTable.Title style={{flex: 0.3}}> </DataTable.Title>
-                                <DataTable.Title><Text style={{fontWeight: 'bold'}}>Predmet</Text></DataTable.Title>
-                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Datum</Text></DataTable.Title>
-                                <DataTable.Title numeric><Text style={{fontWeight: 'bold'}}>Tip ispita</Text></DataTable.Title>
+                                <DataTable.Title><Text style={{fontWeight: 'bold', color: theme.text}}>Predmet</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Datum</Text></DataTable.Title>
+                                <DataTable.Title numeric><Text style={{fontWeight: 'bold', color: theme.text}}>Tip ispita</Text></DataTable.Title>
                             </DataTable.Header>
                                 {
                                 past.map((p, i) => {
                                     return(
-                                        <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}}>
+                                        <DataTable.Row key={'d'+i} onPress={() => {showModal2(i)}} style={{backgroundColor: theme.secondaryBackground}}>
                                             <DataTable.Cell style={{flex: 0.2}}>
                                                 <Icon
                                                     name='info'
                                                     type='material'
-                                                    color='#517fa4'
+                                                    color={theme.helperIcon}
                                                     size={14}/>
                                             </DataTable.Cell>
                                             <DataTable.Cell>
-                                                {p.courseName}
+                                                <Text style={{color: theme.text}}>{p.courseName}</Text>
                                             </DataTable.Cell>
                                             <DataTable.Cell numeric>
-                                                {formatTimestamp(p.examDate)}
+                                                <Text style={{color: theme.text}}>{formatTimestamp(p.examDate)}</Text>
                                             </DataTable.Cell>
                                             <DataTable.Cell numeric>
-                                                {formatType(p.gradedActivityType)}
+                                                <Text style={{color: theme.text}}>{formatType(p.gradedActivityType)}</Text>
                                             </DataTable.Cell>
                                         </DataTable.Row>
                                     );
@@ -161,16 +163,16 @@ export default function TestsOverview({setExams, setCurrentExams,past, current})
                             }
                             </DataTable>
                                 :
-                            <Caption style={{textAlign: 'center', padding: '10%'}}>Nemate prijavljenih prethodno ispita</Caption>
+                            <Caption style={{textAlign: 'center', padding: '100', color: theme.text}}>Nemate prijavljenih prethodno ispita</Caption>
                         }
                     </List.Accordion>
                 </List.Section>
             </ScrollView>
             <Provider>
                 <Portal>
-                    <CourseModal index={curr} visible={visible} courses={current} hideModal={hideModal}/>
-                    <CourseModal index={curr2} visible={visible2} courses={past} hideModal={hideModal2}/>
-                    <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete.courseName}?`} deleteCourse={deleteCourse} hideModal={hideModal3} visible={visible3}/>
+                    <CourseModal index={curr} visible={visible} courses={current} theme={theme} hideModal={hideModal}/>
+                    <CourseModal index={curr2} visible={visible2} courses={past} theme={theme} hideModal={hideModal2}/>
+                    <AreYouSureModal text={`Da li ste sigurni da želite odjaviti ispit iz predmeta ${courseToDelete.courseName}?`} theme={theme} deleteCourse={deleteCourse} hideModal={hideModal3} visible={visible3}/>
                 </Portal>
             </Provider>
             <Snackbar

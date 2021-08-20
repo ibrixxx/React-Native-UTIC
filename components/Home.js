@@ -10,7 +10,7 @@ import {formatTimestamp, formatTimestamp2} from "./Formats/MyFormats";
 import BottomSheet from "./BottomSheet";
 
 
-export default function Home({ navigation, theme, changeTheme, role}) {
+export default function Home({ navigation, theme, changeTheme, role, isDark}) {
     const [exams, setExams] = useState([])
     const [isReady, setIsReady] = React.useState(false)
     const [visible, setVisible] = React.useState(false)
@@ -92,11 +92,11 @@ export default function Home({ navigation, theme, changeTheme, role}) {
                         :
                         <Caption>Nemate nadolazećih ispita</Caption>
                     }
-                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme}/>
+                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
                 </Card.Content>
                 <Provider>
                     <Portal>
-                        <CourseModal index={curr} visible={visible} courses={exams} hideModal={hideModal}/>
+                        <CourseModal index={curr} visible={visible} courses={exams} theme={theme} hideModal={hideModal}/>
                     </Portal>
                 </Provider>
             </Card>
