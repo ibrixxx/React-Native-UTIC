@@ -83,6 +83,7 @@ export default function Professors({theme}) {
                 placeholderTextColor={theme.text}
                 iconColor={theme.text}
                 selectionColor={theme.text}
+                inputStyle={{color: theme.text}}
                 style={{backgroundColor: theme.mainBackground}}
             />
             <ScrollView style={{backgroundColor: theme.mainBackground, height: '100%'}}>

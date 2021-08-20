@@ -82,12 +82,16 @@ export default function FAQ({ navigation, theme, changeTheme, role, isDark}) {
                     placeholder="Search"
                     onChangeText={onChangeSearch}
                     value={searchQuery}
-                    style={{ backgroundColor: theme.secondaryBackground }}
+                    placeholderTextColor={theme.text}
+                    iconColor={theme.text}
+                    selectionColor={theme.text}
+                    inputStyle={{color: theme.text}}
+                    style={{backgroundColor: theme.secondaryBackground}}
             />
             <ScrollView>
                 <List.Section
                     title="Najčešće postavljena pitanja"
-                    titleStyle={{color: '#2C8BD3', fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
+                    titleStyle={{color: theme.secondary, fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
                     {   isReady ?
                         (returnData() && returnData().length > 0) ? returnData().map((ques, i) =>{
                             return(
@@ -97,7 +101,7 @@ export default function FAQ({ navigation, theme, changeTheme, role, isDark}) {
                                         id={i}
                                         title={ques.question}
                                         titleStyle={{fontWeight: 'bold', color: theme.text}}
-                                        style={{ backgroundColor: theme.mainBackground }}
+                                        style={{ backgroundColor: theme.listTableHeaderBackground }}
                                         theme={{ colors: { primary: '#2C8BD3' }}}
                                         expanded={i === activeList}
                                         onPress={() => handlePress(i)}>
@@ -109,7 +113,7 @@ export default function FAQ({ navigation, theme, changeTheme, role, isDark}) {
                                     </List.Accordion>
                                 </View>
                             )
-                        }) : <Title>Nema postavljenih pitanja</Title>
+                        }) : <Title style={{color: theme.text, textAlign: 'center'}}>Nema postavljenih pitanja</Title>
                         : <ActivityIndicator style={{marginTop: '35%'}} color={'#2C8BD3'} size={'large'}/>
                     }
                 </List.Section>

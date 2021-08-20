@@ -1,5 +1,5 @@
-import React from 'react'
-import {ScrollView, View} from "react-native";
+import React, {useRef} from 'react'
+import {RefreshControl, ScrollView, View} from "react-native";
 import {Button, Caption, Card, DataTable, Portal, Provider, Snackbar, Text} from "react-native-paper";
 import axios from "axios";
 import {TOKEN} from "../../App";
@@ -13,6 +13,14 @@ export default function TestRegistration({exams, setCurrent, setExams, theme}) {
     const [visible, setVisible] = React.useState(false);
     const [visible2, setVisible2] = React.useState(false);
     const [curr, setCurr] = React.useState(null)
+    const [refreshing, setRefreshing] = React.useState(false);
+
+
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setExams(() => setRefreshing(false))
+    }, []);
 
 
     const onToggleSnackBar = () => setVisible2(true);
@@ -37,8 +45,8 @@ export default function TestRegistration({exams, setCurrent, setExams, theme}) {
                 }
             })
             .then(function (response) {
-                setExams()
-                setCurrent()
+                setExams(() => {})
+                setCurrent(() => {})
                 onToggleSnackBar()
             })
             .catch(function (error) {
@@ -49,7 +57,14 @@ export default function TestRegistration({exams, setCurrent, setExams, theme}) {
 
     return (
         <View style={{height: '100%', backgroundColor: theme.mainBackground}}>
-            <ScrollView style={{backgroundColor: theme.mainBackground}}>
+            <ScrollView style={{backgroundColor: theme.mainBackground}}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+            >
                 <Text style={{color: theme.secondary, fontWeight: 'bold', paddingTop: '6%', paddingLeft: '4%', paddingBottom: '3.5%', backgroundColor: theme.titleBackground, fontSize: 18, textAlign: 'center'}}>Neprijavljeni ispiti</Text>
                 {(exams.length > 0)?
                     <DataTable>
