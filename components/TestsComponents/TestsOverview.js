@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, View} from "react-native";
+import {RefreshControl, ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import {Button, Caption, DataTable, Divider, List, Portal, Provider, Snackbar, Text} from "react-native-paper";
@@ -10,7 +10,7 @@ import {formatTimestamp, formatType} from "../Formats/MyFormats";
 
 
 
-export default function TestsOverview({setExams, setCurrentExams,past, current, theme}) {
+export default function TestsOverview({setExams, setCurrentExams, past, current, theme}) {
     const [activeList, setActiveList] = React.useState(88);
     const [activeList2, setActiveList2] = React.useState(null);
     const [visible, setVisible] = React.useState(false)
@@ -20,6 +20,14 @@ export default function TestsOverview({setExams, setCurrentExams,past, current, 
     const [curr, setCurr] = React.useState(null)
     const [curr2, setCurr2] = React.useState(null)
     const [visible4, setVisible4] = React.useState(false);
+    const [refreshing, setRefreshing] = React.useState(false);
+
+
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setCurrentExams(() => setRefreshing(false));
+    }, []);
 
 
 
@@ -33,8 +41,8 @@ export default function TestsOverview({setExams, setCurrentExams,past, current, 
                 }
             })
             .then(function (response) {
-                setCurrentExams()
-                setExams()
+                setCurrentExams(() => {})
+                setExams(() => {})
                 onToggleSnackBar()
             })
             .catch(function (error) {
@@ -73,7 +81,14 @@ export default function TestsOverview({setExams, setCurrentExams,past, current, 
 
     return (
         <View style={{backgroundColor: theme.mainBackground, height: '100%'}}>
-            <ScrollView style={{backgroundColor: theme.mainBackground}}>
+            <ScrollView style={{backgroundColor: theme.mainBackground}}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+            >
             <List.Section
                     title="Prijavljeni ispiti"
                     titleStyle={{color: theme.secondary, fontWeight: 'bold', backgroundColor: theme.titleBackground, fontSize: 18, textAlign: 'center'}}>

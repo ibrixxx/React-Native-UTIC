@@ -79,6 +79,7 @@ export default function Assistants({ theme }) {
                 value={searchQuery}
                 placeholderTextColor={theme.text}
                 iconColor={theme.text}
+                inputStyle={{color: theme.text}}
                 selectionColor={theme.text}
                 style={{backgroundColor: theme.mainBackground}}
             />

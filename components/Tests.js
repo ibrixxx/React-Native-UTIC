@@ -23,13 +23,13 @@ export default function Tests({ navigation, theme, changeTheme, role, isDark}) {
 
 
     useEffect(() => {
-        getCurrentExams()
+        getCurrentExams(() => {})
         getPastExams()
-        getExams()
+        getExams(() => {})
     }, [])
 
 
-    const getExams = () => {
+    const getExams = (f) => {
         axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/unregistered/'
             , {
                 headers: {
@@ -40,14 +40,16 @@ export default function Tests({ navigation, theme, changeTheme, role, isDark}) {
             .then(function (response) {
                 setExams(response.data)
                 setIsReady(true)
+                f()
             })
             .catch(function (error) {
+                f()
                 console.log('error: ',error);
             })
     }
 
 
-    const getCurrentExams = () => {
+    const getCurrentExams = (f) => {
         axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/false'
             , {
                 headers: {
@@ -57,8 +59,10 @@ export default function Tests({ navigation, theme, changeTheme, role, isDark}) {
             })
             .then(function (response) {
                 setCurrent(response.data)
+                f()
             })
             .catch(function (error) {
+                f()
                 console.log('error: ',error);
             })
     }

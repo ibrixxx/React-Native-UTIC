@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {View} from "react-native";
+import {RefreshControl, ScrollView, View} from "react-native";
 import MyHeader from "./MyHeader";
 import {ActivityIndicator, Caption, Card, DataTable, Portal, Provider, Text} from "react-native-paper";
 import axios from "axios";
@@ -15,10 +15,23 @@ export default function Home({ navigation, theme, changeTheme, role, isDark}) {
     const [isReady, setIsReady] = React.useState(false)
     const [visible, setVisible] = React.useState(false)
     const [curr, setCurr] = React.useState(null)
+    const [refreshing, setRefreshing] = React.useState(false);
     const refRBSheet = useRef();
 
 
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getExams();
+    }, []);
+
+
     useEffect(() => {
+        getExams();
+    }, [])
+
+
+    const getExams = () => {
         axios.get('http://192.168.44.79:8080/u/0/student-exams/registration/registered/false'
             , {
                 headers: {
@@ -29,11 +42,13 @@ export default function Home({ navigation, theme, changeTheme, role, isDark}) {
             .then(function (response) {
                 setExams(response.data)
                 setIsReady(true)
+                setRefreshing(false)
             })
             .catch(function (error) {
+                setRefreshing(false)
                 console.log('error: ',error);
             })
-    }, [])
+    }
 
 
     const hideModal = () => setVisible(false)
@@ -56,6 +71,14 @@ export default function Home({ navigation, theme, changeTheme, role, isDark}) {
     return (
         <>
             <MyHeader myTitle="Početna" navigation={navigation} sheetOpen={() => {refRBSheet.current.open()}}/>
+            <ScrollView style={{backgroundColor: theme.mainBackground}}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+            >
             <Card style={{height: '100%', flex: 1, backgroundColor: theme? theme.mainBackground:'orange'}}>
                 <Card.Title
                     title="Spisak nadolazećih ispita"
@@ -100,6 +123,7 @@ export default function Home({ navigation, theme, changeTheme, role, isDark}) {
                     </Portal>
                 </Provider>
             </Card>
+            </ScrollView>
         </>
     );
 }
