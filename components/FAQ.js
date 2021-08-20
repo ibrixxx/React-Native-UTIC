@@ -114,7 +114,7 @@ export default function FAQ({ navigation, theme, changeTheme, role, isDark}) {
                     }
                 </List.Section>
             </ScrollView>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
         </View>
     );
 }

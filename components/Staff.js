@@ -25,7 +25,7 @@ export default function Staff({ navigation, theme, changeTheme, role, isDark}) {
                     <Tab.Screen name="ZeroTab" children={() => <Professors theme={theme}/>} options={{ tabBarLabel: 'Profesori' }}/>
                     <Tab.Screen name="FirstTab" children={() => <Assistants theme={theme}/>} options={{ tabBarLabel: 'Asistenti' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
             </>
     );
 }

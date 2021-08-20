@@ -82,7 +82,7 @@ export default function Curriculum({ navigation, theme, changeTheme, role, isDar
                     <Tab.Screen name="ZeroTab" children={() => <Grades theme={theme}/>} options={{ tabBarLabel: 'Ocjene' }}/>
                     <Tab.Screen name="FirstTab" children={() => <AllSemesters theme={theme}/>} options={{ tabBarLabel: 'Nastavni plan i program' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
             </>
         );
 

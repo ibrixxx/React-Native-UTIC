@@ -43,7 +43,7 @@ export default function Survey({ navigation, theme, changeTheme, role, isDark}) 
                 :
                 <Caption style={{textAlign: 'center', paddingTop: '12%', color: theme.text}}>Trenutno nema anketa</Caption>
             }
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
         </View>
     );
 }

@@ -25,7 +25,7 @@ export default function StudentData({ navigation, theme, changeTheme, role, isDa
                 <Tab.Screen name="FirstTab" children={() => <StudentContacts theme={theme}/>} options={{ tabBarLabel: 'Kontakt'}}/>
                 <Tab.Screen name="SecondTab" children={() => <StudyData theme={theme}/>} options={{ tabBarLabel: 'Studij' }}/>
             </Tab.Navigator>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
         </>
     );
 }

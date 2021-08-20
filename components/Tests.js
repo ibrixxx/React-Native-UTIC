@@ -115,7 +115,7 @@ export default function Tests({ navigation, theme, changeTheme, role, isDark}) {
                 }}>
                     <Tab.Screen name="FirstTab" children={() => <TestsOverview setExams={getExams} setCurrentExams={getCurrentExams} current={current} past={past} theme={theme}/>} options={{ tabBarLabel: 'Prijavljeni ispiti' }}/>
                 </Tab.Navigator>
-                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+                <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
             </>
         );
 }

@@ -177,7 +177,7 @@ export default function Comments({ navigation, theme, changeTheme, role, isDark}
                 }}>
                 E-mail uspješno poslan!
             </Snackbar>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
         </View>
     );
 }

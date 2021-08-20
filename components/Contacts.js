@@ -236,7 +236,7 @@ export default function Contacts({ navigation, theme, changeTheme, role, isDark}
                     </DataTable>
                 </View>
             </ScrollView>
-            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+            <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
         </View>
     );
 }

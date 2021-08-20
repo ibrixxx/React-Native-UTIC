@@ -92,7 +92,7 @@ export default function Home({ navigation, theme, changeTheme, role, isDark}) {
                         :
                         <Caption>Nemate nadolazećih ispita</Caption>
                     }
-                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark}/>
+                    <BottomSheet myRef={refRBSheet} navigateHome={() => navigation.navigate('Home')} changeTheme={changeTheme} isDark={isDark} role={role}/>
                 </Card.Content>
                 <Provider>
                     <Portal>

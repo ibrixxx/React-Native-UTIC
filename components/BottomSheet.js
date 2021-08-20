@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import {Icon as Icon2} from 'react-native-elements'
 
 
-export default function BottomSheet({myRef, navigateHome, changeTheme, isDark}){
+export default function BottomSheet({myRef, navigateHome, changeTheme, isDark, role}){
     const [isSwitchOn, setIsSwitchOn] = React.useState(isDark);
 
     const onToggleSwitch = () => {
@@ -38,9 +38,8 @@ export default function BottomSheet({myRef, navigateHome, changeTheme, isDark}){
                     <DataTable.Cell style={{flex: 0.85}}><Title style={{color: 'whitesmoke'}}>Početna</Title></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
-                    <DataTable.Cell style={{flex: 0.1}}><Icon name={'graduation-cap'} color={'whitesmoke'} size={20}/></DataTable.Cell>
-                    <DataTable.Cell style={{flex: 0.5}} numeric><Text style={{color: '#2C8BD3'}}>Diplomirani student</Text></DataTable.Cell>
-                    <DataTable.Cell style={{flex: 0.4}} numeric><Text style={{color: 'lightgray'}}>Normalni student</Text></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.2}}><Icon name={'graduation-cap'} color={'whitesmoke'} size={20}/></DataTable.Cell>
+                    <DataTable.Cell style={{flex: 0.8}}><Text style={{color: '#2C8BD3'}}>{role ? "Student" : "Diplomirani student"}</Text></DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row>
                     <DataTable.Cell style={{flex: 0.1}}><Icon2 name={'opacity'} color={'whitesmoke'}/></DataTable.Cell>
