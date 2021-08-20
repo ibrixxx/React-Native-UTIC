@@ -14,7 +14,8 @@ export const lightTheme = {
     yellowStyle: '#F6F5DB',
     greenStyle: '#E9FBE4',
     redStyle: '#FBE9E9',
-    placeholderColor: "#555"
+    placeholderColor: "#555",
+    disabled: "#aaa"
 }
 
 
@@ -34,5 +35,6 @@ export const darkTheme = {
     yellowStyle: '#3A380D',
     greenStyle: '#192F12',
     redStyle: '#2F0D0D',
-    placeholderColor: "#999"
+    placeholderColor: "#999",
+    disabled: "#555"
 }

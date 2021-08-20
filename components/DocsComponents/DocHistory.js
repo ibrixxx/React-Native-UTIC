@@ -98,7 +98,7 @@ export default function DocHistory({ theme }){
                 </ScrollView>
                 <Provider>
                     <Portal>
-                        <DocsModal index={curr} visible={visible} docs={prevRequests} hideModal={hideModal}/>
+                        <DocsModal index={curr} visible={visible} docs={prevRequests} hideModal={hideModal} theme={theme}/>
                     </Portal>
                 </Provider>
             </View>

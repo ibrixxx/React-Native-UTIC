@@ -99,12 +99,12 @@ export default function DocRequest({ theme }) {
                     </DataTable.Header>
 
                     {   (filtered && filtered.length > 0) ? filtered.map((prev, i) =>
-                            <DataTable.Row key={prev.id} style={theme.yellowStyle} onPress={() => showDocsModal(i)} >
-                                <Text style={{ width: '60%', textAlignVertical: 'center' }}>
+                            <DataTable.Row key={prev.id} style={{ backgroundColor: theme.yellowStyle}} onPress={() => showDocsModal(i)} >
+                                <Text style={{ width: '60%', textAlignVertical: 'center', color: theme.text }}>
                                     {prev.certificateReasonName ? prev.certificateReasonName: prev.documentTypeName}
                                 </Text>
 
-                                <Text style={{ width: '30%', textAlign: 'center', textAlignVertical: 'center' }}>{formatTimestamp(prev.date)}</Text>
+                                <Text style={{ width: '30%', textAlign: 'center', textAlignVertical: 'center', color: theme.text }}>{formatTimestamp(prev.date)}</Text>
                                 <Text style={{ width: '10%', textAlign: 'center', textAlignVertical: 'center' }}><Icon name="ellipsis-h" size={20} color="#888888" /></Text>
 
                             </DataTable.Row>
@@ -120,8 +120,8 @@ export default function DocRequest({ theme }) {
 
                 <Provider>
                     <Portal>
-                        <AddDocRequestModal visible={visible} hideModal={hideModal} prevRequestsF={getPrevRequests}/>
-                        <ActiveDocReqModal visible={docsVisible} hideModal={hideDocsModal} index={curr} docs={prevRequests} />
+                        <AddDocRequestModal visible={visible} hideModal={hideModal} prevRequestsF={getPrevRequests} theme={theme}/>
+                        <ActiveDocReqModal visible={docsVisible} hideModal={hideDocsModal} index={curr} docs={prevRequests} theme={theme}/>
                     </Portal>
                 </Provider>
 

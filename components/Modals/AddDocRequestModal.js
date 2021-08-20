@@ -6,8 +6,20 @@ import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
 import styles from "../styles/DarkMode";
 
-export default function AddDocRequestModal({visible, hideModal, prevRequestsF }) {
-    const containerStyle = styles.cardAC;
+export default function AddDocRequestModal({visible, hideModal, prevRequestsF, theme }) {
+    const containerStyle = {
+        backgroundColor: theme.mainBackground,
+        width: '90%',
+        padding: 20,
+        borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: '#2C8BD3',
+        elevation: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 20,
+        marginBottom: 20
+    };
     const [documentTypes, setDocumentTypes] = useState({});
     const [certificateReasons, setCertificateReasons] = useState({});
     const [selectedValue, setSelectedValue] = useState(1);
@@ -15,6 +27,7 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
     const [selectedValueType, setSelectedValueType] = useState(1);
     const [scndDropdownStyle, setScndDropdownStyle] = useState(styles.enabled);
     const [scndDropdownView, setScndDropdownView] = useState(styles.enabledBorder);
+    const [scndDDTxt, setScndDDTxt] = useState(theme.text);
     const [note, setNote] = useState("");
 
 
@@ -90,7 +103,7 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
 
     return(
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-                <Title style={{fontSize: 22, textAlign: 'center', marginBottom: 10}}>Podnošenje zahtjeva</Title>
+                <Title style={{fontSize: 22, textAlign: 'center', marginBottom: 10, color: theme.text }}>Podnošenje zahtjeva</Title>
                 <View style={{
                     borderWidth: 1,
                     borderColor: "#999999",
@@ -100,7 +113,7 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                 }}>
                     <Picker
                         selectedValue={selectedValue}
-                        style={{width: '100%'}}
+                        style={{width: '100%', color: theme.text}}
                         onValueChange={(itemValue, itemIndex) => {
                             setSelectedValue(itemValue);
                             if (itemValue === 7) {
@@ -108,12 +121,14 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                                 setEnableTypes(false);
                                 setScndDropdownView(styles.disabledBorder);
                                 setScndDropdownStyle(styles.disabled);
+                                setScndDDTxt(theme.disabled)
                             }
                             if (itemValue === 6) {
                                 setSelectedValueType(1);
                                 setEnableTypes(true);
                                 setScndDropdownView(styles.enabledBorder);
                                 setScndDropdownStyle(styles.enabled);
+                                setScndDDTxt(theme.text)
                             }
                         }}>
                         {(documentTypes && documentTypes.length > 0) ? documentTypes.map((doc) => (
@@ -127,7 +142,7 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                 <View style={scndDropdownView}>
                     <Picker
                         selectedValue={selectedValueType}
-                        style={scndDropdownStyle}
+                        style={[scndDropdownStyle, scndDDTxt]}
                         onValueChange={(itemValue, itemIndex) => setSelectedValueType(itemValue)}
                         enabled={enableTypes}
                     >
@@ -143,6 +158,7 @@ export default function AddDocRequestModal({visible, hideModal, prevRequestsF })
                     multiline
                     numberOfLines={4}
                     placeholder="Napomena"
+                    placeholderTextColor={theme.placeholderColor}
                     style={{
                         width: '100%',
                         padding: 10,
