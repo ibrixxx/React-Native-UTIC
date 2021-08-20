@@ -35,88 +35,362 @@ export default function MainStudentData({theme}){
             });
     }
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+        return (
+            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+            </View>
+        )
     }
 
     return (
         <>
-            <ScrollView style={{backgroundColor: theme.secondaryBackground}}>
+            <ScrollView style={{backgroundColor: theme.mainBackground}}>
                 <View style={style.containerMSD}>
                     <DataTable style={{ marginTop: 20, marginBottom: 20}}>
                         <DataTable.Row style={{textAlign: 'right'}}>
-                            <Text style={style.TDStyleLeft}>Korisničko ime</Text>
-                            <Text style={style.TDStyleRight}>{student.username}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Korisničko ime</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.username}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>OID</Text>
-                            <Text style={style.TDStyleRight}>{student.oid}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>OID</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.oid}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>JMBG</Text>
-                            <Text style={style.TDStyleRight}>{student.jmbg}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>JMBG</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.jmbg}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Ime</Text>
-                            <Text style={style.TDStyleRight}>{student.firstName}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Ime</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.firstName}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Prezime</Text>
-                            <Text style={style.TDStyleRight}>{student.lastName}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Prezime</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.lastName}</Text>
                         </DataTable.Row>
 
                         {
                             (student.gender === "ženski") ? <DataTable.Row>
-                                <Text style={style.TDStyleLeft}>Djevojačko prezime</Text>
-                                <Text style={style.TDStyleRight}>{student.maidenName}</Text>
+                                <Text style={{
+                                    fontWeight: 'bold',
+                                    width: '50%',
+                                    textAlignVertical: 'center',
+                                    textAlign: 'right',
+                                    color: theme.text,
+                                    paddingTop: '2%',
+                                    paddingBottom: '2%',
+                                    paddingRight: '4%',
+                                    borderRightWidth: 0.3,
+                                    borderRightColor: "#aaa"
+                                }}>Djevojačko prezime</Text>
+                                <Text style={{
+                                    width: '50%',
+                                    textAlignVertical: 'center',
+                                    paddingTop: '2%',
+                                    paddingBottom: '2%',
+                                    paddingLeft: '4%',
+                                    color: theme.text
+                                }}>{student.maidenName}</Text>
                             </DataTable.Row> : null
                         }
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Spol</Text>
-                            <Text style={style.TDStyleRight}>{student.gender}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Spol</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.gender}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Datum rođenja</Text>
-                            <Text style={style.TDStyleRight}>{formatTimestamp(student.dateOfBirth)}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Datum rođenja</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{formatTimestamp(student.dateOfBirth)}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Mjesto rođenja</Text>
-                            <Text style={style.TDStyleRight}>{student.placeOfBirth}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Mjesto rođenja</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.placeOfBirth}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Ime i prezime oca</Text>
-                            <Text style={style.TDStyleRight}>{student.fatherFirstName + " " + student.fatherLastName}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Ime i prezime oca</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.fatherFirstName + " " + student.fatherLastName}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Ime i prezime majke</Text>
-                            <Text style={style.TDStyleRight}>{student.motherFirstName + " " + student.motherLastName}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Ime i prezime majke</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.motherFirstName + " " + student.motherLastName}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Mjesto prebivališta</Text>
-                            <Text style={style.TDStyleRight}>{student.residence}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Mjesto prebivališta</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.residence}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Mjesto boravka</Text>
-                            <Text style={style.TDStyleRight}>{student.currentResidence}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Mjesto boravka</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.currentResidence}</Text>
                         </DataTable.Row>
 
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Nacionalnost</Text>
-                            <Text style={style.TDStyleRight}>{student.nationality}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Nacionalnost</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.nationality}</Text>
                         </DataTable.Row>
                         <DataTable.Row>
-                            <Text style={style.TDStyleLeft}>Državljanstvo</Text>
-                            <Text style={style.TDStyleRight}>{student.citizenships?student.citizenships[0].country.name : ''}</Text>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                textAlign: 'right',
+                                color: theme.text,
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '4%',
+                                borderRightWidth: 0.3,
+                                borderRightColor: "#aaa"
+                            }}>Državljanstvo</Text>
+                            <Text style={{
+                                width: '50%',
+                                textAlignVertical: 'center',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingLeft: '4%',
+                                color: theme.text
+                            }}>{student.citizenships?student.citizenships[0].country.name : ''}</Text>
                         </DataTable.Row>
                     </DataTable>
 

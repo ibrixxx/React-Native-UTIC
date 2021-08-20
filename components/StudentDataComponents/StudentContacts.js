@@ -8,7 +8,7 @@ import ContactModal from "../Modals/ContactModal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import style from '../styles/DarkMode';
 
-export default function StudentContacts({ navigation }) {
+export default function StudentContacts({ theme }) {
     const [student, setStudent] = useState({})
     const[isReady, setIsReady] = useState(false)
     const [FABVisible, setFABVisible] = useState(true);
@@ -54,22 +54,26 @@ export default function StudentContacts({ navigation }) {
     }
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+        return (
+            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+            </View>
+        )
     }
 
     function getIcon(str) {
-        if (str === "primarni e-mail" || str === "e-mail") return <Icon name="envelope" size={20} color="black" />
-        else if (str === "telefon") return <Icon name="phone" size={20} color="black" />
-        else if (str === "mobilni telefon") return <Icon name="mobile-phone" size={20} color="black" />
-        else if (str === "fax") return <Icon name="fax" size={20} color="black" />
-        else if (str === "web stranica") return <Icon name="globe" size={20} color="black" />
+        if (str === "primarni e-mail" || str === "e-mail") return <Icon name="envelope" size={20} color={theme.text}/>
+        else if (str === "telefon") return <Icon name="phone" size={20} color={theme.text} />
+        else if (str === "mobilni telefon") return <Icon name="mobile-phone" size={20} color={theme.text} />
+        else if (str === "fax") return <Icon name="fax" size={20} color={theme.text} />
+        else if (str === "web stranica") return <Icon name="globe" size={20} color={theme.text} />
     }
 
 
 
     return (
         <>
-            <View style={{height: '100%'}}>
+            <View style={{height: '100%', backgroundColor: theme.mainBackground}}>
                 {
                     FABVisible ? <FAB
                         style={style.fab}
@@ -80,15 +84,20 @@ export default function StudentContacts({ navigation }) {
                 }
 
 
-                <View style={style.containerSD}>
+                <View style={{
+                    width: '100%',
+                    padding: 15,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                }}>
 
                     <DataTable style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: 20 }}>
                         {
                             (student.contacts && student.contacts.length !== 0) ? student.contacts.map((contact, i) => (
-                                    <DataTable.Row key={contact.value}>
+                                    <DataTable.Row key={contact.value} >
                                         <DataTable.Cell style={{ flex: 0.2 }}><Text
                                             style={style.TDStyleLeft}>{getIcon(contact.type)}</Text></DataTable.Cell>
-                                        <DataTable.Cell style={{ flex: 0.7 }}>{contact.value}</DataTable.Cell>
+                                        <DataTable.Cell style={{ flex: 0.7 }}><Text style={{ color: theme.text }}>{contact.value}</Text></DataTable.Cell>
                                         <DataTable.Cell numeric style={{ flex: 0.1, paddingLeft: 10, paddingRight: 10 }} onPress={() => showContactsModal(i)}>
                                                 <Icon name="pencil" size={20} color="#2C8BD3"/>
                                         </DataTable.Cell>
@@ -108,8 +117,8 @@ export default function StudentContacts({ navigation }) {
 
             <Provider>
                 <Portal>
-                    <AddContactModal visibleAdd={visibleAdd} hideAddModal={hideAddModal}/>
-                    <ContactModal visibleContacts={visibleContacts} hideContactsModal={hideContactsModal} index={curr} student={student}/>
+                    <AddContactModal visibleAdd={visibleAdd} hideAddModal={hideAddModal} theme={theme}/>
+                    <ContactModal visibleContacts={visibleContacts} hideContactsModal={hideContactsModal} index={curr} student={student} theme={theme}/>
                 </Portal>
             </Provider>
         </>

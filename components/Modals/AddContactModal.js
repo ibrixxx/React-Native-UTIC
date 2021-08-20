@@ -5,9 +5,22 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 import {Picker} from "@react-native-picker/picker";
 import style from "../styles/DarkMode";
+import {white} from "react-native-paper/src/styles/colors";
 
-export default function AddContactModal({visibleAdd, hideAddModal }) {
-    const containerStyle = style.cardAC;
+export default function AddContactModal({visibleAdd, hideAddModal, theme }) {
+    const containerStyle = {
+        backgroundColor: theme.mainBackground,
+        width: '90%',
+        padding: 20,
+        borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: '#2C8BD3',
+        elevation: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 20,
+        marginBottom: 20
+    };
     const [contactTypes, setContactTypes] = useState({})
     const [contactTypeValue, setContactTypeValue] = useState(1)
     const [contactValue, setContactValue] = useState("")
@@ -76,7 +89,11 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
 
     return(
         <Modal visible={visibleAdd} onDismiss={joined} contentContainerStyle={containerStyle}>
-            <Title style={style.title}>Dodavanje novog kontakta</Title>
+            <Title style={{
+                textAlign: 'center',
+                marginBottom: 10,
+                color: theme.text
+            }}>Dodavanje novog kontakta</Title>
             <View style={{
                 borderWidth: 1,
                 borderColor: "#999999",
@@ -86,9 +103,11 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
             }}>
                 <Picker
                     selectedValue={contactTypeValue}
-                    onValueChange={(itemValue, itemIndex) => {setContactTypeValue(itemValue); setWarning(false);}}>
+                    onValueChange={(itemValue, itemIndex) => {setContactTypeValue(itemValue); setWarning(false);}}
+                    style={{ backgroundColor: theme.secondaryBackground, color: theme.text }}>
+
                     {(contactTypes && contactTypes.length > 0) ? contactTypes.map((type) => (
-                        <Picker.Item label={type.name} value={type.id} key={type.id}/>
+                        <Picker.Item label={type.name} value={type.id} key={type.id} />
                     )) : <Picker.Item label="Nema" value={-1} />
                     }
                 </Picker>
@@ -101,7 +120,8 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
             {
                 warning ? <TextInput
                     style={{
-                        backgroundColor: '#ffffff',
+                        backgroundColor: theme.mainBackground,
+                        color: theme.text,
                         height: 40,
                         borderWidth: 1,
                         borderColor: "red",
@@ -109,11 +129,13 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                         marginBottom: 10
                     }}
                     placeholder="Vrijednost"
+                    placeholderTextColor={theme.placeholderColor}
                     onChangeText={contact => setContactValue(contact)}
                     value={contactValue}/> :
                     <TextInput
                         style={{
-                            backgroundColor: '#ffffff',
+                            backgroundColor: theme.mainBackground,
+                            color: theme.text,
                             height: 40,
                             borderWidth: 1,
                             borderColor: "#999999",
@@ -121,6 +143,7 @@ export default function AddContactModal({visibleAdd, hideAddModal }) {
                             marginBottom: 10
                         }}
                         placeholder="Vrijednost"
+                        placeholderTextColor={theme.placeholderColor}
                         onChangeText={contact => setContactValue(contact)}
                         value={contactValue}/>
             }

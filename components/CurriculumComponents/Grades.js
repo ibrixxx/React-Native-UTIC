@@ -10,7 +10,7 @@ import {
     Text,
     Title
 } from "react-native-paper";
-import {RefreshControl, ScrollView} from "react-native";
+import {RefreshControl, ScrollView, View} from "react-native";
 import axios from "axios";
 import {TOKEN} from "../../App";
 import GradeModal from "../Modals/GradeModal";
@@ -67,7 +67,11 @@ export default function Grades({theme}) {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return (
+            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+            </View>
+        )
     }
 
 

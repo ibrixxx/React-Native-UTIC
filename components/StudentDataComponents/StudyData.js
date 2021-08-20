@@ -5,7 +5,7 @@ import {ActivityIndicator, DataTable} from "react-native-paper";
 import {Text, View} from "react-native";
 import style from "../styles/DarkMode";
 
-export default function StudyData(){
+export default function StudyData({ theme }){
     const[studyProgram, setStudyProgram] = useState({})
     const[isReady, setIsReady] = useState(false)
 
@@ -31,12 +31,23 @@ export default function StudyData(){
     }
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+        return (
+            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+            </View>
+        )
     }
 
     return (
         <>
-            <View style={style.containerSD}>
+            <View style={{
+                width: '100%',
+                height: '100%',
+                padding: 15,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                backgroundColor: theme.mainBackground
+            }}>
                 <DataTable style={{ marginTop: 20 }}>
                     {/*<DataTable.Row>
                         <DataTable.Cell><Text style={style.TDStyleLeft}>Index</Text></DataTable.Cell>
@@ -69,33 +80,141 @@ export default function StudyData(){
                     </DataTable.Row>*/}
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Index</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.index?studyProgram.index:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Index</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.index?studyProgram.index:''}</Text>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Fakultet</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.faculties?studyProgram.faculties[0].name:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Fakultet</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.faculties?studyProgram.faculties[0].name:''}</Text>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Odsjek</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.department?studyProgram.department[0].name:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Odsjek</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.department?studyProgram.department[0].name:''}</Text>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Studijski program</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.studyProgramBasic?studyProgram.studyProgramBasic:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Studijski program</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.studyProgramBasic?studyProgram.studyProgramBasic:''}</Text>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Semestar</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.currentSemester?studyProgram.currentSemester:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Semestar</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.currentSemester?studyProgram.currentSemester:''}</Text>
                     </DataTable.Row>
 
                     <DataTable.Row>
-                        <Text style={style.TDStyleLeft}>Tip studija</Text>
-                        <Text style={style.TDStyleRight}>{studyProgram.studyType?studyProgram.studyType:''}</Text>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            textAlign: 'right',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingRight: '4%',
+                            borderRightWidth: 0.3,
+                            borderRightColor: "#aaa",
+                            color: theme.text
+                        }}>Tip studija</Text>
+                        <Text style={{
+                            width: '50%',
+                            textAlignVertical: 'center',
+                            paddingTop: '2%',
+                            paddingBottom: '2%',
+                            paddingLeft: '4%',
+                            color: theme.text
+                        }}>{studyProgram.studyType?studyProgram.studyType:''}</Text>
                     </DataTable.Row>
                 </DataTable>
             </View>

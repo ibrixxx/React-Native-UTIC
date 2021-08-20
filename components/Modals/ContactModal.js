@@ -5,9 +5,20 @@ import axios from "axios";
 import {TOKEN} from "../../App";
 import Icon from "react-native-vector-icons/FontAwesome";
 import style from "../styles/DarkMode";
+import {white} from "react-native-paper/src/styles/colors";
 
-export default function AddContactModal({visibleContacts, hideContactsModal, index, student}) {
-    const containerStyle = style.card;
+export default function AddContactModal({visibleContacts, hideContactsModal, index, student, theme}) {
+    const containerStyle = {
+        backgroundColor: theme.mainBackground,
+        width: '90%',
+        padding: 20,
+        borderRadius: 15,
+        borderTopWidth: 2,
+        borderTopColor: '#2C8BD3',
+        elevation: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    }
     const [contactValue, setContactValue] = useState("")
 
     const [warning, setWarning] = useState(false);
@@ -82,7 +93,7 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
             </View>
 
             <View>
-                <Text style={{fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginLeft: 10, color: theme.text}}>
                     {student ? student.contacts[index] ? student.contacts[index].type : "" : ""}:
                 </Text>
 
@@ -92,7 +103,8 @@ export default function AddContactModal({visibleContacts, hideContactsModal, ind
 
                 <TextInput
                     style={{
-                        backgroundColor: '#ffffff',
+                        backgroundColor: theme.secondaryBackground,
+                        color: theme.text,
                         height: 40,
                         borderWidth: 1,
                         borderColor: "#999999",

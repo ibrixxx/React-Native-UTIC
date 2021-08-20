@@ -104,7 +104,11 @@ export default function SelectedClasses({selected, getSelected, theme}) {
 
 
     if (!isReady) {
-        return <ActivityIndicator style={{marginTop: '50%'}} color={'dodgerblue'} size={'large'}/>
+        return (
+            <View style={{ height: '100%', backgroundColor: theme.mainBackground }}>
+                <ActivityIndicator style={{marginTop: '50%'}} color={'#2C8BD3'} size={'large'}/>
+            </View>
+        )
     }
 
 
